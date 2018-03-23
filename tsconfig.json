@@ -4,8 +4,8 @@
     "module": "commonjs",
     "target": "es5",
     "experimentalDecorators": true,
-    "declaration": false,
-    "declarationDir": "./typings",
+    "declaration": true,
+    "declarationDir": "./lib",
     "outDir": "./lib",
     "rootDir": "./src"
   }

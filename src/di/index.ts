@@ -54,4 +54,9 @@ export function diInject(injectKey = null, ...args): any {
     };
 }
 
-export default container;
+export default {
+    container,
+    tryResolve,
+    diResolve,
+    diInject
+}

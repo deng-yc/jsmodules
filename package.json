@@ -2,7 +2,8 @@
   "name": "jsmodules",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/deng-yc/jsmodules.git"
   },
+  "files": [
+    "lib"
+  ],
   "author": "dengyc",
   "license": "ISC",
   "bugs": {

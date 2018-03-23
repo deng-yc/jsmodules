@@ -101,3 +101,8 @@ export class Events implements IEvents {
         targetObject.proxy = Events.prototype.proxy;
     }
 }
+
+export default {
+    Subscription,
+    Events
+}
