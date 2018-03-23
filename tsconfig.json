@@ -1,0 +1,12 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "experimentalDecorators": true,
+    "declaration": false,
+    "declarationDir": "./typings",
+    "outDir": "./lib",
+    "rootDir": "./src"
+  }
+}
