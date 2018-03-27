@@ -1,22 +1,30 @@
 import { Binding } from "./binding";
 
-
 export class Container {
-    private __defs__: any = {};
+    private __all_binding__: { [name: string]: Binding<any>} = {};
     getNames() {
-        return Object.getOwnPropertyNames(this.__defs__);
+        return Object.getOwnPropertyNames(this.__all_binding__);
     }
     bind<T>(name): Binding<T> {
-        if (!this.__defs__[name]) {
+        if (!this.__all_binding__[name]) {
             var __def__ = new Binding(name, this);
-            this.__defs__[name] = __def__;
+            this.__all_binding__[name] = __def__;
         }
-        return this.__defs__[name];
+        return this.__all_binding__[name];
     }
+
+    get<T>(name) {
+        var binding = this.__all_binding__[name];
+        if (binding) {
+            return binding;
+        }
+        return null;
+    }
+
     resolve<T>(name, ...args) {
-        if (this.__defs__[name]) {
-            var __def__ = this.__defs__[name] as Binding<T>;
-            return __def__.resolve(...args);
+        var binding = this.get(name);
+        if (binding) {
+            return binding.resolve(...args);
         }
         return null;
     }

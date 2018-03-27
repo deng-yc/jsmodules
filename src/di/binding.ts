@@ -3,11 +3,12 @@ import { Container } from './container';
 
 export enum BindingScope {
     Singleton,
-    Transient
+    Request,
+    Transient,
 }
 
 export class Binding<T> {
-    private _scope: BindingScope = BindingScope.Transient;
+    public scope: BindingScope = BindingScope.Request;
     private _createInstance: (...args) => any;
     private _instance: T;
     private _params = [];
@@ -36,19 +37,21 @@ export class Binding<T> {
     }
 
     inSingletonScope() {
-        this._scope = BindingScope.Singleton;
+        this.scope = BindingScope.Singleton;
     }
     inTransientScope() {
-        this._scope = BindingScope.Transient;
+        this.scope = BindingScope.Transient;
     }
-
+    inRequestScope() {
+        this.scope = BindingScope.Request;
+    }
     params(...args) {
         this._params = args;
         return this;
     }
 
     resolve(...args) {
-        if (this._scope == BindingScope.Singleton) {
+        if (this.scope == BindingScope.Singleton) {
             if (!this._instance) {
                 this._instance = this._createInstance(...args);
             }

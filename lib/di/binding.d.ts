@@ -1,12 +1,13 @@
 import { Container } from './container';
 export declare enum BindingScope {
     Singleton = 0,
-    Transient = 1,
+    Request = 1,
+    Transient = 2,
 }
 export declare class Binding<T> {
     name: any;
     container: Container;
-    private _scope;
+    scope: BindingScope;
     private _createInstance;
     private _instance;
     private _params;
@@ -19,6 +20,7 @@ export declare class Binding<T> {
     toFactory(factory: () => any): void;
     inSingletonScope(): void;
     inTransientScope(): void;
+    inRequestScope(): void;
     params(...args: any[]): this;
     resolve(...args: any[]): any;
 }

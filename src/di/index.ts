@@ -1,4 +1,7 @@
 import { Container } from './container';
+import { BindingScope } from './binding';
+
+
 
 const container = new Container();
 
@@ -20,7 +23,7 @@ export function tryResolve(key, ...args) {
  * @param key 名称  
  * @param args 参数
  */
-export function diResolve<T>(key, ...args) {
+export function Resolve<T>(key, ...args) {
     const bean = tryResolve(key, ...args);
     if (bean) {
         return bean;
@@ -34,15 +37,22 @@ export function diResolve<T>(key, ...args) {
  * 定义一个修饰器，依赖注入
  * @param injectKey 对象的key 
  */
-export function diInject(injectKey = null, ...args): any {
+export function Inject(injectKey = null, ...args): any {
     return function (target: any, propertyKey: string) {
         Object.defineProperty(target, propertyKey, {
             get() {
                 var key = injectKey || propertyKey;
-                if (!target[`__diInject__${key}__`]) {
-                    target[`__diInject__${key}__`] = diResolve(key, ...args);
+                var binding = container.get(key);
+                let bean;
+                if (binding.scope == BindingScope.Transient) {
+                    bean = binding.resolve(...args);
+                } else {
+                    var targetKey = `__diImport__${key}__`;
+                    if (!target[targetKey]) {
+                        target[targetKey] = binding.resolve(...args);
+                    }
+                    bean = target[targetKey];
                 }
-                const bean = target[`__diInject__${key}__`];
                 return bean;
             },
             set() {
@@ -57,6 +67,6 @@ export function diInject(injectKey = null, ...args): any {
 export default {
     container,
     tryResolve,
-    diResolve,
-    diInject
+    Resolve,
+    Inject
 }
