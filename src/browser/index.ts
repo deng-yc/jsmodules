@@ -202,5 +202,5 @@ export class Browser {
         return classList.map((cls: string) => cls.toLowerCase());
     }
 }
-const browser = new Browser();
+export const browser = new Browser();
 export default browser;

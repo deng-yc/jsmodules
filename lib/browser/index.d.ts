@@ -28,5 +28,5 @@ export declare class Browser {
     private getInfo();
     getClassList(): string[];
 }
-declare const browser: Browser;
+export declare const browser: Browser;
 export default browser;

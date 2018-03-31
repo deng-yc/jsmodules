@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/deng-yc/jsmodules/issues"
   },
-  "homepage": "https://github.com/deng-yc/jsmodules#readme"
+  "homepage": "https://github.com/deng-yc/jsmodules#readme",
+  "dependencies": {
+    "@types/jquery": "^3.3.1"
+  }
 }
