@@ -58,18 +58,10 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
      * @param options
      */
     private async httpRequest(options) {
-        options = this.settings(options);
+        options = { ...this.options, ...options };
         this.xhr = this.$.ajax(options);
         var response = await this.xhr;
         return this.ResponseBuilder.resolve(response);
-    }
-
-    /**
-     * ªÒ»°ajax…Ë÷√
-     * @param options
-     */
-    private settings(options: JQueryAjaxSettings) {
-        return { ...this.options, ...options }
     }
 
     /**

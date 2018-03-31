@@ -24,11 +24,6 @@ export declare class JQueryAjaxBuilder implements IRequestBuilder {
      */
     private httpRequest(options);
     /**
-     * 获取ajax设置
-     * @param options
-     */
-    private settings(options);
-    /**
      * GET 请求
      * @param query,查询条件
      */
