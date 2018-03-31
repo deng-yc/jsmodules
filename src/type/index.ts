@@ -4,14 +4,41 @@ export type IsFunction = (obj) => boolean;
 
 
 export interface IsType {
+    /*
+     *  isArguments
+     */
     isArguments?: IsFunction;
+    /*
+     * 是否函数
+     */
     isFunction?: IsFunction;
+    /*
+     * 是否String
+     */
     isString?: IsFunction;
+    /*
+     * 是否数字
+     */
     isNumber?: IsFunction;
+    /*
+     * 是否日期
+     */
     isDate?: IsFunction;
+    /*
+     * 是否正则
+     */
     isRegExp?: IsFunction;
+    /*
+     * 是否布尔
+     */
     isBoolean?: IsFunction;
+    /*
+     * 是否对象
+     */
     isObject?: IsFunction;
+    /*
+     * 是否数组
+     */
     isArray?: IsFunction;
 }
 const nativeIsArray = Array.isArray;
