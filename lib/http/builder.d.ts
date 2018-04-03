@@ -11,45 +11,45 @@ export declare class JQueryAjaxBuilder implements IRequestBuilder {
     xhr: JQueryXHR;
     options: JQueryAjaxSettings;
     /**
-     * 设置ajax配置
-     * @param key 配置名
-     * @param options 设置
-     * @param replace 是否替换原值
+     * ����ajax����
+     * @param key ������
+     * @param options ����
+     * @param replace �Ƿ��滻ԭֵ
      */
     set(key: any, options: any, replace?: boolean): this;
     headers(headers: any): this;
     /**
-     * 发起ajax请求
+     * ����ajax����
      * @param options
      */
     private httpRequest(options);
     /**
-     * GET 请求
-     * @param query,查询条件
+     * GET ����
+     * @param query,��ѯ����
      */
     get(query?: any): Promise<any>;
     /**
-     * POST 请求
+     * POST ����
      * @param data
      */
     post(data?: any, json?: boolean): Promise<any>;
     /**
-     * PUT 请求
+     * PUT ����
      * @param data
      */
     put(data: any, json?: boolean): Promise<any>;
     /**
-     * DELETE 请求
+     * DELETE ����
      */
     remove(query?: any): Promise<any>;
     /**
-     * jsonp 请求
-     * @param query 查询字符串
-     * @param callbackParam 回调函数名
+     * jsonp ����
+     * @param query ��ѯ�ַ���
+     * @param callbackParam �ص�������
      */
     jsonp(query: any, callbackParam?: any): Promise<any>;
     /**
-     * 停止ajax请求
+     * ֹͣajax����
      */
     stop(): void;
 }

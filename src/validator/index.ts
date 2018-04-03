@@ -1,31 +1,32 @@
 
+import { IValidator } from './interface';
+import { validator, isRequired } from "./decorate";
 
 
 
 
-@validator()
-class Modal {
 
-    @isEmail("message")
-    @isRequired("message")
+
+@validator
+class Modal{
+
+    @isRequired()
     name = "";
 
-
-    async vaildate(): Promise<{ isValid,errors }>{
-
-        return {
-            isValid: true,
-            errors:[]
-        }
-    }
 }
 
 
 
 var model = new Modal();
 
-const submit = async () => {
-    var isValid = await model.vaildate();
+export const debugCode = async () => {
+
+    var model = new Modal() as IValidator;
 
 
+    var output = await model.vaildate();
+
+    console.log(output, model);
 }
+
+
