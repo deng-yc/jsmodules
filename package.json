@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/deng-yc/jsmodules#readme",
   "dependencies": {
-    "tslib": "^1.9.0"
   },
   "devDependencies": {
     "@types/jquery": "^3.3.1",
+    "tslib": "^1.9.0",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13"
   }
