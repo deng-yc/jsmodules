@@ -12,8 +12,10 @@ export class Browser {
     userAgent;
 
     constructor() {
-        this.userAgent = navigator.userAgent;
-        this.info = this.getInfo();
+        if (document) {
+            this.userAgent = navigator.userAgent;
+            this.info = this.getInfo();
+        }
     }
 
     hasViewport() {
