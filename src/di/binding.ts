@@ -17,9 +17,8 @@ export class Binding<T> {
     private _typedef;
     to(typedef: { new(...args: any[]): T }) {
         this._typedef = typedef;
-        this._createInstance = (...args) => {
-            var params = [...this._params, ...args];
-            var instance = new this._typedef(...params);
+        this._createInstance = (...pamams) => {
+            var instance = new this._typedef(...pamams);
             return instance;
         };
         return this;
@@ -52,12 +51,13 @@ export class Binding<T> {
     }
 
     resolve(...args) {
+        var parmas = [...this._params, ...args];
         if (this.scope == BindingScope.Singleton) {
             if (!this._instance) {
-                this._instance = this._createInstance(...args);
+                this._instance = this._createInstance(...parmas);
             }
             return this._instance;
         }
-        return this._createInstance(...args);
+        return this._createInstance(...parmas);
     }
 }
