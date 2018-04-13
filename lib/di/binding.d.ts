@@ -17,7 +17,7 @@ export declare class Binding<T> {
         new (...args: any[]): T;
     }): this;
     toValue(val: T): this;
-    toFactory(factory: () => any): this;
+    toFactory(factory: (...args) => any): this;
     isSingletonScope(): void;
     isTransientScope(): void;
     isRequestScope(): void;

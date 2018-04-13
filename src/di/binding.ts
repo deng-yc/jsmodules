@@ -32,7 +32,7 @@ export class Binding<T> {
         };
         return this;
     }
-    toFactory(factory: () => any) {
+    toFactory(factory: (...args) => any) {
         this._createInstance = factory;
         return this;
     }
