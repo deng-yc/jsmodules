@@ -12,8 +12,8 @@ export class Browser {
     userAgent;
 
     constructor() {
-        if (document) {
-            this.userAgent = navigator.userAgent;
+        this.userAgent = navigator.userAgent;
+        if (this.userAgent) {
             this.info = this.getInfo();
         }
     }
