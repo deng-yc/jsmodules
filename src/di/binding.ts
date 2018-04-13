@@ -34,15 +34,16 @@ export class Binding<T> {
     }
     toFactory(factory: () => any) {
         this._createInstance = factory;
+        return this;
     }
 
-    inSingletonScope() {
+    isSingletonScope() {
         this.scope = BindingScope.Singleton;
     }
-    inTransientScope() {
+    isTransientScope() {
         this.scope = BindingScope.Transient;
     }
-    inRequestScope() {
+    isRequestScope() {
         this.scope = BindingScope.Request;
     }
     params(...args) {

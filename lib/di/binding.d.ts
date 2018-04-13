@@ -17,10 +17,10 @@ export declare class Binding<T> {
         new (...args: any[]): T;
     }): this;
     toValue(val: T): this;
-    toFactory(factory: () => any): void;
-    inSingletonScope(): void;
-    inTransientScope(): void;
-    inRequestScope(): void;
+    toFactory(factory: () => any): this;
+    isSingletonScope(): void;
+    isTransientScope(): void;
+    isRequestScope(): void;
     params(...args: any[]): this;
     resolve(...args: any[]): any;
 }
