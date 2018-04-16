@@ -12,11 +12,19 @@ export class ResponseBuilder implements IResponseBuilder {
 
 export class JQueryAjaxBuilder implements IRequestBuilder {
     ResponseBuilder: IResponseBuilder;
+    callbackParam = "callback";
+    xhr: JQueryXHR;
+    public url = "";
+
+    private _contentType = "application/json";
+    private _dataType = "json";
+    private _headers = {};
+
     constructor(url: any, resbuilder?: IResponseBuilder) {
         if (!url) {
             throw new Error("url is required");
         }
-        this.options.url = url;
+        this.url = url;
         this.ResponseBuilder = resbuilder || new ResponseBuilder();
     }
 
@@ -27,53 +35,60 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
         }
         return jq;
     }
-    callbackParam = "callback";
-    xhr: JQueryXHR;
-    options: JQueryAjaxSettings = {
-        contentType: "application/json",
-        dataType: 'json',
-    };
 
-    /**
-     * ÉèÖÃajaxÅäÖÃ
-     * @param key ÅäÖÃÃû
-     * @param options ÉèÖÃ
-     * @param replace ÊÇ·ñÌæ»»Ô­Öµ
-     */
-    set(key, options, replace = true) {
-        if (replace) {
-            this.options[key] = options;
-        }
-        else {
-            this.options[key] = this.$.extend(null, this.options[key], options);
-        }
+    isForm() {
+        return this.contentType("application/x-www-form-urlencoded")
+    }
+
+    isJson() {
+        return this.contentType("application/json")
+    }
+
+    contentType(contentType) {
+        this._contentType = contentType;
         return this;
     }
 
+    dataType(dataType) {
+        this._dataType = dataType;
+        return this;
+    }
+
+    /**
+     * è®¾ç½®è¯·æ±‚å¤´
+     * @param headers
+     */
     headers(headers) {
-        return this.set("headers", headers)
+        this._headers = { ...this._headers, ...headers };
+        return this;
     }
     /**
-     * ·¢ÆğajaxÇëÇó
+     * å‘èµ·ajaxè¯·æ±‚
      * @param options
      */
     private async httpRequest(options) {
-        options = { ...this.options, ...options };
-        this.xhr = this.$.ajax(options);
+        var _options = {
+            url: this.url,
+            contentType: this._contentType,
+            dataType: this._dataType,
+            headers: this._headers,
+            ...options
+        };
+        this.xhr = this.$.ajax(_options);
         var response = await this.xhr;
         return this.ResponseBuilder.resolve(response);
     }
 
     /**
-     * GET ÇëÇó
-     * @param query,²éÑ¯Ìõ¼ş
+     * GET è¯·æ±‚
+     * @param query,æŸ¥è¯¢æ¡ä»¶
      */
     get(query?) {
         return this.httpRequest({ type: "GET", data: query });
     }
 
     /**
-     * POST ÇëÇó
+     * POST è¯·æ±‚
      * @param data
      */
     post(data?, json = true) {
@@ -84,7 +99,7 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
     }
 
     /**
-     * PUT ÇëÇó
+     * PUT è¯·æ±‚
      * @param data
      */
     put(data, json = true) {
@@ -95,16 +110,16 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
     }
 
     /**
-     * DELETE ÇëÇó
+     * DELETE è¯·æ±‚
      */
     remove(query?) {
         return this.httpRequest({ type: "DELETE", data: query });
     }
 
     /**
-     * jsonp ÇëÇó
-     * @param query ²éÑ¯×Ö·û´®
-     * @param callbackParam »Øµ÷º¯ÊıÃû
+     * jsonp è¯·æ±‚
+     * @param query æŸ¥è¯¢å­—ç¬¦ä¸²
+     * @param callbackParam å›è°ƒå‡½æ•°å
      */
     jsonp(query, callbackParam?) {
         var url = "";
@@ -122,7 +137,7 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
     }
 
     /**
-     * Í£Ö¹ajaxÇëÇó
+     * åœæ­¢ajaxè¯·æ±‚
      */
     stop() {
         this.xhr.abort();

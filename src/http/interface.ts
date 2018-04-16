@@ -4,15 +4,21 @@ export type IRequestBuilderCreator = new (url, resbuilder?: IResponseBuilder) =>
 
 export interface IRequestBuilder {
 
-    set(key, options, replaces?): IRequestBuilder;
+    isForm(): IRequestBuilder;
+
+    isJson(): IRequestBuilder;
+
+    contentType(contentType): IRequestBuilder;
+
+    dataType(dataType): IRequestBuilder;
 
     headers(obj): IRequestBuilder;
 
     get(query?): Promise<any>;
 
-    post(data?): Promise<any>;
+    post(data?,json?): Promise<any>;
 
-    put(data?): Promise<any>;
+    put(data?, json?): Promise<any>;
 
     remove(query?): Promise<any>;
 

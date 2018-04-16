@@ -5,51 +5,55 @@ export declare class ResponseBuilder implements IResponseBuilder {
 }
 export declare class JQueryAjaxBuilder implements IRequestBuilder {
     ResponseBuilder: IResponseBuilder;
-    constructor(url: any, resbuilder?: IResponseBuilder);
-    readonly $: JQueryStatic;
     callbackParam: string;
     xhr: JQueryXHR;
-    options: JQueryAjaxSettings;
+    url: string;
+    private _contentType;
+    private _dataType;
+    private _headers;
+    constructor(url: any, resbuilder?: IResponseBuilder);
+    readonly $: JQueryStatic;
+    isForm(): this;
+    isJson(): this;
+    contentType(contentType: any): this;
+    dataType(dataType: any): this;
     /**
-     * ����ajax����
-     * @param key ������
-     * @param options ����
-     * @param replace �Ƿ��滻ԭֵ
+     * 设置请求头
+     * @param headers
      */
-    set(key: any, options: any, replace?: boolean): this;
     headers(headers: any): this;
     /**
-     * ����ajax����
+     * 发起ajax请求
      * @param options
      */
     private httpRequest(options);
     /**
-     * GET ����
-     * @param query,��ѯ����
+     * GET 请求
+     * @param query,查询条件
      */
     get(query?: any): Promise<any>;
     /**
-     * POST ����
+     * POST 请求
      * @param data
      */
     post(data?: any, json?: boolean): Promise<any>;
     /**
-     * PUT ����
+     * PUT 请求
      * @param data
      */
     put(data: any, json?: boolean): Promise<any>;
     /**
-     * DELETE ����
+     * DELETE 请求
      */
     remove(query?: any): Promise<any>;
     /**
-     * jsonp ����
-     * @param query ��ѯ�ַ���
-     * @param callbackParam �ص�������
+     * jsonp 请求
+     * @param query 查询字符串
+     * @param callbackParam 回调函数名
      */
     jsonp(query: any, callbackParam?: any): Promise<any>;
     /**
-     * ֹͣajax����
+     * 停止ajax请求
      */
     stop(): void;
 }
