@@ -1,6 +1,6 @@
 import { IRequestBuilder, IResponseBuilder } from "./interface";
 import { tryResolve } from "../di";
-
+import str from '../str';
 
 export class JQueryAjaxRequestBuilder implements IRequestBuilder {
 
@@ -69,13 +69,13 @@ export class JQueryAjaxRequestBuilder implements IRequestBuilder {
         this.xhr = this.$.ajax(_options);
 
         var response = await this.xhr;
-        var str = this.xhr.getAllResponseHeaders();
+        var headersStr = this.xhr.getAllResponseHeaders();
         var headers = {};
-        var pairs = str.split('\n');
+        var pairs = headersStr.split('\n');
         for (var pair of pairs) {
             if (pair != "") {
-                var kv = pair.split(':');
-                headers[kv[0].toLowerCase()] = kv[1];
+                var [key, ...values] = pair.split(':');
+                headers[key.toLowerCase()] = str.trim(values.join(':'));
             }
         }
         return {
