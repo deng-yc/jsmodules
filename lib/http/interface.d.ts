@@ -1,18 +1,22 @@
-export declare type IRequestBuilderCreator = new (url, resbuilder?: IResponseBuilder) => IRequestBuilder;
+export declare type IResponseBuilder = {
+    data: any;
+    status: number;
+    statusText: string;
+    headers: any;
+    config: any;
+    request: any;
+};
+export declare type IRequestBuilderCreator = new (url) => IRequestBuilder;
 export interface IRequestBuilder {
     isForm(): IRequestBuilder;
     isJson(): IRequestBuilder;
     contentType(contentType: any): IRequestBuilder;
     dataType(dataType: any): IRequestBuilder;
     headers(obj: any): IRequestBuilder;
-    get(query?: any): Promise<any>;
-    post(data?: any, json?: any): Promise<any>;
-    put(data?: any, json?: any): Promise<any>;
-    remove(query?: any): Promise<any>;
-    jsonp(query: any, callbackParam?: any): Promise<any>;
+    get(query?: any): Promise<IResponseBuilder>;
+    post(data?: any, json?: any): Promise<IResponseBuilder>;
+    put(data?: any, json?: any): Promise<IResponseBuilder>;
+    remove(query?: any): Promise<IResponseBuilder>;
+    jsonp(query: any, callbackParam?: any): Promise<IResponseBuilder>;
     stop(): any;
-}
-export declare type IResponseBuilderCreator = new () => IResponseBuilder;
-export interface IResponseBuilder {
-    resolve(resp: any): any;
 }

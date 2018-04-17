@@ -1,9 +1,8 @@
-import { IRequestBuilder, IRequestBuilderCreator, IResponseBuilderCreator } from './interface';
+import { IRequestBuilder, IRequestBuilderCreator } from './interface';
 export declare class HttpFactory {
     baseUrl: string;
     private CreateReqBuilder;
-    private CreateResponseBuilder;
-    constructor(baseUrl: string, reqType?: IRequestBuilderCreator, resType?: IResponseBuilderCreator);
+    constructor(baseUrl: string, reqType?: IRequestBuilderCreator);
     url(api: any): IRequestBuilder;
 }
 export default HttpFactory;

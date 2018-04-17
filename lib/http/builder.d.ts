@@ -1,17 +1,13 @@
 /// <reference types="jquery" />
 import { IRequestBuilder, IResponseBuilder } from "./interface";
-export declare class ResponseBuilder implements IResponseBuilder {
-    resolve(response: any): any;
-}
-export declare class JQueryAjaxBuilder implements IRequestBuilder {
-    ResponseBuilder: IResponseBuilder;
+export declare class JQueryAjaxRequestBuilder implements IRequestBuilder {
     callbackParam: string;
     xhr: JQueryXHR;
     url: string;
     private _contentType;
     private _dataType;
     private _headers;
-    constructor(url: any, resbuilder?: IResponseBuilder);
+    constructor(url: any);
     readonly $: JQueryStatic;
     isForm(): this;
     isJson(): this;
@@ -31,27 +27,27 @@ export declare class JQueryAjaxBuilder implements IRequestBuilder {
      * GET 请求
      * @param query,查询条件
      */
-    get(query?: any): Promise<any>;
+    get(query?: any): Promise<IResponseBuilder>;
     /**
      * POST 请求
      * @param data
      */
-    post(data?: any, json?: boolean): Promise<any>;
+    post(data?: any, json?: boolean): Promise<IResponseBuilder>;
     /**
      * PUT 请求
      * @param data
      */
-    put(data: any, json?: boolean): Promise<any>;
+    put(data: any, json?: boolean): Promise<IResponseBuilder>;
     /**
      * DELETE 请求
      */
-    remove(query?: any): Promise<any>;
+    remove(query?: any): Promise<IResponseBuilder>;
     /**
      * jsonp 请求
      * @param query 查询字符串
      * @param callbackParam 回调函数名
      */
-    jsonp(query: any, callbackParam?: any): Promise<any>;
+    jsonp(query: any, callbackParam?: any): Promise<IResponseBuilder>;
     /**
      * 停止ajax请求
      */

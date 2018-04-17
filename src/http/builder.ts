@@ -1,17 +1,10 @@
 import { IRequestBuilder, IResponseBuilder } from "./interface";
 import { tryResolve } from "../di";
 
-export class ResponseBuilder implements IResponseBuilder {
-    resolve(response) {
-        if (response.success) {
-            return response.result;
-        }
-        throw response;
-    }
-}
 
-export class JQueryAjaxBuilder implements IRequestBuilder {
-    ResponseBuilder: IResponseBuilder;
+export class JQueryAjaxRequestBuilder implements IRequestBuilder {
+
+
     callbackParam = "callback";
     xhr: JQueryXHR;
     public url = "";
@@ -20,12 +13,11 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
     private _dataType = "json";
     private _headers = {};
 
-    constructor(url: any, resbuilder?: IResponseBuilder) {
+    constructor(url: any) {
         if (!url) {
             throw new Error("url is required");
         }
         this.url = url;
-        this.ResponseBuilder = resbuilder || new ResponseBuilder();
     }
 
     get $(): JQueryStatic {
@@ -66,7 +58,7 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
      * 发起ajax请求
      * @param options
      */
-    private async httpRequest(options) {
+    private async httpRequest(options): Promise<IResponseBuilder> {
         var _options = {
             url: this.url,
             contentType: this._contentType,
@@ -75,8 +67,16 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
             ...options
         };
         this.xhr = this.$.ajax(_options);
+
         var response = await this.xhr;
-        return this.ResponseBuilder.resolve(response);
+        return {
+            data: response,
+            status: this.xhr.status,
+            statusText: this.xhr.statusText,
+            headers: this.xhr.getAllResponseHeaders(),
+            config: null,
+            request: this.xhr
+        }
     }
 
     /**
@@ -123,9 +123,9 @@ export class JQueryAjaxBuilder implements IRequestBuilder {
      */
     jsonp(query, callbackParam?) {
         var url = "";
-        if (this.options.url.indexOf('=?') == -1) {
+        if (this.url.indexOf('=?') == -1) {
             callbackParam = callbackParam || this.callbackParam;
-            if (this.options.url.indexOf('?') == -1) {
+            if (this.url.indexOf('?') == -1) {
                 url += '?';
             } else {
                 url += '&';

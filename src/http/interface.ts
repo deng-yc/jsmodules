@@ -1,6 +1,16 @@
 
 
-export type IRequestBuilderCreator = new (url, resbuilder?: IResponseBuilder) => IRequestBuilder;
+
+export type IResponseBuilder = {
+    data: any;   
+    status: number;
+    statusText: string
+    headers: any;
+    config: any;
+    request: any;
+}
+
+export type IRequestBuilderCreator = new (url) => IRequestBuilder;
 
 export interface IRequestBuilder {
 
@@ -14,22 +24,15 @@ export interface IRequestBuilder {
 
     headers(obj): IRequestBuilder;
 
-    get(query?): Promise<any>;
+    get(query?): Promise<IResponseBuilder>;
 
-    post(data?,json?): Promise<any>;
+    post(data?, json?): Promise<IResponseBuilder>;
 
-    put(data?, json?): Promise<any>;
+    put(data?, json?): Promise<IResponseBuilder>;
 
-    remove(query?): Promise<any>;
+    remove(query?): Promise<IResponseBuilder>;
 
-    jsonp(query, callbackParam?): Promise<any>;
+    jsonp(query, callbackParam?): Promise<IResponseBuilder>;
 
     stop();
-}
-
-
-export type IResponseBuilderCreator = new () => IResponseBuilder;
-
-export interface IResponseBuilder {
-    resolve(resp): any;
 }
