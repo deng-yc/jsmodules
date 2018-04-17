@@ -5,6 +5,7 @@ export declare type IResponseBuilder = {
     headers: any;
     config: any;
     request: any;
+    getResponseHeader: (name) => string;
 };
 export declare type IRequestBuilderCreator = new (url) => IRequestBuilder;
 export interface IRequestBuilder {

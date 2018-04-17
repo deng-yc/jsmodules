@@ -69,13 +69,23 @@ export class JQueryAjaxRequestBuilder implements IRequestBuilder {
         this.xhr = this.$.ajax(_options);
 
         var response = await this.xhr;
+        var str = this.xhr.getAllResponseHeaders();
+        var headers = {};
+        var pairs = str.split('\n');
+        for (var pair of pairs) {
+            if (pair != "") {
+                var kv = pair.split(':');
+                headers[kv[0].toLowerCase()] = kv[1];
+            }
+        }
         return {
             data: response,
             status: this.xhr.status,
             statusText: this.xhr.statusText,
-            headers: this.xhr.getAllResponseHeaders(),
+            headers,
             config: null,
-            request: this.xhr
+            request: this.xhr,
+            getResponseHeader: this.xhr.getResponseHeader
         }
     }
 
