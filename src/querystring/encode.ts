@@ -11,11 +11,11 @@ export function encode(data) {
         var value = data[key];
         if (toString.call(value) == "[object Array]") {
             for (var i = 0; i < value.length; ++i) {
-                pairs.push(encode(key + '[' + i + ']') + '=' + encode(value[i]));
+                pairs.push(encodeURIComponent(key + '[' + i + ']') + '=' + encodeURIComponent(value[i]));
             }
             continue;
         }
-        pairs.push(encode(key) + '=' + encode(data[key]));
+        pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
     }
     return pairs.join('&');
 }
