@@ -84,8 +84,7 @@ export class JQueryAjaxRequestBuilder implements IRequestBuilder {
             statusText: this.xhr.statusText,
             headers,
             config: null,
-            request: this.xhr,
-            getResponseHeader: this.xhr.getResponseHeader
+            request: this.xhr
         }
     }
 

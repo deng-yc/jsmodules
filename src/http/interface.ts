@@ -8,7 +8,6 @@ export type IResponseBuilder = {
     headers: any;
     config: any;
     request: any;
-    getResponseHeader: (name) => string
 }
 
 export type IRequestBuilderCreator = new (url) => IRequestBuilder;
