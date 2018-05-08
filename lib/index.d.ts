@@ -4,5 +4,4 @@ export { default as system } from './system';
 export { default as events } from './events';
 export { default as type } from './type';
 export { default as str } from './str';
-export { default as browser } from './browser';
 export { default as HttpFactory } from './http';

@@ -11,7 +11,4 @@ export { default as type } from './type';
 
 export { default as str } from './str';
 
-export { default as browser } from './browser';
-
-
 export { default as HttpFactory } from './http';
