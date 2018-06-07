@@ -1,5 +1,6 @@
 import { Subscription } from './subscription';
 export interface IEvents {
+    subcount: number;
     on?: (events) => Subscription;
     trigger?: (events, ...rest) => any;
     addListener?: (events, callback, context?) => Events;
@@ -7,7 +8,8 @@ export interface IEvents {
     proxy?: (events) => (arg) => any;
 }
 export declare class Events implements IEvents {
-    private callbacks;
+    private __callbacks__;
+    subcount: number;
     on(events: any): Subscription;
     addListener(events: any, callback: any, context?: any): this;
     removeListener(events: any, callback: any, context: any): this;

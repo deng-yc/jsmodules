@@ -4,6 +4,7 @@ var eventSplitter = /\s+/;
 
 
 export interface IEvents {
+    subcount: number;
     on?: (events) => Subscription;
     trigger?: (events, ...rest) => any;
     addListener?: (events, callback, context?) => Events;
@@ -13,31 +14,34 @@ export interface IEvents {
 
 export class Events implements IEvents {
 
-    private callbacks;
+    private __callbacks__;
 
+    subcount = 0;
     on(events): Subscription {
         return new Subscription(this, events);
     }
 
     addListener(events, callback, context?) {
         var calls, event, list;
-        calls = this.callbacks || (this.callbacks = {});
+        calls = this.__callbacks__ || (this.__callbacks__ = {});
         events = events.split(eventSplitter);
 
         while (event = events.shift()) {
             list = calls[event] || (calls[event] = []);
             list.push(callback, context);
+            this.subcount += 1;
         }
         return this;
     }
 
     removeListener(events, callback, context) {
         var event, calls, list, i;
-        if (!(calls = this.callbacks)) {
+        if (!(calls = this.__callbacks__)) {
             return this;
         }
         if (!(events || callback || context)) {
-            delete this.callbacks;
+            delete this.__callbacks__;
+            this.subcount = 0;
             return this;
         }
         events = events ? events.split(eventSplitter) : Object.keys(calls);
@@ -50,6 +54,7 @@ export class Events implements IEvents {
             for (i = list.length - 2; i >= 0; i -= 2) {
                 if (!(callback && list[i] !== callback || context && list[i + 1] !== context)) {
                     list.splice(i, 2);
+                    this.subcount -= 1;
                 }
             }
         }
@@ -59,7 +64,7 @@ export class Events implements IEvents {
 
     trigger(events, ...rest) {
         var event, calls, list, i, length, args, all;
-        if (!(calls = this.callbacks)) {
+        if (!(calls = this.__callbacks__)) {
             return this;
         }
         events = events.split(eventSplitter);
