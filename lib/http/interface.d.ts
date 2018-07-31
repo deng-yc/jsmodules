@@ -5,7 +5,6 @@ export declare type IResponseBuilder = {
     headers: any;
     config: any;
     request: any;
-    getResponseHeader: (name) => string;
 };
 export declare type IRequestBuilderCreator = new (url) => IRequestBuilder;
 export interface IRequestBuilder {
@@ -14,6 +13,7 @@ export interface IRequestBuilder {
     contentType(contentType: any): IRequestBuilder;
     dataType(dataType: any): IRequestBuilder;
     headers(obj: any): IRequestBuilder;
+    timeout(timeout: number): IRequestBuilder;
     get(query?: any): Promise<IResponseBuilder>;
     post(data?: any, json?: any): Promise<IResponseBuilder>;
     put(data?: any, json?: any): Promise<IResponseBuilder>;

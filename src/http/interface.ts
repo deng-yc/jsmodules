@@ -24,6 +24,8 @@ export interface IRequestBuilder {
 
     headers(obj): IRequestBuilder;
 
+    timeout(timeout: number): IRequestBuilder;
+
     get(query?): Promise<IResponseBuilder>;
 
     post(data?, json?): Promise<IResponseBuilder>;

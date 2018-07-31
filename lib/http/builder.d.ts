@@ -8,7 +8,7 @@ export declare class JQueryAjaxRequestBuilder implements IRequestBuilder {
     private _dataType;
     private _headers;
     constructor(url: any);
-    readonly $: JQueryStatic;
+    private readonly $;
     isForm(): this;
     isJson(): this;
     contentType(contentType: any): this;
@@ -18,6 +18,8 @@ export declare class JQueryAjaxRequestBuilder implements IRequestBuilder {
      * @param headers
      */
     headers(headers: any): this;
+    private _timeout;
+    timeout(num: any): this;
     /**
      * 发起ajax请求
      * @param options

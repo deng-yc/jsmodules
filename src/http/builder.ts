@@ -20,7 +20,7 @@ export class JQueryAjaxRequestBuilder implements IRequestBuilder {
         this.url = url;
     }
 
-    get $(): JQueryStatic {
+    private get $(): JQueryStatic {
         var jq = tryResolve("$") || window['jQuery'];
         if (!jq) {
             throw new Error("jquery is required");
@@ -54,16 +54,25 @@ export class JQueryAjaxRequestBuilder implements IRequestBuilder {
         this._headers = { ...this._headers, ...headers };
         return this;
     }
+
+    private _timeout: number;
+
+    timeout(num) {
+        this._timeout = num;
+        return this;
+    }
+
     /**
      * 发起ajax请求
      * @param options
      */
     private async httpRequest(options): Promise<IResponseBuilder> {
-        var _options = {
+        var _options: JQueryAjaxSettings = {
             url: this.url,
             contentType: this._contentType,
             dataType: this._dataType,
             headers: this._headers,
+            timeout: this._timeout,
             ...options
         };
         this.xhr = this.$.ajax(_options);
