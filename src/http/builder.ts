@@ -35,7 +35,11 @@ export class JQueryAjaxRequestBuilder implements IRequestBuilder {
     isJson() {
         return this.contentType("application/json")
     }
-
+    private securityHeaders = false;
+    addSecurityHeaders(added = true) {
+        this.securityHeaders = added;
+        return this;
+    }
     contentType(contentType) {
         this._contentType = contentType;
         return this;
@@ -67,6 +71,7 @@ export class JQueryAjaxRequestBuilder implements IRequestBuilder {
      * @param options
      */
     private async httpRequest(options): Promise<IResponseBuilder> {
+
         var _options: JQueryAjaxSettings = {
             url: this.url,
             contentType: this._contentType,

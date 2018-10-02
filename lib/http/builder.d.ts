@@ -11,6 +11,8 @@ export declare class JQueryAjaxRequestBuilder implements IRequestBuilder {
     private readonly $;
     isForm(): this;
     isJson(): this;
+    private securityHeaders;
+    addSecurityHeaders(added?: boolean): this;
     contentType(contentType: any): this;
     dataType(dataType: any): this;
     /**
@@ -24,7 +26,7 @@ export declare class JQueryAjaxRequestBuilder implements IRequestBuilder {
      * 发起ajax请求
      * @param options
      */
-    private httpRequest(options);
+    private httpRequest;
     /**
      * GET 请求
      * @param query,查询条件

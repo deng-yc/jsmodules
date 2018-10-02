@@ -18,6 +18,8 @@ export interface IRequestBuilder {
 
     isJson(): IRequestBuilder;
 
+    addSecurityHeaders(added): IRequestBuilder;
+
     contentType(contentType): IRequestBuilder;
 
     dataType(dataType): IRequestBuilder;
