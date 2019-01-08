@@ -64,9 +64,30 @@ export function Inject(injectKey = null, ...args): any {
     };
 }
 
+export function InjectProperty(injectKey = null, ...args): any {
+    return function (target: any, propertyKey: string, descriptor) {
+        descriptor.get = function () {
+            var key = injectKey || propertyKey;
+            var binding = container.get(key);
+            let bean;
+            if (binding.scope == BindingScope.Transient) {
+                bean = binding.resolve(...args);
+            } else {
+                var targetKey = `__diImport__${key}__`;
+                if (!target[targetKey]) {
+                    target[targetKey] = binding.resolve(...args);
+                }
+                bean = target[targetKey];
+            }
+            return bean;
+        }
+    }
+}
+
 export default {
     container,
     tryResolve,
     Resolve,
-    Inject
+    Inject,
+    InjectProperty
 }

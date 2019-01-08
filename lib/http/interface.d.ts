@@ -10,7 +10,7 @@ export declare type IRequestBuilderCreator = new (url: any) => IRequestBuilder;
 export interface IRequestBuilder {
     isForm(): IRequestBuilder;
     isJson(): IRequestBuilder;
-    addSecurityHeaders(added: any): IRequestBuilder;
+    addSecurityHeaders(added?: any): IRequestBuilder;
     contentType(contentType: any): IRequestBuilder;
     dataType(dataType: any): IRequestBuilder;
     headers(obj: any): IRequestBuilder;

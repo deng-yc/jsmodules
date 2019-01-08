@@ -2,7 +2,7 @@ import { Container } from './container';
 export declare enum BindingScope {
     Singleton = 0,
     Request = 1,
-    Transient = 2,
+    Transient = 2
 }
 export declare class Binding<T> {
     name: any;
@@ -17,7 +17,7 @@ export declare class Binding<T> {
         new (...args: any[]): T;
     }): this;
     toValue(val: T): this;
-    toFactory(factory: (...args) => any): this;
+    toFactory(factory: (...args: any[]) => any): this;
     isSingletonScope(): void;
     isTransientScope(): void;
     isRequestScope(): void;

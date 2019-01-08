@@ -7,6 +7,7 @@ export enum BindingScope {
     Transient,
 }
 
+
 export class Binding<T> {
     public scope: BindingScope = BindingScope.Request;
     private _createInstance: (...args) => any;

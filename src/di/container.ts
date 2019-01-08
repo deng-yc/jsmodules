@@ -13,6 +13,14 @@ export class Container {
         return this.__all_binding__[name];
     }
 
+    bindClass<T>(typedef: { new(...args: any[]): T }):Binding<T> {
+        var name = typedef['name'];
+        if (!name) {
+            throw new Error("ÐèÒªÃû³Æ");
+        }
+        return this.bind<T>(name).to(typedef);
+    }
+
     get<T>(name) {
         var binding = this.__all_binding__[name];
         if (binding) {
