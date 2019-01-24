@@ -10,7 +10,11 @@ export declare type IRequestBuilderCreator = new (url: any) => IRequestBuilder;
 export interface IRequestBuilder {
     isForm(): IRequestBuilder;
     isJson(): IRequestBuilder;
-    addSecurityHeaders(added?: any): IRequestBuilder;
+    /**
+     * 添加access_token
+     * @param required 是否必须
+     */
+    addSecurityHeaders(required?: boolean): IRequestBuilder;
     contentType(contentType: any): IRequestBuilder;
     dataType(dataType: any): IRequestBuilder;
     headers(obj: any): IRequestBuilder;

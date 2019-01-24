@@ -18,7 +18,11 @@ export interface IRequestBuilder {
 
     isJson(): IRequestBuilder;
 
-    addSecurityHeaders(added?): IRequestBuilder;
+    /**
+     * Ìí¼Óaccess_token
+     * @param required ÊÇ·ñ±ØÐë
+     */
+    addSecurityHeaders(required?: boolean): IRequestBuilder;
 
     contentType(contentType): IRequestBuilder;
 
