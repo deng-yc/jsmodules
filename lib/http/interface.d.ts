@@ -22,6 +22,7 @@ export interface IRequestBuilder {
     get(query?: any): Promise<IResponseBuilder>;
     post(data?: any, json?: any): Promise<IResponseBuilder>;
     put(data?: any, json?: any): Promise<IResponseBuilder>;
+    head(): Promise<IResponseBuilder>;
     remove(query?: any): Promise<IResponseBuilder>;
     jsonp(query: any, callbackParam?: any): Promise<IResponseBuilder>;
     stop(): any;

@@ -2,7 +2,7 @@
 
 
 export type IResponseBuilder = {
-    data: any;   
+    data: any;
     status: number;
     statusText: string
     headers: any;
@@ -19,8 +19,8 @@ export interface IRequestBuilder {
     isJson(): IRequestBuilder;
 
     /**
-     * Ìí¼Óaccess_token
-     * @param required ÊÇ·ñ±ØÐë
+     * ï¿½ï¿½ï¿½ï¿½access_token
+     * @param required ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
      */
     addSecurityHeaders(required?: boolean): IRequestBuilder;
 
@@ -37,6 +37,8 @@ export interface IRequestBuilder {
     post(data?, json?): Promise<IResponseBuilder>;
 
     put(data?, json?): Promise<IResponseBuilder>;
+
+    head(): Promise<IResponseBuilder>;
 
     remove(query?): Promise<IResponseBuilder>;
 
