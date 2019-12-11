@@ -1,5 +1,4 @@
-
-import { Container } from './container';
+import Container from './container';
 
 export enum BindingScope {
     Singleton,
@@ -7,19 +6,18 @@ export enum BindingScope {
     Transient,
 }
 
-
 export class Binding<T> {
-    public scope: BindingScope = BindingScope.Request;
-    private _createInstance: (...args) => any;
+    public scope: BindingScope = BindingScope.Singleton;
+    private _createInstance: (...args) => T;
     private _instance: T;
     private _params = [];
-    constructor(public name, public container: Container) { }
+    constructor(public name, public container: Container) {}
 
     private _typedef;
-    to(typedef: { new(...args: any[]): T }) {
+    to(typedef: { new (...args): T }) {
         this._typedef = typedef;
         this._createInstance = (...pamams) => {
-            var instance = new this._typedef(...pamams);
+            const instance = new this._typedef(...pamams);
             return instance;
         };
         return this;
@@ -32,27 +30,34 @@ export class Binding<T> {
         };
         return this;
     }
-    toFactory(factory: (...args) => any) {
+    toFactory(factory: (...args) => T) {
         this._createInstance = factory;
         return this;
     }
 
     isSingletonScope() {
+        this.setScope(BindingScope.Singleton);
         this.scope = BindingScope.Singleton;
     }
     isTransientScope() {
-        this.scope = BindingScope.Transient;
+        this.setScope(BindingScope.Transient);
     }
     isRequestScope() {
-        this.scope = BindingScope.Request;
+        this.setScope(BindingScope.Request);
     }
+
+    setScope(scope) {
+        this.scope = scope;
+        return this;
+    }
+
     params(...args) {
         this._params = args;
         return this;
     }
 
     resolve(...args) {
-        var parmas = [...this._params, ...args];
+        const parmas = [...this._params, ...args];
         if (this.scope == BindingScope.Singleton) {
             if (!this._instance) {
                 this._instance = this._createInstance(...parmas);
@@ -62,3 +67,5 @@ export class Binding<T> {
         return this._createInstance(...parmas);
     }
 }
+
+export default Binding;

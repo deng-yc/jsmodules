@@ -1,4 +1,4 @@
-export declare type IsFunction = (obj) => boolean;
+export declare type IsFunction = (obj: any) => boolean;
 export interface IsType {
     isArguments?: IsFunction;
     isFunction?: IsFunction;

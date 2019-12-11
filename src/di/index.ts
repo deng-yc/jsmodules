@@ -1,76 +1,113 @@
-import { Container } from './container';
-import { BindingScope } from './binding';
-
-
+import { BindingScope } from "./binding";
+import Container from "./container";
 
 const container = new Container();
 
-/**
- * ½âÎöÒÀÀµ×¢Èë¶ÔÏó£¬Èç¹ûÈÝÆ÷ÖÐÃ»ÓÐ¶ÔÓ¦µÄ¶ÔÏó£¬²»»á±¨´í
- * @param key Ãû³Æ  
- * @param args ²ÎÊý
- */
-export function tryResolve(key, ...args) {
-    const bean = container.resolve(key, ...args);
+export function Register(name, scope = BindingScope.Singleton, ...params) {
+    return function(BindingClass) {
+        if (!container.has(name)) {
+            container
+                .bind(name)
+                .to(BindingClass)
+                .params(...params)
+                .setScope(scope);
+            BindingClass.$$di_NAME = name;
+        }
+        // return container.get(name);
+    };
+}
+
+export function tryResolve<T>(key, ...args): T | null {
+    const bean = container.resolve<T>(key, ...args);
     if (bean) {
         return bean;
     }
     return null;
 }
 
-/**
- * ½âÎöÒÀÀµ×¢Èë¶ÔÏó£¬Èç¹ûÈÝÆ÷ÖÐÃ»ÓÐ¶ÔÓ¦µÄ¶ÔÏó£¬»á±¨´í
- * @param key Ãû³Æ  
- * @param args ²ÎÊý
- */
-export function Resolve<T>(key, ...args) {
-    const bean = tryResolve(key, ...args);
+export function Resolve<T>(key, ...args): T {
+    const bean = tryResolve<T>(key, ...args);
     if (bean) {
         return bean;
     } else {
-        console.error(`Context has no bean with name ${key}. 
+        throw new Error(`Context has no bean with name ${key}.
       Available beans: ${container.getNames().join(", ")}`);
     }
 }
 
-/**
- * ¶¨ÒåÒ»¸öÐÞÊÎÆ÷£¬ÒÀÀµ×¢Èë
- * @param injectKey ¶ÔÏóµÄkey 
- */
-export function Inject(injectKey = null, ...args): any {
-    return function (target: any, propertyKey: string,desc?):any {
-        let options = {
+export function Inject(injectKey = null, ...args) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return function(target, propertyKey: string, desc?): any {
+        const options = {
             get() {
-                var key = injectKey || propertyKey;
-                var binding = container.get(key);
-                let bean;
-                if (binding.scope == BindingScope.Transient) {
-                    bean = binding.resolve(...args);
-                } else {
-                    var targetKey = `__diImport__${key}__`;
-                    if (!target[targetKey]) {
-                        target[targetKey] = binding.resolve(...args);
-                    }
-                    bean = target[targetKey];
+                const key = injectKey || propertyKey;
+                const binding = container.get(key);
+                if (!binding) {
+                    throw new Error(`di:æœªæ³¨å†Œ ${key}`);
                 }
+                const bean = binding.resolve(...args);
                 return bean;
             },
-            set(value) {
+            set() {
                 throw new Error("Not allowed");
             },
             enumerable: true,
             configurable: true
-        }
+        };
         if (desc) {
             return options;
         }
-
         Object.defineProperty(target, propertyKey, options);
     };
 }
+
+export type BindingClass<T> = {
+    new (...args);
+    instance?: T;
+    $$di_NAME?: string;
+};
+
+export function getInstance<T>(Binding: BindingClass<T>, type = BindingScope.Singleton, ...args): T {
+    if (Binding.$$di_NAME) {
+        return Resolve(Binding.$$di_NAME);
+    }
+    if (type === BindingScope.Singleton) {
+        if (!Binding.instance) {
+            Binding.instance = new Binding(...args);
+        }
+        return Binding.instance as T;
+    } else {
+        return new Binding(...args);
+    }
+}
+
+export function Property<T>(Binding: BindingClass<T>) {
+    return function(target, propertyKey, desc?): any {
+        const options = {
+            get() {
+                return getInstance(Binding);
+            },
+            set() {
+                throw new Error("Not allowed");
+            },
+            enumerable: true,
+            configurable: true
+        };
+
+        if (desc) {
+            return options;
+        }
+        Object.defineProperty(target, propertyKey, options);
+        return;
+    };
+}
+
 export default {
     container,
     tryResolve,
     Resolve,
-    Inject
-}
+    Inject,
+    Property,
+    getInstance,
+    Register
+};

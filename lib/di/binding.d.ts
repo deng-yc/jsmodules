@@ -1,4 +1,4 @@
-import { Container } from './container';
+import Container from './container';
 export declare enum BindingScope {
     Singleton = 0,
     Request = 1,
@@ -17,10 +17,12 @@ export declare class Binding<T> {
         new (...args: any[]): T;
     }): this;
     toValue(val: T): this;
-    toFactory(factory: (...args: any[]) => any): this;
+    toFactory(factory: (...args: any[]) => T): this;
     isSingletonScope(): void;
     isTransientScope(): void;
     isRequestScope(): void;
+    setScope(scope: any): this;
     params(...args: any[]): this;
-    resolve(...args: any[]): any;
+    resolve(...args: any[]): T;
 }
+export default Binding;

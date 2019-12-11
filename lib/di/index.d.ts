@@ -1,25 +1,23 @@
-import { Container } from './container';
-/**
- * 解析依赖注入对象，如果容器中没有对应的对象，不会报错
- * @param key 名称
- * @param args 参数
- */
-export declare function tryResolve(key: any, ...args: any[]): any;
-/**
- * 解析依赖注入对象，如果容器中没有对应的对象，会报错
- * @param key 名称
- * @param args 参数
- */
-export declare function Resolve<T>(key: any, ...args: any[]): any;
-/**
- * 定义一个修饰器，依赖注入
- * @param injectKey 对象的key
- */
-export declare function Inject(injectKey?: any, ...args: any[]): any;
+import { BindingScope } from "./binding";
+import Container from "./container";
+export declare function Register(name: any, scope?: BindingScope, ...params: any[]): (BindingClass: any) => void;
+export declare function tryResolve<T>(key: any, ...args: any[]): T | null;
+export declare function Resolve<T>(key: any, ...args: any[]): T;
+export declare function Inject(injectKey?: any, ...args: any[]): (target: any, propertyKey: string, desc?: any) => any;
+export declare type BindingClass<T> = {
+    new (...args: any[]): any;
+    instance?: T;
+    $$di_NAME?: string;
+};
+export declare function getInstance<T>(Binding: BindingClass<T>, type?: BindingScope, ...args: any[]): T;
+export declare function Property<T>(Binding: BindingClass<T>): (target: any, propertyKey: any, desc?: any) => any;
 declare const _default: {
     container: Container;
     tryResolve: typeof tryResolve;
     Resolve: typeof Resolve;
     Inject: typeof Inject;
+    Property: typeof Property;
+    getInstance: typeof getInstance;
+    Register: typeof Register;
 };
 export default _default;

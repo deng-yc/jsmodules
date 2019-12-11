@@ -24,8 +24,8 @@ export declare class Browser {
     isSafari(): boolean;
     isIE(): boolean;
     isOldIE(): boolean;
-    private getOS();
-    private getInfo();
+    private getOS;
+    private getInfo;
     getClassList(): string[];
 }
 export declare const browser: Browser;

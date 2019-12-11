@@ -11,8 +11,8 @@ export interface IRequestBuilder {
     isForm(): IRequestBuilder;
     isJson(): IRequestBuilder;
     /**
-     * 添加access_token
-     * @param required 是否必须
+     * ����access_token
+     * @param required �Ƿ����
      */
     addSecurityHeaders(required?: boolean): IRequestBuilder;
     contentType(contentType: any): IRequestBuilder;

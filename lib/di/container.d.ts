@@ -1,11 +1,9 @@
-import { Binding } from "./binding";
-export declare class Container {
+import { Binding } from './binding';
+export default class Container {
     private __all_binding__;
     getNames(): string[];
     bind<T>(name: any): Binding<T>;
-    bindClass<T>(typedef: {
-        new (...args: any[]): T;
-    }): Binding<T>;
-    get<T>(name: any): Binding<any>;
-    resolve<T>(name: any, ...args: any[]): any;
+    has(name: any): boolean;
+    get<T>(name: any): Binding<T> | null;
+    resolve<T>(name: any, ...args: any[]): T | null;
 }
