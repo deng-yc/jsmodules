@@ -16,9 +16,11 @@
     "devDependencies": {
         "rimraf": "~3.0.2",
         "typescript": "^3.9.7"
+    },"publishConfig": {
+        "access": "public"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "gitHead": "c1c466fbff10d0000e96991bc6594a3a2bbb2c6a"
+    "gitHead": "94bd9ab47bab76e7006d0fd1b8deb0610dac2b1a"
 }
