@@ -1,7 +1,21 @@
 {
-  "name": "jsmodules",
-  "private": true,
-  "devDependencies": {
-    "lerna": "^3.22.1"
-  }
+    "name": "jsmodules",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "docs": "doctoc --title '**Table of content**' README.md",
+        "clean": "lerna run clean",
+        "build": "lerna run build",
+        "pub": "lerna publish",
+        "test": "lerna run test"
+    },
+    "dependencies": {
+        "tslib": "^2.0.1"
+    },
+    "devDependencies": {
+        "lerna": "^3.22.1",
+        "typescript": "^3.9.7"
+    }
 }
