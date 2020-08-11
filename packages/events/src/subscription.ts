@@ -1,8 +1,7 @@
-import { Events } from './index';
+import { Events } from "./index";
 
 export class Subscription {
-    constructor(public owner: Events, public events) {
-    }
+    constructor(public owner: Events, public events) {}
     callback;
     context;
     then = (callback, context?) => {
@@ -14,9 +13,10 @@ export class Subscription {
         }
         this.owner.addListener(this.events, this.callback, this.context);
         return this;
-    }
+    };
     on = this.then;
     off = () => {
         this.owner.removeListener(this.events, this.callback, this.context);
-    }
+    };
 }
+export default Subscription;

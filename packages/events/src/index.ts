@@ -1,27 +1,39 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var subscription_1 = require("./subscription");
-var eventSplitter = /\s+/;
-var Events = /** @class */ (function () {
-    function Events() {
-        this.subcount = 0;
+import { Subscription } from './subscription';
+
+const eventSplitter = /\s+/;
+
+export interface IEvents {
+    subcount: number;
+    on?: (events) => Subscription;
+    trigger?: (events, ...rest) => any;
+    addListener?: (events, callback, context?) => Events;
+    removeListener?: (events, callback, content?) => Events;
+    proxy?: (events) => (arg) => any;
+}
+
+export class Events implements IEvents {
+    private __callbacks__;
+
+    subcount = 0;
+    on(events): Subscription {
+        return new Subscription(this, events);
     }
-    Events.prototype.on = function (events) {
-        return new subscription_1.Subscription(this, events);
-    };
-    Events.prototype.addListener = function (events, callback, context) {
-        var calls, event, list;
-        calls = this.__callbacks__ || (this.__callbacks__ = {});
+
+    addListener(events, callback, context?) {
+        const calls = this.__callbacks__ || (this.__callbacks__ = {});
+        let event, list;
         events = events.split(eventSplitter);
-        while (event = events.shift()) {
+
+        while ((event = events.shift())) {
             list = calls[event] || (calls[event] = []);
             list.push(callback, context);
             this.subcount += 1;
         }
         return this;
-    };
-    Events.prototype.removeListener = function (events, callback, context) {
-        var event, calls, list, i;
+    }
+
+    removeListener(events, callback?, context?) {
+        let event, calls, list, i;
         if (!(calls = this.__callbacks__)) {
             return this;
         }
@@ -31,35 +43,34 @@ var Events = /** @class */ (function () {
             return this;
         }
         events = events ? events.split(eventSplitter) : Object.keys(calls);
-        while (event = events.shift()) {
+        while ((event = events.shift())) {
             if (!(list = calls[event]) || !(callback || context)) {
                 delete calls[event];
                 continue;
             }
+
             for (i = list.length - 2; i >= 0; i -= 2) {
-                if (!(callback && list[i] !== callback || context && list[i + 1] !== context)) {
+                if (!((callback && list[i] !== callback) || (context && list[i + 1] !== context))) {
                     list.splice(i, 2);
                     this.subcount -= 1;
                 }
             }
         }
+
         return this;
-    };
-    Events.prototype.trigger = function (events) {
-        var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            rest[_i - 1] = arguments[_i];
-        }
-        var event, calls, list, i, length, args, all;
+    }
+
+    trigger(events, ...rest) {
+        let event, calls, list, i, length, args, all;
         if (!(calls = this.__callbacks__)) {
             return this;
         }
         events = events.split(eventSplitter);
-        while (event = events.shift()) {
-            if (all = calls.all) {
+        while ((event = events.shift())) {
+            if ((all = calls.all)) {
                 all = all.slice();
             }
-            if (list = calls[event]) {
+            if ((list = calls[event])) {
                 list = list.slice();
             }
             if (list) {
@@ -74,29 +85,26 @@ var Events = /** @class */ (function () {
                 }
             }
         }
+
         return this;
-    };
-    Events.prototype.proxy = function (events) {
-        var that = this;
-        return (function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            that.trigger.apply(that, [events].concat(args));
-        });
-    };
-    Events.include = function (targetObject) {
+    }
+
+    proxy(events) {
+        return (...args) => {
+            this.trigger(events, ...args);
+        };
+    }
+
+    static include(targetObject) {
         targetObject.on = Events.prototype.on;
         targetObject.addListener = Events.prototype.addListener;
         targetObject.removeListener = Events.prototype.removeListener;
         targetObject.trigger = Events.prototype.trigger;
         targetObject.proxy = Events.prototype.proxy;
-    };
-    return Events;
-}());
-exports.Events = Events;
-exports.default = {
-    Subscription: subscription_1.Subscription,
-    Events: Events
+    }
+}
+
+export default {
+    Subscription,
+    Events,
 };
