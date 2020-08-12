@@ -15,5 +15,11 @@ export let events = {
         }
         return maps.get(scopeName);
     },
+    remove(scopeName) {
+        if (maps.has(scopeName)) {
+            maps.get(scopeName).removeAllListeners();
+            maps.delete(scopeName);
+        }
+    },
 };
 export default events;
