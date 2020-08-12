@@ -66,15 +66,17 @@ export function removeAdapter(name) {
 }
 
 export function useConsole() {
-    const ConsoleLoggerAdapter: any = {};
-    for (const method of reFuncs) {
-        const original = console[method];
-        ConsoleLoggerAdapter[method] = original;
-        console[method] = function (tagName, ...args) {
-            applyLog(method, tagName, ...args);
-        };
+    if (!adapters["console"]) {
+        const ConsoleLoggerAdapter: any = {};
+        for (const method of reFuncs) {
+            const original = console[method];
+            ConsoleLoggerAdapter[method] = original;
+            console[method] = function (tagName, ...args) {
+                applyLog(method, tagName, ...args);
+            };
+        }
+        setAdapter("console", ConsoleLoggerAdapter);
     }
-    setAdapter("console", ConsoleLoggerAdapter);
 }
 
 export const Logger = {

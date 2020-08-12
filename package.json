@@ -6,6 +6,7 @@
     ],
     "scripts": {
         "docs": "doctoc --title '**Table of content**' README.md",
+        "update": "lerna bootstrap",
         "clean": "lerna run clean",
         "build": "lerna run build",
         "pub": "lerna publish",

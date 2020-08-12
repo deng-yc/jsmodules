@@ -1,5 +1,5 @@
 {
-    "name": "@jsmodules/cache",
+    "name": "@jsmodules/di",
     "version": "2.0.1-alpha.0",
     "description": "",
     "main": "dist/index.js",
@@ -10,6 +10,10 @@
         "compile": "tsc -p tsconfig.build.json",
         "prepublishOnly": "yarn run build",
         "test": "yarn run build"
+    },
+    "dependencies": {
+        "@jsmodules/logger": "2.0.1-alpha.0",
+        "@jsmodules/idgenerator": "2.0.1-alpha.0"
     },
     "peerDependencies": {
         "tslib": "^2.0.1"
