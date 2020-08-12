@@ -1,8 +1,8 @@
-import E from 'events';
+import { EventEmitter } from 'events';
 
-export let eventCenter = new E.EventEmitter();
+export let eventCenter = new EventEmitter();
 
-const maps = new Map<string, E.EventEmitter>();
+const maps = new Map<string, EventEmitter>();
 
 export let events = {
     eventCenter,
@@ -11,7 +11,7 @@ export let events = {
             return eventCenter;
         }
         if (!maps.has(scopeName)) {
-            maps.set(scopeName, new E.EventEmitter());
+            maps.set(scopeName, new EventEmitter());
         }
         return maps.get(scopeName);
     },
