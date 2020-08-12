@@ -22,18 +22,40 @@ export function Register(name?, scope = BindingScope.Singleton) {
     if (!name) {
         name = `di-autoname-${getNextId()}`;
     }
-    return function (BindingClass, overwrite = true) {
-        if (!container.has(name) || overwrite) {
-            logger.info("注册", name);
-            container.bind(name).to(BindingClass).setScope(scope);
-            BindingClass.$$di_NAME = name;
-        }
+    return {
+        value(value, overwrite = true) {
+            if (!container.has(name) || overwrite) {
+                logger.info("注册", name);
+                container.bind(name).toValue(value).setScope(scope);
+            }
+        },
+        class(BindingClass, params: any[] = [], overwrite = true) {
+            if (!container.has(name) || overwrite) {
+                logger.info("注册", name);
+                container
+                    .bind(name)
+                    .to(BindingClass)
+                    .params(...params)
+                    .setScope(scope);
+                BindingClass.$$di_NAME = name;
+            }
+        },
+        factory(factory: (...args) => any, params: any[] = [], overwrite = true) {
+            if (!container.has(name) || overwrite) {
+                logger.info("注册", name);
+                container
+                    .bind(name)
+                    .toFactory(factory)
+                    .params(...params)
+                    .setScope(scope);
+            }
+        },
     };
 }
 
 export function injectable(name?, scope = BindingScope.Singleton) {
     return function (BindingClass) {
-        Register(name, scope)(BindingClass, false);
+        Register(name, scope).class(BindingClass, [], false);
     };
 }
 
@@ -51,7 +73,7 @@ export function Resolve<T>(key, ...args): T {
         return bean;
     } else {
         throw new Error(`Context has no bean with name ${key}.
-      Available beans: ${container.getNames().join(", ")}`);
+      Available beans: ${[...container.getNames()].join(", ")}`);
     }
 }
 

@@ -1,5 +1,3 @@
-import Container from './container';
-
 export enum BindingScope {
     /**
      * 全局单例
@@ -17,16 +15,16 @@ const cached = {};
 
 export class Binding<T> {
     public scope: BindingScope = BindingScope.Singleton;
-    private _createInstance: (...args) => T;
+    private getInstance: (...args) => T;
     private _instance: T;
     private _params = [];
 
-    constructor(public name, public container: Container) {}
+    constructor(public name) {}
 
     private _typedef;
     to(typedef: { new (...args): T }) {
         this._typedef = typedef;
-        this._createInstance = (...pamams) => {
+        this.getInstance = (...pamams) => {
             const instance = new this._typedef(...pamams);
             return instance;
         };
@@ -35,13 +33,13 @@ export class Binding<T> {
 
     toValue(val: T) {
         this._instance = val;
-        this._createInstance = () => {
+        this.getInstance = () => {
             return this._instance;
         };
         return this;
     }
     toFactory(factory: (...args) => T) {
-        this._createInstance = factory;
+        this.getInstance = factory;
         return this;
     }
 
@@ -72,7 +70,7 @@ export class Binding<T> {
             const key = `di_${this.name}_signle`;
             let instance = cached[key];
             if (!instance) {
-                instance = cached[key] = this._createInstance(...params);
+                instance = cached[key] = this.getInstance(...params);
             }
             return instance;
         }
@@ -80,11 +78,11 @@ export class Binding<T> {
             const key = `di_${this.name}_${params.join("-")}`;
             let instance = cached[key];
             if (!instance) {
-                instance = cached[key] = this._createInstance(...params);
+                instance = cached[key] = this.getInstance(...params);
             }
             return instance;
         }
-        return this._createInstance(...params);
+        return this.getInstance(...params);
     }
 }
 
