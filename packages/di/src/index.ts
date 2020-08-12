@@ -18,17 +18,22 @@ function getNextId() {
 
 const container = new Container();
 
-
 export function Register(name?, scope = BindingScope.Singleton) {
     if (!name) {
         name = `di-autoname-${getNextId()}`;
     }
-    return function (BindingClass) {
-        if (!container.has(name)) {
+    return function (BindingClass, overwrite = true) {
+        if (!container.has(name) || overwrite) {
             logger.info("注册", name);
             container.bind(name).to(BindingClass).setScope(scope);
             BindingClass.$$di_NAME = name;
         }
+    };
+}
+
+export function injectable(name?, scope = BindingScope.Singleton) {
+    return function (BindingClass) {
+        Register(name, scope)(BindingClass, false);
     };
 }
 
@@ -89,11 +94,13 @@ export function Inject(Binding) {
     };
 }
 
-export default {
-    container,
+export const di = {
+    injectable,
     tryResolve,
     Resolve,
     Inject,
     getInstance,
     Register,
 };
+
+export default di;
