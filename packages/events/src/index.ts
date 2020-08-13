@@ -1,25 +1,63 @@
 import { EventEmitter } from 'events';
 
-export let eventCenter = new EventEmitter();
+type EventCallback = (...args) => void;
 
-const maps = new Map<string, EventEmitter>();
+export class EventSubscription {
+    constructor(public emmiter: EventEmitter, public eventName: string) {}
+    private callbacks = [];
 
-export let events = {
-    eventCenter,
-    scope(scopeName?: string) {
-        if (!scopeName) {
-            return eventCenter;
+    then(callback: EventCallback) {
+        this.callbacks.push(callback);
+        this.emmiter.on(this.eventName, callback);
+        return this;
+    }
+
+    once(callback: EventCallback) {
+        const onceCallback = (...args) => {
+            callback(...args);
+            this.callbacks = this.callbacks.filter((f) => f != onceCallback);
+        };
+        this.callbacks.push(onceCallback);
+        this.emmiter.once(this.eventName, onceCallback);
+        return this;
+    }
+
+    count() {
+        return this.emmiter.listenerCount(this.eventName);
+    }
+
+    remove() {
+        for (const callback of this.callbacks) {
+            this.emmiter.removeListener(this.eventName, callback);
         }
-        if (!maps.has(scopeName)) {
-            maps.set(scopeName, new EventEmitter());
+    }
+}
+
+export class Events {
+    private emitter: EventEmitter;
+    constructor() {
+        this.emitter = new EventEmitter();
+    }
+
+    on(eventName, callback?: EventCallback) {
+        const subscription = new EventSubscription(this.emitter, eventName);
+        if (callback) {
+            return subscription.then(callback);
         }
-        return maps.get(scopeName);
-    },
-    remove(scopeName) {
-        if (maps.has(scopeName)) {
-            maps.get(scopeName).removeAllListeners();
-            maps.delete(scopeName);
-        }
-    },
-};
+        return subscription;
+    }
+
+    emit(eventName, ...args) {
+        this.emitter.emit(eventName, ...args);
+    }
+
+    proxy(eventName) {
+        return (...args) => {
+            this.emit(eventName, ...args);
+        };
+    }
+}
+
+export const events = new Events();
+
 export default events;
