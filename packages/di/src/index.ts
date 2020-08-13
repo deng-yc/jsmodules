@@ -1,7 +1,7 @@
 import { nextId } from '@jsmodules/idgenerator';
 import { Logger } from '@jsmodules/logger';
 
-import { BindingScope } from './binding';
+import Binding, { BindingScope } from './binding';
 import Container from './container';
 
 export type DiInstanceType<T extends new (...args) => any> = T extends new (...args: any[]) => infer R ? R : any;
@@ -95,11 +95,15 @@ export function getInstance<T extends BindingClass<T>>(
     }
 }
 
-export function Inject(Binding) {
+function Inject(Binding: string | BindingClass<any>) {
     return function (target, propertyKey, desc?): any {
         const options = {
             get() {
-                return getInstance(Binding);
+                if (typeof Binding == "string") {
+                    return tryResolve(Binding);
+                } else {
+                    return getInstance(Binding);
+                }
             },
             set() {
                 throw new Error("Not allowed");
