@@ -47,6 +47,10 @@ export class Events {
         return subscription;
     }
 
+    removeAllSubscription(eventName) {
+        this.emitter.removeAllListeners(eventName);
+    }
+
     emit(eventName, ...args) {
         this.emitter.emit(eventName, ...args);
     }
@@ -58,6 +62,11 @@ export class Events {
     }
 }
 
-export const events = new Events();
-
+export const eventCenter = new Events();
+export const events = {
+    eventCenter,
+    emitter() {
+        return new EventEmitter();
+    },
+};
 export default events;
