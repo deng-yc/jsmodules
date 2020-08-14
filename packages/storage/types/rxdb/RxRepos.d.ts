@@ -1,11 +1,20 @@
+import { RxCollection } from 'rxdb';
 export declare class RxRepos<T> {
-    s: any;
-    constructor(s: any);
-    getConnection(): Promise<import("rxdb").RxDatabase<{
-        [key: string]: import("rxdb").RxCollection<any, {}, {
-            [key: string]: any;
-        }>;
-    }>>;
+    private configName;
+    private config;
+    constructor(configName: any, config: any);
+    getDatabase(): Promise<import("rxdb").RxDatabase<import("rxdb").CollectionsOfDatabase>>;
+    private collection_pormise;
+    private _getCollection;
+    getCollection(): Promise<RxCollection>;
     get(id: any): Promise<T | undefined>;
+    filter(): Promise<import("rxdb").RxQuery<any, any[]>>;
+    add(entity: T): Promise<any>;
+    addOrUpdate(entity: T): Promise<any>;
+    bulkInsert(entitys: T[]): Promise<{
+        success: any[];
+        error: any[];
+    }>;
+    remove(id: any): Promise<void>;
 }
 //# sourceMappingURL=RxRepos.d.ts.map
