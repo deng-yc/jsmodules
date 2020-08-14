@@ -1,1 +1,1 @@
-{"version":3,"file":"useInitialState.d.ts","sourceRoot":"","sources":["../../src/app/useInitialState.ts"],"names":[],"mappings":"AAIA,wBAAgB,MAAM;;;;;;EAErB;AAED,wBAAgB,eAAe,UAG9B"}
+{"version":3,"file":"useInitialState.d.ts","sourceRoot":"","sources":["../../src/app/useInitialState.ts"],"names":[],"mappings":"AAIA,wBAAgB,MAAM;;;;;;EAErB;AAED,wBAAgB,eAAe;;;EAG9B"}

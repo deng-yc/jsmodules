@@ -1,13 +1,7 @@
-declare function use(callback: (state: any) => {
-    [key: string]: any;
-}): {
-    use: typeof use;
-    initAsync: typeof initAsync;
-};
-declare function initAsync(): Promise<{}>;
 export declare const Application: {
-    use: typeof use;
-    initAsync: typeof initAsync;
+    use(callback: (state: any) => {
+        [key: string]: any;
+    }): any;
+    initAsync(): Promise<{}>;
 };
-export {};
 //# sourceMappingURL=index.d.ts.map

@@ -7,6 +7,6 @@ export function useApp() {
 }
 
 export function useInitialState() {
-    const app = useApp();
-    return [app.initialState, app.setInitialState];
+    const { initialState, setInitialState } = useApp();
+    return { initialState, setInitialState };
 }

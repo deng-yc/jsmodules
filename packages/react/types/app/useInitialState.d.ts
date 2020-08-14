@@ -5,5 +5,8 @@ export declare function useApp(): {
     refresh(): any;
     setInitialState(initialState: any): void;
 };
-export declare function useInitialState(): any[];
+export declare function useInitialState(): {
+    initialState: any;
+    setInitialState: (initialState: any) => void;
+};
 //# sourceMappingURL=useInitialState.d.ts.map

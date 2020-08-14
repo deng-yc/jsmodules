@@ -22,7 +22,6 @@ export function AppProvider(props: IAppProviderProps) {
     const [state, setState] = React.useState(initState);
 
     const refresh = useCallback(async () => {
-        setState((prevState) => ({ ...prevState, loading: true, error: undefined }));
         try {
             const asyncFunc = () => new Promise<ReturnType<typeof getInitialState>>((res) => res(getInitialState()));
             const ret = await asyncFunc();
