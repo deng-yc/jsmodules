@@ -1,20 +1,19 @@
-export enum BindingScope {
+export type BindingScope =
     /**
      * 全局单例
      */
-    Singleton,
+    | "Singleton"
     /**
      * 根据请求参数单例
      * 注意: 参数只能是基础类型,string,number,bool
      */
-    Request,
-    Transient,
-}
+    | "Request"
+    | "Transient";
 
 const cached = {};
 
 export class Binding<T> {
-    public scope: BindingScope = BindingScope.Singleton;
+    public scope: BindingScope = "Singleton";
     private getInstance: (...args) => T;
     private _instance: T;
     private _params = [];
@@ -44,14 +43,13 @@ export class Binding<T> {
     }
 
     isSingletonScope() {
-        this.setScope(BindingScope.Singleton);
-        this.scope = BindingScope.Singleton;
+        this.setScope("Singleton");
     }
     isTransientScope() {
-        this.setScope(BindingScope.Transient);
+        this.setScope("Transient");
     }
     isRequestScope() {
-        this.setScope(BindingScope.Request);
+        this.setScope("Request");
     }
 
     setScope(scope) {
@@ -66,7 +64,7 @@ export class Binding<T> {
 
     resolve(...args) {
         const params = [...this._params, ...args];
-        if (this.scope == BindingScope.Singleton) {
+        if (this.scope == "Singleton") {
             const key = `di_${this.name}_signle`;
             let instance = cached[key];
             if (!instance) {
@@ -74,7 +72,7 @@ export class Binding<T> {
             }
             return instance;
         }
-        if (this.scope == BindingScope.Request) {
+        if (this.scope == "Request") {
             const key = `di_${this.name}_${params.join("-")}`;
             let instance = cached[key];
             if (!instance) {

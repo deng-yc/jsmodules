@@ -1,15 +1,13 @@
-export declare enum BindingScope {
-    /**
-     * 全局单例
-     */
-    Singleton = 0,
-    /**
-     * 根据请求参数单例
-     * 注意: 参数只能是基础类型,string,number,bool
-     */
-    Request = 1,
-    Transient = 2
-}
+export declare type BindingScope = 
+/**
+ * 全局单例
+ */
+"Singleton"
+/**
+ * 根据请求参数单例
+ * 注意: 参数只能是基础类型,string,number,bool
+ */
+ | "Request" | "Transient";
 export declare class Binding<T> {
     name: any;
     scope: BindingScope;

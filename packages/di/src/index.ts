@@ -18,12 +18,12 @@ function getNextId() {
 
 const container = new Container();
 
-export function Register(name?, scope = BindingScope.Singleton) {
+export function Register(name?, scope: BindingScope = "Singleton") {
     if (!name) {
         name = `di-autoname-${getNextId()}`;
     }
     return {
-        value(value, overwrite = true) {
+        value<T>(value: T, overwrite = true) {
             if (!container.has(name) || overwrite) {
                 logger.info("注册", name);
                 container.bind(name).toValue(value).setScope(scope);
@@ -53,7 +53,7 @@ export function Register(name?, scope = BindingScope.Singleton) {
     };
 }
 
-export function injectable(name?, scope = BindingScope.Singleton) {
+export function injectable(name?, scope: BindingScope = "Singleton") {
     return function (BindingClass) {
         Register(name, scope).class(BindingClass, [], false);
     };
@@ -80,12 +80,12 @@ export function Resolve<T>(key, ...args): T {
 export function getInstance<T extends BindingClass<T>>(
     Binding: T,
     args: any[] = [],
-    type = BindingScope.Singleton
+    type: BindingScope = "Singleton"
 ): DiInstanceType<T> {
     if (Binding.$$di_NAME) {
         return Resolve(Binding.$$di_NAME, ...args);
     }
-    if (type === BindingScope.Singleton) {
+    if (type === "Singleton") {
         if (!Binding.instance) {
             Binding.instance = new Binding(...args);
         }

@@ -4,13 +4,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from '@/App';
+import { Application } from '@jsmodules/core';
+import { AccessProvider, AppProvider } from '@jsmodules/react';
 
+import { accessFactory } from './access';
 import * as serviceWorker from './serviceWorker';
 
+const getInitialState = () => {
+    return Application.use(async (state) => {
+        console.log("use user");
+        return {
+            user: 1,
+        };
+    })
+        .use((state: any) => {
+            console.log("2");
+            console.log(state.user);
+            return { role: 1 };
+        })
+        .initAsync();
+};
+
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
+    <AppProvider getInitialState={getInitialState}>
+        <AccessProvider accessFactory={accessFactory}>
+            <App />
+        </AccessProvider>
+    </AppProvider>,
     document.getElementById("root")
 );
 

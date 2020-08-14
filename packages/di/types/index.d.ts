@@ -6,7 +6,7 @@ export declare type BindingClass<T extends new (...args: any[]) => any> = {
     $$di_NAME?: string;
 };
 export declare function Register(name?: any, scope?: BindingScope): {
-    value(value: any, overwrite?: boolean): void;
+    value<T>(value: T, overwrite?: boolean): void;
     class(BindingClass: any, params?: any[], overwrite?: boolean): void;
     factory(factory: (...args: any[]) => any, params?: any[], overwrite?: boolean): void;
 };
