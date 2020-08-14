@@ -2,17 +2,20 @@
     "name": "root",
     "private": true,
     "workspaces": [
+        "examples/*",
         "packages/*"
     ],
     "scripts": {
         "docs": "doctoc --title '**Table of content**' README.md",
         "update": "lerna bootstrap",
         "clean": "lerna run clean",
+        "dev": "lerna run dev --parallel",
         "build": "lerna run build",
         "pub": "lerna publish",
         "test": "lerna run test"
     },
     "dependencies": {
+        "@types/react-router": "^5.1.8",
         "tslib": "^2.0.1"
     },
     "devDependencies": {

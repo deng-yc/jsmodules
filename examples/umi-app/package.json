@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "start": "umi dev",
-        "build": "umi build",
+        "rebuild": "umi build",
         "postinstall": "umi generate tmp",
         "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
         "test": "umi-test",
@@ -22,6 +22,10 @@
     },
     "dependencies": {
         "@ant-design/pro-layout": "^5.0.12",
+        "@jsmodules/cache": "2.0.1-alpha.0",
+        "@jsmodules/di": "2.0.1-alpha.0",
+        "@jsmodules/idgenerator": "2.0.1-alpha.0",
+        "@jsmodules/logger": "2.0.1-alpha.0",
         "@umijs/preset-react": "1.x",
         "@umijs/test": "^3.2.14",
         "lint-staged": "^10.0.7",
@@ -29,13 +33,10 @@
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
         "umi": "^3.2.14",
-        "yorkie": "^2.0.0",
-        "@jsmodules/cache": "*",
-        "@jsmodules/di": "*",
-        "@jsmodules/idgenerator": "*",
-        "@jsmodules/logger": "*"
+        "yorkie": "^2.0.0"
     },
     "devDependencies": {
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
         "@umijs/plugin-qiankun": "^2.7.0"
     }
 }

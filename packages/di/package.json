@@ -3,7 +3,7 @@
     "version": "2.0.1-alpha.0",
     "description": "",
     "main": "dist/index.js",
-    "types": "src/index.ts",
+    "types": "types",
     "scripts": {
         "build": "yarn run clean && yarn run compile",
         "clean": "rimraf -rf ./dist",

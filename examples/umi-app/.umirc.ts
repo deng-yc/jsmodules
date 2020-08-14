@@ -2,8 +2,9 @@ import { defineConfig } from 'umi';
 
 export default defineConfig({
     title: 'Sounmate',
-    dynamicImport: false,
-    plugins: [],
+    // dynamicImport: {
+    //     // loading: 'ssss',
+    // },
     nodeModulesTransform: {
         type: 'none',
     },
@@ -29,16 +30,6 @@ export default defineConfig({
                 {
                     path: '/users',
                     component: '@/pages/users',
-                    routes: [
-                        {
-                            path: '/users/new',
-                            component: '@/pages/users/new',
-                        },
-                        {
-                            path: '/users/add',
-                            microApp: 'reactapp1',
-                        },
-                    ],
                 },
             ],
         },

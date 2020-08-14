@@ -9,7 +9,7 @@ export default class Container {
 
     bind<T>(name): Binding<T> {
         if (!this.m.has(name)) {
-            const __def__ = new Binding(name, this);
+            const __def__ = new Binding(name);
             this.m.set(name, __def__);
         }
         return this.m.get(name);

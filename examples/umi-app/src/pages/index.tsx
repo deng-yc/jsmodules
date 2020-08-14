@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 import { Link } from 'umi';
 
+import { useAccess } from '@@/plugin-access/access';
 import { di } from '@jsmodules/di';
+import events from '@jsmodules/events';
 
 import styles from './index.less';
 
@@ -13,6 +15,8 @@ class ServiceA {
 }
 
 export default () => {
+    const {} = useAccess();
+
     const a = di.getInstance(ServiceA);
     const b = useMemo(() => {
         return a.getA();

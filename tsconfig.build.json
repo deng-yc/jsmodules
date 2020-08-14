@@ -3,9 +3,14 @@
         "module": "commonjs",
         "target": "es5",
         "sourceMap": true,
+        "jsx": "react",
         "importHelpers": true,
+        "downlevelIteration": true,
         "experimentalDecorators": true,
-        "downlevelIteration": true
+        "esModuleInterop": true,
+        "declarationMap": true,
+        "declaration": true,
+        "declarationDir": "./types"
     },
 
     "exclude": ["node_modules", "dist"]
