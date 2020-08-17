@@ -3,7 +3,8 @@
     "private": true,
     "workspaces": [
         "examples/*",
-        "packages/*"
+        "packages/*",
+        "shared/*"
     ],
     "scripts": {
         "docs": "doctoc --title '**Table of content**' README.md",

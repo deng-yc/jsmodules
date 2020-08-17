@@ -1,0 +1,25 @@
+/* eslint-disable */
+/* 此代码由工具自动生成,不要直接修改,以免下次生成会丢失 */
+import di from '@jsmodules/di';
+import {HttpFactory} from '@jsmodules/core';
+import api from '{{relative}}/decorators';
+
+@di.injectable('{{@diName}}')
+export class {{@apiName}} {
+    @api('{{@configName}}') private http: HttpFactory;{{each functions func key}}
+
+    /**
+     * {{@func.summary}}{{each func.method method}}
+     * @method {{@method.name}} {{@method.summary}}{{/each}}
+     *{{each func.params param}}
+     * @params {{@param.name}} {{@param.description}}{{/each}}
+     */
+    {{@func.name}}({{@func.paramNames}}) {
+        return this.http
+            .url(`{{func.url}}`)
+            {{if func.security}}.addSecurityHeaders({{@ !func.security.required?'false':'' }})
+            {{/if}}.support({{@func.methodNames}});
+    }{{/each}}
+}
+
+export default {{apiName}};

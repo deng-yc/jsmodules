@@ -5,9 +5,7 @@ import { RxDbConnection } from '../rxdb/connection';
 import { IKeyValueStorage } from './types';
 
 export class RxDbKeyValueStorage implements IKeyValueStorage {
-    constructor(private __STORE_NAME__, private encrypted = false, private dbName = "app") {
-        debugger;
-    }
+    constructor(private __STORE_NAME__, private encrypted = false, private dbName = "app") {}
 
     private async getCollection() {
         const db = await RxDbConnection.get(this.dbName);

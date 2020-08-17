@@ -13,6 +13,7 @@
         "test": "yarn run build"
     },
     "dependencies": {
+        "axios": "^0.19.2",
         "@jsmodules/di": "2.0.1-alpha.0"
     },
     "peerDependencies": {
