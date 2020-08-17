@@ -5,7 +5,7 @@ export declare class NotificationsApi {
      * @method GET 获取用户通知列表
      *
      */
-    notifications(): import("@jsmodules/core/src").HttpRequestBuilder;
+    notifications(): any;
 }
 export default NotificationsApi;
 //# sourceMappingURL=notifications.d.ts.map

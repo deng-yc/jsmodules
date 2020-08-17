@@ -5,7 +5,7 @@ export declare class BraintreeApi {
      * @method GET 生成client token
      *
      */
-    clientToken(): import("@jsmodules/core/src").HttpRequestBuilder;
+    clientToken(): any;
 }
 export default BraintreeApi;
 //# sourceMappingURL=braintree.d.ts.map

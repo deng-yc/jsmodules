@@ -5,7 +5,7 @@ export declare class TagsApi {
      * @method GET 获取标签
      *
      */
-    tags(): import("@jsmodules/core/src").HttpRequestBuilder;
+    tags(): any;
 }
 export default TagsApi;
 //# sourceMappingURL=tags.d.ts.map

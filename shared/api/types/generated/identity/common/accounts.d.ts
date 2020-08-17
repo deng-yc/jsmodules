@@ -5,13 +5,13 @@ export declare class AccountsApi {
      * @method POST 通过外部登陆信息创建账号
      *
      */
-    external(): import("@jsmodules/core/src").HttpRequestBuilder;
+    external(): any;
     /**
      * 创建账号
      * @method POST 创建账号
      *
      */
-    accounts(): import("@jsmodules/core/src").HttpRequestBuilder;
+    accounts(): any;
     /**
      * Check the phone number does existed or not
      * @method HEAD Check the phone number does existed or not
@@ -19,7 +19,7 @@ export declare class AccountsApi {
      * @params countryCode 无说明
      * @params areaNumber 无说明
      */
-    checkPhoneNumber(countryCode: any, areaNumber: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    checkPhoneNumber(countryCode: any, areaNumber: any): any;
     /**
      * 添加外部登陆信息,获取外部登陆信息,删除外部登陆信息
      * @method POST 添加外部登陆信息
@@ -27,26 +27,26 @@ export declare class AccountsApi {
      * @method DELETE 删除外部登陆信息
      *
      */
-    externalLogins(): import("@jsmodules/core/src").HttpRequestBuilder;
+    externalLogins(): any;
     /**
      * get account status
      * @method GET get account status
      *
      * @params id id
      */
-    status(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    status(id: any): any;
     /**
      * send verify code to me
      * @method POST send verify code to me
      *
      */
-    verifyCodeToMe(): import("@jsmodules/core/src").HttpRequestBuilder;
+    verifyCodeToMe(): any;
     /**
      * Send validation code to phone
      * @method POST Send validation code to phone
      *
      */
-    verifyCode(): import("@jsmodules/core/src").HttpRequestBuilder;
+    verifyCode(): any;
 }
 export default AccountsApi;
 //# sourceMappingURL=accounts.d.ts.map

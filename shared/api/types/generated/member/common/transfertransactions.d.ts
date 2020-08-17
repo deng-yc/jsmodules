@@ -5,7 +5,7 @@ export declare class TransferTransactionsApi {
      * @method GET 获取转账记录
      *
      */
-    transactions(): import("@jsmodules/core/src").HttpRequestBuilder;
+    transactions(): any;
 }
 export default TransferTransactionsApi;
 //# sourceMappingURL=transfertransactions.d.ts.map

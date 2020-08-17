@@ -5,25 +5,25 @@ export declare class ChatUsersApi {
      * @method GET 获取聊天用户
      *
      */
-    chatusers(): import("@jsmodules/core/src").HttpRequestBuilder;
+    chatusers(): any;
     /**
      * 获取当前聊天用户黑名单
      * @method GET 获取当前聊天用户黑名单
      *
      */
-    blacklist(): import("@jsmodules/core/src").HttpRequestBuilder;
+    blacklist(): any;
     /**
      * 获取当前聊天用户对象
      * @method GET 获取当前聊天用户对象
      *
      */
-    me(): import("@jsmodules/core/src").HttpRequestBuilder;
+    me(): any;
     /**
      * 获取客服聊天用户
      * @method GET 获取客服聊天用户
      *
      */
-    customerservice(): import("@jsmodules/core/src").HttpRequestBuilder;
+    customerservice(): any;
     /**
      * 屏蔽聊天用户,取消屏蔽聊天用户
      * @method PUT 屏蔽聊天用户
@@ -31,14 +31,14 @@ export declare class ChatUsersApi {
      *
      * @params id 聊天用户Id
      */
-    block(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    block(id: any): any;
     /**
      * 查看是否被用户屏蔽
      * @method HEAD 查看是否被用户屏蔽
      *
      * @params id 聊天用户Id
      */
-    blocked(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    blocked(id: any): any;
 }
 export default ChatUsersApi;
 //# sourceMappingURL=chatusers.d.ts.map

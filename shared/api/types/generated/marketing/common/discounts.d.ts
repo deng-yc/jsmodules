@@ -5,21 +5,21 @@ export declare class DiscountsApi {
      * @method GET 获取折扣列表
      *
      */
-    discounts(): import("@jsmodules/core/src").HttpRequestBuilder;
+    discounts(): any;
     /**
      * 获取折扣详情
      * @method GET 获取折扣详情
      *
      * @params id 折扣Id
      */
-    discountsById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    discountsById(id: any): any;
     /**
      * 领取优惠卷
      * @method GET 领取优惠卷
      *
      * @params id 折扣Id
      */
-    coupon(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    coupon(id: any): any;
 }
 export default DiscountsApi;
 //# sourceMappingURL=discounts.d.ts.map

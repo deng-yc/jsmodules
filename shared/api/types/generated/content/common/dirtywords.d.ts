@@ -5,7 +5,7 @@ export declare class DirtyWordsApi {
      * @method GET 获取脏词
      *
      */
-    dirtywords(): import("@jsmodules/core/src").HttpRequestBuilder;
+    dirtywords(): any;
 }
 export default DirtyWordsApi;
 //# sourceMappingURL=dirtywords.d.ts.map

@@ -5,13 +5,13 @@ export declare class FeedbacksApi {
      * @method POST 创建反馈
      *
      */
-    feedbacks(): import("@jsmodules/core/src").HttpRequestBuilder;
+    feedbacks(): any;
     /**
      * 创建批量反馈
      * @method POST 创建批量反馈
      *
      */
-    batch(): import("@jsmodules/core/src").HttpRequestBuilder;
+    batch(): any;
 }
 export default FeedbacksApi;
 //# sourceMappingURL=feedbacks.d.ts.map

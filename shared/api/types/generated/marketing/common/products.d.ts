@@ -5,13 +5,13 @@ export declare class ProductsApi {
      * @method GET 获取android端nts产品
      *
      */
-    ntsAndroid(): import("@jsmodules/core/src").HttpRequestBuilder;
+    ntsAndroid(): any;
     /**
      * 获取ios端nts产品
      * @method GET 获取ios端nts产品
      *
      */
-    ntsIos(): import("@jsmodules/core/src").HttpRequestBuilder;
+    ntsIos(): any;
 }
 export default ProductsApi;
 //# sourceMappingURL=products.d.ts.map

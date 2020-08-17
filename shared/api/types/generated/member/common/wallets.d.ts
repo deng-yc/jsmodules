@@ -5,7 +5,7 @@ export declare class WalletsApi {
      * @method GET 获取当前钱包对象
      *
      */
-    me(): import("@jsmodules/core/src").HttpRequestBuilder;
+    me(): any;
 }
 export default WalletsApi;
 //# sourceMappingURL=wallets.d.ts.map

@@ -7,14 +7,14 @@ export declare class AssetsApi {
 获取签名
      *
      */
-    assets(): import("@jsmodules/core/src").HttpRequestBuilder;
+    assets(): any;
     /**
      * 确定并创建资源
      * @method PUT 确定并创建资源
      *
      * @params id 资源Id
      */
-    assetsById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    assetsById(id: any): any;
 }
 export default AssetsApi;
 //# sourceMappingURL=assets.d.ts.map

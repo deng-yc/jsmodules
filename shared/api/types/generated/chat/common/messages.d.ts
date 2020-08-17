@@ -6,14 +6,14 @@ export declare class MessagesApi {
      * @method GET 获取对话消息
      *
      */
-    messages(): import("@jsmodules/core/src").HttpRequestBuilder;
+    messages(): any;
     /**
      * 获取消息详情
      * @method GET 获取消息详情
      *
      * @params id 消息Id
      */
-    messagesById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    messagesById(id: any): any;
 }
 export default MessagesApi;
 //# sourceMappingURL=messages.d.ts.map

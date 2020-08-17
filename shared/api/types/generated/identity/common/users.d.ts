@@ -5,25 +5,25 @@ export declare class UsersApi {
      * @method GET Get user info
      *
      */
-    me(): import("@jsmodules/core/src").HttpRequestBuilder;
+    me(): any;
     /**
      * Update user device info
      * @method PUT Update user device info
      *
      */
-    deviceinfo(): import("@jsmodules/core/src").HttpRequestBuilder;
+    deviceinfo(): any;
     /**
      * Update user profile
      * @method PUT Update user profile
      *
      */
-    profile(): import("@jsmodules/core/src").HttpRequestBuilder;
+    profile(): any;
     /**
      * Update user refer info
      * @method PUT Update user refer info
      *
      */
-    refer(): import("@jsmodules/core/src").HttpRequestBuilder;
+    refer(): any;
 }
 export default UsersApi;
 //# sourceMappingURL=users.d.ts.map

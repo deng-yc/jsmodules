@@ -5,7 +5,7 @@ export declare class AlipayApi {
      * @method POST 支付宝App下单结果通知
      *
      */
-    callback(): import("@jsmodules/core/src").HttpRequestBuilder;
+    callback(): any;
 }
 export default AlipayApi;
 //# sourceMappingURL=alipay.d.ts.map

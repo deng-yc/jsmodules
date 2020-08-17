@@ -6,21 +6,21 @@ export declare class WorkOrdersApi {
      * @method GET 获取工单
      *
      */
-    workorders(): import("@jsmodules/core/src").HttpRequestBuilder;
+    workorders(): any;
     /**
      * 获取工单详情
      * @method GET 获取工单详情
      *
      * @params id 工单Id
      */
-    workordersById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    workordersById(id: any): any;
     /**
      * 获取工单评论
      * @method GET 获取工单评论
      *
      * @params id 工单Id
      */
-    comments(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    comments(id: any): any;
 }
 export default WorkOrdersApi;
 //# sourceMappingURL=workorders.d.ts.map

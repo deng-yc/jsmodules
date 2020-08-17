@@ -6,45 +6,45 @@ export declare class MatesApi {
      * @method GET 获取Mate
      *
      */
-    mates(): import("@jsmodules/core/src").HttpRequestBuilder;
+    mates(): any;
     /**
      * 获取Mate详情
      * @method GET 获取Mate详情
      *
      * @params id MateId
      */
-    matesById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    matesById(id: any): any;
     /**
      * 获取当前Mate对象
      * @method GET 获取当前Mate对象
      *
      */
-    me(): import("@jsmodules/core/src").HttpRequestBuilder;
+    me(): any;
     /**
      * 更新Mate信息
      * @method PUT 更新Mate信息
      *
      */
-    info(): import("@jsmodules/core/src").HttpRequestBuilder;
+    info(): any;
     /**
      * 更新Mate触达状态
      * @method PUT 更新Mate触达状态
      *
      */
-    reachableStatus(): import("@jsmodules/core/src").HttpRequestBuilder;
+    reachableStatus(): any;
     /**
      * 更新Mate销售信息
      * @method PUT 更新Mate销售信息
      *
      */
-    voiceProduct(): import("@jsmodules/core/src").HttpRequestBuilder;
+    voiceProduct(): any;
     /**
      * 获取Mate评论
      * @method GET 获取Mate评论
      *
      * @params id MateId
      */
-    comments(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    comments(id: any): any;
     /**
      * 取消收藏Mate,收藏Mate
      * @method DELETE 取消收藏Mate
@@ -52,65 +52,65 @@ export declare class MatesApi {
      *
      * @params id MateId
      */
-    collect(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    collect(id: any): any;
     /**
      * 踩Mate
      * @method PUT 踩Mate
      *
      * @params id MateId
      */
-    dislike(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    dislike(id: any): any;
     /**
      * 不关心Mate
      * @method PUT 不关心Mate
      *
      * @params id MateId
      */
-    indifferent(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    indifferent(id: any): any;
     /**
      * 点赞Mate
      * @method PUT 点赞Mate
      *
      * @params id MateId
      */
-    like(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    like(id: any): any;
     /**
      * 获取Mate审核信息
      * @method GET 获取Mate审核信息
      *
      * @params id MateId
      */
-    reviews(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    reviews(id: any): any;
     /**
      * 获取当前Soul收藏的Mate
      * @method GET 获取当前Soul收藏的Mate
      *
      */
-    myCollect(): import("@jsmodules/core/src").HttpRequestBuilder;
+    myCollect(): any;
     /**
      * 获取当前Soul踩的Mate
      * @method GET 获取当前Soul踩的Mate
      *
      */
-    myDislike(): import("@jsmodules/core/src").HttpRequestBuilder;
+    myDislike(): any;
     /**
      * 获取当前Soul点赞的Mate
      * @method GET 获取当前Soul点赞的Mate
      *
      */
-    myLike(): import("@jsmodules/core/src").HttpRequestBuilder;
+    myLike(): any;
     /**
      * 获取最近Mate
      * @method GET 获取最近Mate
      *
      */
-    latest(): import("@jsmodules/core/src").HttpRequestBuilder;
+    latest(): any;
     /**
      * 获取最热Mate
      * @method GET 获取最热Mate
      *
      */
-    hot(): import("@jsmodules/core/src").HttpRequestBuilder;
+    hot(): any;
 }
 export default MatesApi;
 //# sourceMappingURL=mates.d.ts.map

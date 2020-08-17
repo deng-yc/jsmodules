@@ -5,7 +5,7 @@ export declare class CouponsApi {
      * @method GET 获取优惠劵列表
      *
      */
-    coupons(): import("@jsmodules/core/src").HttpRequestBuilder;
+    coupons(): any;
 }
 export default CouponsApi;
 //# sourceMappingURL=coupons.d.ts.map
