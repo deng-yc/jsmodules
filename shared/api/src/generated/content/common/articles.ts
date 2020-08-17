@@ -116,7 +116,7 @@ export class ArticlesApi {
      *
      * @params id 文章Id
      */
-    callback(id) {
+    sharesCallback(id) {
         return this.http
             .url(`/articles/${id}/shares/callback`)
             .support('POST');
@@ -139,7 +139,7 @@ export class ArticlesApi {
      * @method GET 获取当前Soul收藏的文章
      *
      */
-    collect() {
+    myCollect() {
         return this.http
             .url(`/articles/collect`)
             .addSecurityHeaders()
@@ -151,7 +151,7 @@ export class ArticlesApi {
      * @method GET 获取当前Soul踩的文章
      *
      */
-    dislike() {
+    myDislike() {
         return this.http
             .url(`/articles/dislike`)
             .addSecurityHeaders()
@@ -163,7 +163,7 @@ export class ArticlesApi {
      * @method GET 获取当前Soul点赞的文章
      *
      */
-    like() {
+    myLike() {
         return this.http
             .url(`/articles/like`)
             .addSecurityHeaders()

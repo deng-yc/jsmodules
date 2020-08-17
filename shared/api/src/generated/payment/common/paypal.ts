@@ -13,7 +13,7 @@ export class PayPalApi {
      * @method POST Paypal Payment操作通知
      *
      */
-    callback() {
+    paypalPaymengCallback() {
         return this.http
             .url(`/paypal/payment/callback`)
             .support('POST');
@@ -24,7 +24,7 @@ export class PayPalApi {
      * @method POST Paypal Payout操作通知
      *
      */
-    callback() {
+    paypalPayoutCallback() {
         return this.http
             .url(`/paypal/payout/callback`)
             .support('POST');

@@ -38,6 +38,8 @@ codegen.apis(
                 ["/1/payments/{id}/complete/check"]: "completeCheck",
                 ["/1/wechatpay/app/callback"]: "wxCallback",
                 ["/1/wechatpay/miniprogram/callback"]: "wxMiniCallback",
+                ["/1/paypal/payment/callback"]: "paypalPaymengCallback",
+                ["/1/paypal/payout/callback"]: "paypalPayoutCallback",
             },
         },
         {
@@ -60,6 +62,11 @@ codegen.apis(
             prefix: "",
             diName: "content_api_v1",
             rules: {
+                ["/1/articles/{id}/shares/callback"]: "sharesCallback",
+                ["/1/articles/collect"]: "myCollect",
+                ["/1/articles/dislike"]: "myDislike",
+                ["/1/articles/like"]: "myLike",
+
                 ["/1/mates/{id}/shares/callback"]: "sharesCallback",
                 ["/1/mates/collect"]: "myCollect",
                 ["/1/mates/dislike"]: "myDislike",

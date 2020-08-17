@@ -17,7 +17,9 @@ export declare class TokenService {
     constructor(skey?: string);
     getter: TokenGetter;
     private current;
+    private getTokenObject;
     getAccessToken(): Promise<string>;
+    getSecurityHeaders(): Promise<string>;
     initAsync(): Promise<void>;
 }
 export {};

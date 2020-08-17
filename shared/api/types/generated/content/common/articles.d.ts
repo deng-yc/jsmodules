@@ -22,12 +22,34 @@ export declare class ArticlesApi {
      */
     comments(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
+     * 取消收藏文章,收藏文章
+     * @method DELETE 取消收藏文章
+     * @method PUT 收藏文章
+     *
+     * @params id 文章Id
+     */
+    collect(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    /**
+     * 踩文章
+     * @method PUT 踩文章
+     *
+     * @params id 文章Id
+     */
+    dislike(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    /**
      * 不关心文章
      * @method PUT 不关心文章
      *
      * @params id 文章Id
      */
     indifferent(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    /**
+     * 点赞文章
+     * @method PUT 点赞文章
+     *
+     * @params id 文章Id
+     */
+    like(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取文章审核信息
      * @method GET 获取文章审核信息
@@ -41,7 +63,7 @@ export declare class ArticlesApi {
      *
      * @params id 文章Id
      */
-    callback(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    sharesCallback(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 浏览文章
      * @method POST 浏览文章
@@ -49,6 +71,24 @@ export declare class ArticlesApi {
      * @params id 文章Id
      */
     views(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
+    /**
+     * 获取当前Soul收藏的文章
+     * @method GET 获取当前Soul收藏的文章
+     *
+     */
+    myCollect(): import("@jsmodules/core/src").HttpRequestBuilder;
+    /**
+     * 获取当前Soul踩的文章
+     * @method GET 获取当前Soul踩的文章
+     *
+     */
+    myDislike(): import("@jsmodules/core/src").HttpRequestBuilder;
+    /**
+     * 获取当前Soul点赞的文章
+     * @method GET 获取当前Soul点赞的文章
+     *
+     */
+    myLike(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取最近文章
      * @method GET 获取最近文章
