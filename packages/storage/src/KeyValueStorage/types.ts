@@ -17,21 +17,10 @@ export interface IKeyValueStorage {
      * @param key
      * @param value
      */
-    setAsync(key: string, value: string): Promise<any>;
-
-    /**
-     * 保存一个对象到数据库
-     * @param key
-     * @param value
-     */
-    setObjectAsync(key: string, value: any): Promise<any>;
+    setAsync(key: string, value: any): Promise<any>;
 
     batchSetObject(obj: any | any[]): Promise<any>;
-    /**
-     * 获取一个对象
-     * @param key
-     */
-    getObjectAsync(key: string): Promise<any>;
+
 
     /**
      * 设置一个对象的属性

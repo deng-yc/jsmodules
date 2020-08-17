@@ -1,7 +1,7 @@
 import { addRxPlugin } from 'rxdb';
 
 import di from '@jsmodules/di';
-import { KeyValue, RxDbConnection, RxDbKeyValueStorage } from '@jsmodules/storage';
+import { EncryptedKeyValue, KeyValue, RxDbConnection, RxDbKeyValueStorage } from '@jsmodules/storage';
 
 addRxPlugin(require("pouchdb-adapter-indexeddb"));
 // addRxPlugin(require("pouchdb-adapter-websql"));
@@ -13,7 +13,7 @@ RxDbConnection.addConfig("app", {
         ignoreDuplicate: true,
         adapter: "indexeddb",
     },
-    collections: [KeyValue],
+    collections: [KeyValue, EncryptedKeyValue],
 });
 
 di.Register("kvStorage", "Request").class(RxDbKeyValueStorage);

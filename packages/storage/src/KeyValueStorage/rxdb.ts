@@ -1,40 +1,38 @@
 import isArray from 'lodash/isArray';
 
-import { KeyValue } from '../collections/KeyValue';
+import { EncryptedKeyValue, KeyValue } from '../collections/KeyValue';
 import { RxDbConnection } from '../rxdb/connection';
 import { IKeyValueStorage } from './types';
 
 export class RxDbKeyValueStorage implements IKeyValueStorage {
-    constructor(private __STORE_NAME__, private dbName = "app") {}
+    constructor(private __STORE_NAME__, private encrypted = false, private dbName = "app") {
+        debugger;
+    }
 
     private async getCollection() {
         const db = await RxDbConnection.get(this.dbName);
+        if (this.encrypted) {
+            return db.collections[EncryptedKeyValue.name];
+        }
         return db.collections[KeyValue.name];
     }
 
     async keys() {
-        const len = localStorage.length;
-        const keys = [];
-        for (let i = 0; i < len; i++) {
-            const key = localStorage.key(i);
-            const [name, _key] = key.split("/");
-            if (name == this.__STORE_NAME__) {
-                keys.push(_key);
-            }
-        }
-        return keys;
+        const collection = await this.getCollection();
+        const docs = await collection.find().where("group").equals(this.__STORE_NAME__).exec();
+        return docs.map((doc) => doc.key);
     }
 
     async getAsync(key: string, defaultValue = null) {
         if (/\//.test(key)) {
             throw new Error("key不能包含'/'");
         }
-        const _key = `${this.__STORE_NAME__}/${key}`;
+        const id = `${this.__STORE_NAME__}/${key}`;
         const collection = await this.getCollection();
-        const res = await collection.findByIds([_key]);
+        const res = await collection.findByIds([id]);
         let result = defaultValue;
-        if (res.has(_key)) {
-            result = res.get(_key).toJSON().value._;
+        if (res.has(id)) {
+            result = res.get(id).toJSON().value._;
         }
         return result;
     }
@@ -43,10 +41,12 @@ export class RxDbKeyValueStorage implements IKeyValueStorage {
         if (/\//.test(key)) {
             throw new Error("key不能包含'/'");
         }
-        const _key = `${this.__STORE_NAME__}/${key}`;
+        const id = `${this.__STORE_NAME__}/${key}`;
         const collection = await this.getCollection();
         const res = await collection.atomicUpsert({
-            key: _key,
+            id: id,
+            key,
+            group: this.__STORE_NAME__,
             value: {
                 _: value,
             },
@@ -55,8 +55,11 @@ export class RxDbKeyValueStorage implements IKeyValueStorage {
     }
 
     async batchSetObject(obj: any, keyProp?: any, valueProp?: any) {
-        const tasks: any[] = [];
+        const data = [];
         if (isArray(obj)) {
+            if (!keyProp) {
+                throw new Error("批量写入数据未数组时,必须提供keyProp");
+            }
             for (const item of obj) {
                 const key = item[keyProp];
                 if (!key || key == "") {
@@ -66,37 +69,53 @@ export class RxDbKeyValueStorage implements IKeyValueStorage {
                 if (valueProp) {
                     val = item[valueProp];
                 }
-                tasks.push(this.setObjectAsync(key, val));
+                const id = `${this.__STORE_NAME__}/${key}`;
+                data.push({ id: id, key, group: this.__STORE_NAME__, value: { _: val } });
             }
         } else {
             for (const key in obj) {
-                tasks.push(this.setObjectAsync(key, obj[key]));
+                const id = `${this.__STORE_NAME__}/${key}`;
+                const val = obj[key];
+                data.push({ id: id, key, group: this.__STORE_NAME__, value: { _: val } });
             }
         }
-        return Promise.all(tasks);
+        const collection = await this.getCollection();
+        return collection.bulkInsert(data);
     }
 
-    async setObjectAsync(key: string, value: any) {
-        await this.setAsync(key, value);
-        return value;
+    async removeAsync(key: string) {
+        await this.batchRemoveAsync([key]);
+    }
+    async batchRemoveAsync(keys: string[]) {
+        const collection = await this.getCollection();
+        const query = collection
+            .find()
+            .where("key")
+            .in(
+                keys.map((k) => {
+                    return `${this.__STORE_NAME__}/${k}`;
+                })
+            );
+        await query.remove();
     }
 
-    async getObjectAsync(key: string) {
-        const data = await this.getAsync(key, null);
-        return data;
+    async clearAsync() {
+        const collection = await this.getCollection();
+        const query = collection.find().where("group").equals(this.__STORE_NAME__);
+        await query.remove();
     }
 
     async setObjectPropertyAsync(key: string, propertyName: string, value: any) {
-        let obj = await this.getObjectAsync(key);
+        let obj = await this.getAsync(key);
         if (!obj) {
             obj = {};
         }
         obj[propertyName] = value;
-        return this.setObjectAsync(key, obj);
+        return this.setAsync(key, obj);
     }
 
     async getObjectPropertiesAsync(key: string, ...propertyNames: any[]) {
-        let obj = await this.getObjectAsync(key);
+        let obj = await this.getAsync(key);
         if (!obj) {
             obj = {};
         }
@@ -108,35 +127,10 @@ export class RxDbKeyValueStorage implements IKeyValueStorage {
     }
 
     async getObjectValueAsync(key: string, propertyName: string) {
-        const obj = await this.getObjectAsync(key);
+        const obj = await this.getAsync(key);
         if (obj) {
             return obj[propertyName];
         }
         return null;
-    }
-
-    async removeAsync(key: string) {
-        const _key = `${this.__STORE_NAME__}/${key}`;
-        localStorage.removeItem(_key);
-    }
-
-    batchRemoveAsync(keys) {
-        const tasks: any = [];
-        for (const key of keys) {
-            tasks.push(this.removeAsync(key));
-        }
-        return Promise.all(tasks);
-    }
-    async clearAsync() {
-        const keys: any[] = await this.keys();
-        const removeKeys: any[] = [];
-        for (const key of keys) {
-            const name = key.split("/")[0];
-            if (name == this.__STORE_NAME__) {
-                removeKeys.push(key);
-            }
-        }
-        this.batchRemoveAsync(removeKeys);
-        return keys;
     }
 }

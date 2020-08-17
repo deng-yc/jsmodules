@@ -8,10 +8,6 @@ type RxConnectionConfig = {
 };
 
 class RxDbDbConnectionImpl {
-    addConfig(dbName, setting: RxConnectionConfig) {
-        di.Register(`rxdb_${dbName}`).value(setting);
-    }
-
     private create_promises = new Map();
 
     private async createDatabase(setting) {
@@ -31,6 +27,10 @@ class RxDbDbConnectionImpl {
             })
         );
         return database;
+    }
+
+    addConfig(dbName, setting: RxConnectionConfig) {
+        di.Register(`rxdb_${dbName}`).value(setting);
     }
 
     get(name): Promise<RxDatabase> {

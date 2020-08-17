@@ -15,10 +15,13 @@ import * as serviceWorker from './serviceWorker';
 const getInitialState = () => {
     return Application.use(async (state) => {
         try {
-            const kvStore = kvManager.get("global", "app");
-            const a = await kvStore.getObjectAsync("a");
+            const kvStore = kvManager.get("global", { encrypted: true });
+
+            const keys = await kvStore.keys();
+            console.log(keys);
+            const a = await kvStore.getAsync("a");
             if (!a) {
-                kvStore.setObjectAsync("a", { a: 1, b: 2 });
+                kvStore.setAsync("a", { a: 1, b: 2 });
             }
         } catch (ex) {
             console.warn(ex);

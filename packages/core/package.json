@@ -12,6 +12,9 @@
         "prepublishOnly": "yarn run build",
         "test": "yarn run build"
     },
+    "dependencies": {
+        "@jsmodules/di": "2.0.1-alpha.0"
+    },
     "peerDependencies": {
         "tslib": "^2.0.1"
     },

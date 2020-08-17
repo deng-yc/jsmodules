@@ -4,9 +4,9 @@ declare type RxConnectionConfig = {
     collections: RxCollectionCreator[];
 };
 declare class RxDbDbConnectionImpl {
-    addConfig(dbName: any, setting: RxConnectionConfig): void;
     private create_promises;
     private createDatabase;
+    addConfig(dbName: any, setting: RxConnectionConfig): void;
     get(name: any): Promise<RxDatabase>;
 }
 export declare const RxDbConnection: RxDbDbConnectionImpl;

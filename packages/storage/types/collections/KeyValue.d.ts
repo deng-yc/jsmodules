@@ -1,3 +1,4 @@
+import { RxCollectionCreator } from 'rxdb';
 export declare const KeyValue: {
     name: string;
     schema: {
@@ -6,9 +7,15 @@ export declare const KeyValue: {
         version: number;
         type: string;
         properties: {
-            key: {
+            id: {
                 type: string;
                 primary: boolean;
+            };
+            key: {
+                type: string;
+            };
+            group: {
+                type: string;
             };
             value: {
                 type: string;
@@ -16,3 +23,4 @@ export declare const KeyValue: {
         };
     };
 };
+export declare const EncryptedKeyValue: RxCollectionCreator;
