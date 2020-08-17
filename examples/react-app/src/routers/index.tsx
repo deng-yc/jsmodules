@@ -17,7 +17,7 @@ export function AppRoutes() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if (!access.isLogined) {
+    if (!access.isAuthenticated) {
         return <a onClick={handleLogin}>登录</a>;
     }
 

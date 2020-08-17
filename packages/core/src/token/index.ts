@@ -29,18 +29,25 @@ class TokenGetter {
     }
 }
 
+const Getter = new TokenGetter();
+
 @di.injectable("TokenService")
 export class TokenService {
+    static get Getter() {
+        return Getter;
+    }
+
     @kvStore("tk_2sxrcl9dh", { encrypted: true }) private tokenStore: IKeyValueStorage;
 
     constructor(private skey = "at_i6lkasaa0") {}
 
-    getter = new TokenGetter();
-
     private current: TokenObject;
 
     private async getTokenObject() {
-        this.current = await this.getter.apply(this.current);
+        if (!this.current) {
+            this.current = await this.tokenStore.getAsync(this.skey);
+        }
+        this.current = await Getter.apply(this.current);
         return this.current;
     }
 
@@ -54,18 +61,5 @@ export class TokenService {
             return `${obj.token_type} ${obj.access_token}`;
         }
         return null;
-    }
-
-    async initAsync() {
-        const token = await this.tokenStore.getAsync(this.skey);
-        if (!token) {
-            this.tokenStore.setAsync(this.skey, {
-                client_id: "app1",
-                token_type: "Basic",
-                access_token: "123123123123",
-                refresh_token: "123123123",
-                expires: 7200,
-            });
-        }
     }
 }

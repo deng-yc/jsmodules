@@ -13,14 +13,13 @@ declare class TokenGetter {
 }
 export declare class TokenService {
     private skey;
+    static get Getter(): TokenGetter;
     private tokenStore;
     constructor(skey?: string);
-    getter: TokenGetter;
     private current;
     private getTokenObject;
     getAccessToken(): Promise<string>;
     getSecurityHeaders(): Promise<string>;
-    initAsync(): Promise<void>;
 }
 export {};
 //# sourceMappingURL=index.d.ts.map

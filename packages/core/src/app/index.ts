@@ -1,9 +1,7 @@
-
-
 function createApp() {
     const setups = [];
     return {
-        use(callback: (state) => { [key: string]: any }) {
+        use(callback: (state) => { [key: string]: any }): ReturnType<typeof Application> {
             setups.push(callback);
             return Application;
         },

@@ -1,7 +1,2 @@
-export declare const Application: {
-    use(callback: (state: any) => {
-        [key: string]: any;
-    }): any;
-    initAsync(): Promise<{}>;
-};
+export declare const Application: any;
 //# sourceMappingURL=index.d.ts.map

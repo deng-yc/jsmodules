@@ -1,6 +1,6 @@
 export function accessFactory(initialState: any) {
     return {
-        isLogined: initialState.logined || false,
+        isAuthenticated: initialState.isAuthenticated || false,
     };
 }
 
