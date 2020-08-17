@@ -9,4 +9,3 @@ export declare function useInitialState(): {
     initialState: any;
     setInitialState: (initialState: any) => void;
 };
-//# sourceMappingURL=useInitialState.d.ts.map

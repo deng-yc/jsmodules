@@ -7,4 +7,3 @@ export default class Container {
     get<T>(name: any): Binding<T> | null;
     resolve<T>(name: any, ...args: any[]): T | null;
 }
-//# sourceMappingURL=container.d.ts.map

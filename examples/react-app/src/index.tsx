@@ -1,4 +1,5 @@
 import './index.css';
+import './di/';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,15 +7,26 @@ import ReactDOM from 'react-dom';
 import App from '@/App';
 import { Application } from '@jsmodules/core';
 import { AccessProvider, AppProvider } from '@jsmodules/react';
+import { kvManager } from '@jsmodules/storage';
 
 import { accessFactory } from './access';
 import * as serviceWorker from './serviceWorker';
 
 const getInitialState = () => {
     return Application.use(async (state) => {
+        try {
+            const kvStore = kvManager.get("global", "app");
+
+            const a = await kvStore.getObjectAsync("a");
+            debugger;
+            kvStore.setAsync("a", "123123");
+        } catch (ex) {
+            console.warn(ex);
+        }
         console.log("use user");
         return {
             user: 1,
+            logined: true,
         };
     })
         .use((state: any) => {

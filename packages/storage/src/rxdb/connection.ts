@@ -1,18 +1,37 @@
-import { createRxDatabase, RxDatabase, RxDatabaseCreator } from 'rxdb';
+import { createRxDatabase, RxDatabase } from 'rxdb';
 
 import di from '@jsmodules/di';
 
 class RxConnectionImpl {
     private create_promises = new Map();
 
+    private async createDatabase(setting) {
+        const { config, collections } = setting;
+        const database = await createRxDatabase(config);
+        console.log("DatabaseService: created database");
+        // show leadership in title
+        database.waitForLeadership().then(() => {
+            console.log("isLeader now");
+        });
+        // create collections
+        console.log("DatabaseService: create collections");
+        await Promise.all(
+            collections.map((colData) => {
+                console.log("create collection", colData.name);
+                return database.collection(colData);
+            })
+        );
+        return database;
+    }
+
     get(name): Promise<RxDatabase> {
         const key = `rxdb_${name}`;
         if (!this.create_promises.has(key)) {
-            const config = di.tryResolve<RxDatabaseCreator>(key);
-            if (!config) {
+            const setting = di.tryResolve(key);
+            if (!setting) {
                 throw new Error(`RxDB: 未找到数据库连接配置,${key}`);
             }
-            this.create_promises.set(key, createRxDatabase(config));
+            this.create_promises.set(key, this.createDatabase(setting));
         }
         return this.create_promises.get(key);
     }

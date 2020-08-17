@@ -5,4 +5,3 @@ interface IAppProviderProps {
 }
 export declare function AppProvider(props: IAppProviderProps): JSX.Element;
 export {};
-//# sourceMappingURL=Provider.d.ts.map

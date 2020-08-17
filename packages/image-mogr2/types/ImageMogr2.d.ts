@@ -38,4 +38,3 @@ export declare class ImageMogr2 {
     static src(url: any, host: any): ImageMogr2;
 }
 export default ImageMogr2;
-//# sourceMappingURL=ImageMogr2.d.ts.map

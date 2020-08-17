@@ -24,4 +24,3 @@ export declare const di: {
     Register: typeof Register;
 };
 export default di;
-//# sourceMappingURL=index.d.ts.map

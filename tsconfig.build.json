@@ -8,9 +8,8 @@
         "downlevelIteration": true,
         "experimentalDecorators": true,
         "esModuleInterop": true,
-        "declarationMap": true,
-        "declaration": true,
-        "declarationDir": "./types"
+        "declarationMap": false,
+        "declaration": true
     },
 
     "exclude": ["node_modules", "dist"]

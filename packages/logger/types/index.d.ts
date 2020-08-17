@@ -28,4 +28,3 @@ export declare const Logger: {
     tag(tagName: any): ILoggerAdapter;
 };
 export {};
-//# sourceMappingURL=index.d.ts.map

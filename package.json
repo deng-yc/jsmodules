@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@types/react-router": "^5.1.8",
+        "lodash": "^4.17.20",
         "tslib": "^2.0.1"
     },
     "devDependencies": {
