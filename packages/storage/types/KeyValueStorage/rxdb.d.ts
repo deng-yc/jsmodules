@@ -19,3 +19,4 @@ export declare class RxDbKeyValueStorage implements IKeyValueStorage {
     getObjectPropertiesAsync(key: string, ...propertyNames: any[]): Promise<{}>;
     getObjectValueAsync(key: string, propertyName: string): Promise<any>;
 }
+//# sourceMappingURL=rxdb.d.ts.map

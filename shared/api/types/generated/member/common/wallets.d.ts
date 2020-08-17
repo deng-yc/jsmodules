@@ -8,3 +8,4 @@ export declare class WalletsApi {
     me(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default WalletsApi;
+//# sourceMappingURL=wallets.d.ts.map

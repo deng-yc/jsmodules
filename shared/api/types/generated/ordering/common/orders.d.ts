@@ -29,3 +29,4 @@ export declare class OrdersApi {
     payment(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default OrdersApi;
+//# sourceMappingURL=orders.d.ts.map

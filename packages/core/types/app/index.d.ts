@@ -4,3 +4,4 @@ export declare const Application: {
     }): any;
     initAsync(): Promise<{}>;
 };
+//# sourceMappingURL=index.d.ts.map

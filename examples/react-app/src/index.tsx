@@ -5,7 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from '@/App';
-import { Application } from '@jsmodules/core';
+import { Application, TokenService } from '@jsmodules/core';
+import di from '@jsmodules/di';
 import { AccessProvider, AppProvider } from '@jsmodules/react';
 import { kvManager } from '@jsmodules/storage';
 
@@ -15,14 +16,8 @@ import * as serviceWorker from './serviceWorker';
 const getInitialState = () => {
     return Application.use(async (state) => {
         try {
-            const kvStore = kvManager.get("global", { encrypted: true });
-
-            const keys = await kvStore.keys();
-            console.log(keys);
-            const a = await kvStore.getAsync("a");
-            if (!a) {
-                kvStore.setAsync("a", { a: 1, b: 2 });
-            }
+            const tokenService = di.getInstance(TokenService);
+            await tokenService.initAsync();
         } catch (ex) {
             console.warn(ex);
         }

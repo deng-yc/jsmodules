@@ -48,3 +48,4 @@ export interface IKeyValueStorage {
 export interface IKeyValueStorageManager {
     get(STORE_NAME: any, dbName: any): IKeyValueStorage;
 }
+//# sourceMappingURL=types.d.ts.map

@@ -29,3 +29,4 @@ export declare class Binding<T> {
     resolve(...args: any[]): any;
 }
 export default Binding;
+//# sourceMappingURL=binding.d.ts.map

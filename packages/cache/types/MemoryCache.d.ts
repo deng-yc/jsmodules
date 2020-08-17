@@ -32,3 +32,4 @@ export declare const MemoryCache: {
     get<T_3>(key: any, fn?: () => T_3, options?: CacheOptions): T_3;
 };
 export default MemoryCache;
+//# sourceMappingURL=MemoryCache.d.ts.map

@@ -22,3 +22,4 @@ export declare class DiscountsApi {
     coupon(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default DiscountsApi;
+//# sourceMappingURL=discounts.d.ts.map

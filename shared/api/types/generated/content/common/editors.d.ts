@@ -27,3 +27,4 @@ export declare class EditorsApi {
     profile(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default EditorsApi;
+//# sourceMappingURL=editors.d.ts.map

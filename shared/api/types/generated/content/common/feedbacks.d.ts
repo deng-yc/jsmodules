@@ -14,3 +14,4 @@ export declare class FeedbacksApi {
     batch(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default FeedbacksApi;
+//# sourceMappingURL=feedbacks.d.ts.map

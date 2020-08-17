@@ -6,3 +6,4 @@ export declare const AppContext: React.Context<{
     refresh(): any;
     setInitialState(initialState: any): void;
 }>;
+//# sourceMappingURL=context.d.ts.map

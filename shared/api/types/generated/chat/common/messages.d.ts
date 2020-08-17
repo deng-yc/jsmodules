@@ -16,3 +16,4 @@ export declare class MessagesApi {
     messagesById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default MessagesApi;
+//# sourceMappingURL=messages.d.ts.map

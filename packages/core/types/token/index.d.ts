@@ -23,3 +23,4 @@ export declare class TokenService {
     initAsync(): Promise<void>;
 }
 export {};
+//# sourceMappingURL=index.d.ts.map

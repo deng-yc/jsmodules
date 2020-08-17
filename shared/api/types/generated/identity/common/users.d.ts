@@ -26,3 +26,4 @@ export declare class UsersApi {
     refer(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default UsersApi;
+//# sourceMappingURL=users.d.ts.map

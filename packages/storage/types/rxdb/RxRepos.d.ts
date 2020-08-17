@@ -17,3 +17,4 @@ export declare class RxRepos<T> {
     }>;
     remove(id: any): Promise<void>;
 }
+//# sourceMappingURL=RxRepos.d.ts.map

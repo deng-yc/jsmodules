@@ -8,3 +8,4 @@ export declare class DirtyWordsApi {
     dirtywords(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default DirtyWordsApi;
+//# sourceMappingURL=dirtywords.d.ts.map

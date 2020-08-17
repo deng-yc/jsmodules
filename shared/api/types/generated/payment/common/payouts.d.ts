@@ -9,3 +9,4 @@ export declare class PayoutsApi {
     payouts(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default PayoutsApi;
+//# sourceMappingURL=payouts.d.ts.map

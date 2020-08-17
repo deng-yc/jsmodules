@@ -24,3 +24,4 @@ export declare const KeyValue: {
     };
 };
 export declare const EncryptedKeyValue: RxCollectionCreator;
+//# sourceMappingURL=KeyValue.d.ts.map

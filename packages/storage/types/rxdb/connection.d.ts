@@ -11,3 +11,4 @@ declare class RxDbDbConnectionImpl {
 }
 export declare const RxDbConnection: RxDbDbConnectionImpl;
 export {};
+//# sourceMappingURL=connection.d.ts.map

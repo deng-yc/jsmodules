@@ -57,6 +57,15 @@ export class TokenService {
     }
 
     async initAsync() {
-        const token = this.tokenStore.getAsync(this.skey);
+        const token = await this.tokenStore.getAsync(this.skey);
+        if (!token) {
+            this.tokenStore.setAsync(this.skey, {
+                client_id: "app1",
+                token_type: "Basic",
+                access_token: "123123123123",
+                refresh_token: "123123123",
+                expires: 7200,
+            });
+        }
     }
 }

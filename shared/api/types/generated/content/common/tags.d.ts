@@ -8,3 +8,4 @@ export declare class TagsApi {
     tags(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default TagsApi;
+//# sourceMappingURL=tags.d.ts.map

@@ -14,3 +14,4 @@ export declare class ProductsApi {
     ntsIos(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default ProductsApi;
+//# sourceMappingURL=products.d.ts.map

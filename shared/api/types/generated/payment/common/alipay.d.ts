@@ -8,3 +8,4 @@ export declare class AlipayApi {
     callback(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default AlipayApi;
+//# sourceMappingURL=alipay.d.ts.map

@@ -6,3 +6,4 @@ export { useDidMount } from "./hooks/useDidMount";
 export { useDidUpdate } from "./hooks/useDidUpdate";
 export { useDidUnmount } from "./hooks/useDidUnmount";
 export { useIsMounted } from "./hooks/useIsMounted";
+//# sourceMappingURL=index.d.ts.map

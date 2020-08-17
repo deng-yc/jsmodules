@@ -8,3 +8,4 @@ export declare class NotificationsApi {
     notifications(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default NotificationsApi;
+//# sourceMappingURL=notifications.d.ts.map

@@ -26,3 +26,4 @@ export interface IHttpFactory {
     create(): IRequestBuilder;
     url(api: any): IRequestBuilder;
 }
+//# sourceMappingURL=interface.d.ts.map

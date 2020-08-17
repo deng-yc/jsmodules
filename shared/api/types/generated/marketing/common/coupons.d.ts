@@ -8,3 +8,4 @@ export declare class CouponsApi {
     coupons(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default CouponsApi;
+//# sourceMappingURL=coupons.d.ts.map

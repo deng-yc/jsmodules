@@ -65,3 +65,4 @@ export declare class CallsApi {
     payment(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default CallsApi;
+//# sourceMappingURL=calls.d.ts.map

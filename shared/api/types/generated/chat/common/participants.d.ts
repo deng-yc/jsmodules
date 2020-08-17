@@ -15,3 +15,4 @@ export declare class ParticipantsApi {
     onTop(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default ParticipantsApi;
+//# sourceMappingURL=participants.d.ts.map

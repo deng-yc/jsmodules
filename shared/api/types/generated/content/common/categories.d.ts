@@ -22,3 +22,4 @@ export declare class CategoriesApi {
     itemsByName(name: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default CategoriesApi;
+//# sourceMappingURL=categories.d.ts.map

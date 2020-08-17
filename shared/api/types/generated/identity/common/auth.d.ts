@@ -15,3 +15,4 @@ export declare class AuthApi {
     externalLogin(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default AuthApi;
+//# sourceMappingURL=auth.d.ts.map

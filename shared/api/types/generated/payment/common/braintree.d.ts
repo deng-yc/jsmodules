@@ -8,3 +8,4 @@ export declare class BraintreeApi {
     clientToken(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default BraintreeApi;
+//# sourceMappingURL=braintree.d.ts.map

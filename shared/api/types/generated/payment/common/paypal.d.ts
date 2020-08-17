@@ -14,3 +14,4 @@ export declare class PayPalApi {
     paypalPayoutCallback(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default PayPalApi;
+//# sourceMappingURL=paypal.d.ts.map

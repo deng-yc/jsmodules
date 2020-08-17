@@ -22,3 +22,4 @@ export declare class PaymentsApi {
     completeCheck(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default PaymentsApi;
+//# sourceMappingURL=payments.d.ts.map

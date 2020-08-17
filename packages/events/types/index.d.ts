@@ -25,3 +25,4 @@ export declare const events: {
     emitter(): EventEmitter;
 };
 export default events;
+//# sourceMappingURL=index.d.ts.map

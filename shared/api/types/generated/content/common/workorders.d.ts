@@ -23,3 +23,4 @@ export declare class WorkOrdersApi {
     comments(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default WorkOrdersApi;
+//# sourceMappingURL=workorders.d.ts.map

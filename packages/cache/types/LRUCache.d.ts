@@ -20,3 +20,4 @@ declare class LRUCacheImpl {
 }
 export declare const LRUCache: LRUCacheImpl;
 export {};
+//# sourceMappingURL=LRUCache.d.ts.map

@@ -103,3 +103,4 @@ export declare class ArticlesApi {
     hot(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default ArticlesApi;
+//# sourceMappingURL=articles.d.ts.map

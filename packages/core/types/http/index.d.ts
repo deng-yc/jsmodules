@@ -40,3 +40,4 @@ export declare class HttpFactory {
     url(api: any): HttpRequestBuilder;
 }
 export default HttpFactory;
+//# sourceMappingURL=index.d.ts.map

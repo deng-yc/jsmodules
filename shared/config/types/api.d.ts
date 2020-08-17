@@ -11,3 +11,4 @@ export declare const apiHosts: {
     payment_api_v1: string;
     member_api_v1: string;
 };
+//# sourceMappingURL=api.d.ts.map

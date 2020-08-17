@@ -29,3 +29,4 @@ export declare class ConversationsApi {
     privateByChatUserId(chat_user_id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default ConversationsApi;
+//# sourceMappingURL=conversations.d.ts.map

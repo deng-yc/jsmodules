@@ -8,3 +8,4 @@ export declare class RongCloudApi {
     token(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default RongCloudApi;
+//# sourceMappingURL=rongcloud.d.ts.map

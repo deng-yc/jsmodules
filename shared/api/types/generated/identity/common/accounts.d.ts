@@ -49,3 +49,4 @@ export declare class AccountsApi {
     verifyCode(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default AccountsApi;
+//# sourceMappingURL=accounts.d.ts.map

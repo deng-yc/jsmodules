@@ -56,3 +56,4 @@ export declare class CommentsApi {
     reviews(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default CommentsApi;
+//# sourceMappingURL=comments.d.ts.map

@@ -5,3 +5,4 @@ interface IAccessProviderProps {
 }
 export declare function AccessProvider(props: IAccessProviderProps): JSX.Element;
 export {};
+//# sourceMappingURL=Provider.d.ts.map

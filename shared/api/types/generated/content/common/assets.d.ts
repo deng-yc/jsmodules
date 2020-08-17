@@ -17,3 +17,4 @@ export declare class AssetsApi {
     assetsById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default AssetsApi;
+//# sourceMappingURL=assets.d.ts.map

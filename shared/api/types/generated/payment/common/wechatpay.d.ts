@@ -14,3 +14,4 @@ export declare class WeChatPayApi {
     wxMiniCallback(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default WeChatPayApi;
+//# sourceMappingURL=wechatpay.d.ts.map

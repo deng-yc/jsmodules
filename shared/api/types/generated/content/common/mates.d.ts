@@ -113,3 +113,4 @@ export declare class MatesApi {
     hot(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default MatesApi;
+//# sourceMappingURL=mates.d.ts.map

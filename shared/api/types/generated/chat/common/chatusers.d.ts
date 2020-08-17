@@ -41,3 +41,4 @@ export declare class ChatUsersApi {
     blocked(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default ChatUsersApi;
+//# sourceMappingURL=chatusers.d.ts.map

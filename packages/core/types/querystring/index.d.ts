@@ -7,3 +7,4 @@ export declare const qs: {
     format: typeof format;
 };
 export default qs;
+//# sourceMappingURL=index.d.ts.map

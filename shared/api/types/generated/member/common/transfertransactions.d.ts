@@ -8,3 +8,4 @@ export declare class TransferTransactionsApi {
     transactions(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default TransferTransactionsApi;
+//# sourceMappingURL=transfertransactions.d.ts.map

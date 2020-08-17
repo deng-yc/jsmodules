@@ -41,3 +41,4 @@ export declare class SoulsApi {
     summary(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default SoulsApi;
+//# sourceMappingURL=souls.d.ts.map
