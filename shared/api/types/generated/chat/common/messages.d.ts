@@ -6,13 +6,13 @@ export declare class MessagesApi {
      * @method GET 获取对话消息
      *
      */
-    messages(): any;
+    messages(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取消息详情
      * @method GET 获取消息详情
      *
      * @params id 消息Id
      */
-    messagesById(id: any): any;
+    messagesById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default MessagesApi;

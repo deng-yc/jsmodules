@@ -6,26 +6,26 @@ export declare class OrdersApi {
      * @method POST 创建订单
      *
      */
-    orders(): any;
+    orders(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 计算订单
      * @method POST 计算订单
      *
      */
-    calculate(): any;
+    calculate(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取订单详情
      * @method GET 获取订单详情
      *
      * @params id 订单Id
      */
-    ordersById(id: any): any;
+    ordersById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取账单详情
      * @method GET 获取账单详情
      *
      * @params id 订单id
      */
-    payment(id: any): any;
+    payment(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default OrdersApi;

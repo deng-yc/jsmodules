@@ -5,12 +5,12 @@ export declare class ProductsApi {
      * @method GET 获取android端nts产品
      *
      */
-    ntsAndroid(): any;
+    ntsAndroid(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取ios端nts产品
      * @method GET 获取ios端nts产品
      *
      */
-    ntsIos(): any;
+    ntsIos(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default ProductsApi;

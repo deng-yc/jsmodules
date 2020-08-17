@@ -5,6 +5,6 @@ export declare class TransferTransactionsApi {
      * @method GET 获取转账记录
      *
      */
-    transactions(): any;
+    transactions(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default TransferTransactionsApi;

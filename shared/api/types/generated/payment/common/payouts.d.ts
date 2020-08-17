@@ -6,6 +6,6 @@ export declare class PayoutsApi {
      * @method GET 获取支付列表
      *
      */
-    payouts(): any;
+    payouts(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default PayoutsApi;

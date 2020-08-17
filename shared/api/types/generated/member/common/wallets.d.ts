@@ -5,6 +5,6 @@ export declare class WalletsApi {
      * @method GET 获取当前钱包对象
      *
      */
-    me(): any;
+    me(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default WalletsApi;

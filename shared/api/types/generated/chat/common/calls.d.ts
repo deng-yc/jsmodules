@@ -6,62 +6,62 @@ export declare class CallsApi {
      * @method GET 获取通话记录列表
      *
      */
-    calls(): any;
+    calls(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取通话记录
      * @method GET 获取通话记录
      *
      * @params id 通话Id
      */
-    callsById(id: any): any;
+    callsById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取通话记录
      * @method GET 获取通话记录
      *
      * @params identity 通话Identity
      */
-    identitiesByIdentity(identity: any): any;
+    identitiesByIdentity(identity: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 挂断通话
      * @method POST 挂断通话
      *
      * @params id 通话Id
      */
-    hangUp(id: any): any;
+    hangUp(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 通话超时
      * @method POST 通话超时
      *
      * @params id 通话Id
      */
-    timeout(id: any): any;
+    timeout(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 开始通话
      * @method POST 开始通话
      *
      * @params id 通话Id
      */
-    start(id: any): any;
+    start(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 更新通话持续时间
      * @method PUT 更新通话持续时间
      *
      * @params id 通话Id
      */
-    durationTime(id: any): any;
+    durationTime(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 通话结束
      * @method POST 通话结束
      *
      * @params id 通话Id
      */
-    end(id: any): any;
+    end(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 通话支付流程
      * @method POST 通话支付流程
      *
      * @params id 通话Id
      */
-    payment(id: any): any;
+    payment(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default CallsApi;

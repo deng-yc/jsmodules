@@ -6,20 +6,20 @@ export declare class WorkOrdersApi {
      * @method GET 获取工单
      *
      */
-    workorders(): any;
+    workorders(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取工单详情
      * @method GET 获取工单详情
      *
      * @params id 工单Id
      */
-    workordersById(id: any): any;
+    workordersById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取工单评论
      * @method GET 获取工单评论
      *
      * @params id 工单Id
      */
-    comments(id: any): any;
+    comments(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default WorkOrdersApi;

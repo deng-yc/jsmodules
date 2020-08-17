@@ -5,24 +5,24 @@ export declare class UsersApi {
      * @method GET Get user info
      *
      */
-    me(): any;
+    me(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * Update user device info
      * @method PUT Update user device info
      *
      */
-    deviceinfo(): any;
+    deviceinfo(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * Update user profile
      * @method PUT Update user profile
      *
      */
-    profile(): any;
+    profile(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * Update user refer info
      * @method PUT Update user refer info
      *
      */
-    refer(): any;
+    refer(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default UsersApi;

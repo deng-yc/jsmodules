@@ -5,6 +5,6 @@ export declare class CouponsApi {
      * @method GET 获取优惠劵列表
      *
      */
-    coupons(): any;
+    coupons(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default CouponsApi;

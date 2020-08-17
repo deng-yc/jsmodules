@@ -5,20 +5,20 @@ export declare class DiscountsApi {
      * @method GET 获取折扣列表
      *
      */
-    discounts(): any;
+    discounts(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取折扣详情
      * @method GET 获取折扣详情
      *
      * @params id 折扣Id
      */
-    discountsById(id: any): any;
+    discountsById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 领取优惠卷
      * @method GET 领取优惠卷
      *
      * @params id 折扣Id
      */
-    coupon(id: any): any;
+    coupon(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default DiscountsApi;

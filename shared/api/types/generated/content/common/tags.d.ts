@@ -5,6 +5,6 @@ export declare class TagsApi {
      * @method GET 获取标签
      *
      */
-    tags(): any;
+    tags(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default TagsApi;

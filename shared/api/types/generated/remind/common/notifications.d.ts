@@ -5,6 +5,6 @@ export declare class NotificationsApi {
      * @method GET 获取用户通知列表
      *
      */
-    notifications(): any;
+    notifications(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default NotificationsApi;

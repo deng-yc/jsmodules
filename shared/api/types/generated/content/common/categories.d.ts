@@ -5,20 +5,20 @@ export declare class CategoriesApi {
      * @method GET 获取分类
      *
      */
-    categories(): any;
+    categories(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取分类项
      * @method GET 获取分类项
      *
      * @params id 分类Id
      */
-    itemsById(id: any): any;
+    itemsById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取分类项
      * @method GET 获取分类项
      *
      * @params name 分类名称
      */
-    itemsByName(name: any): any;
+    itemsByName(name: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default CategoriesApi;

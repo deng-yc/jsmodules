@@ -5,6 +5,6 @@ export declare class AlipayApi {
      * @method POST 支付宝App下单结果通知
      *
      */
-    callback(): any;
+    callback(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default AlipayApi;

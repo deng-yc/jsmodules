@@ -5,20 +5,20 @@ export declare class PaymentsApi {
      * @method GET 获取账单列表
      *
      */
-    payments(): any;
+    payments(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 通过支付网关开始流程
      * @method POST 通过支付网关开始流程
      *
      * @params id 账单Id
      */
-    trades(id: any): any;
+    trades(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 尝试确认账单完成
      * @method POST 尝试确认账单完成
      *
      * @params id 账单Id
      */
-    completeCheck(id: any): any;
+    completeCheck(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default PaymentsApi;

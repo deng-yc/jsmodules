@@ -7,37 +7,37 @@ export declare class SoulsApi {
      *
      * @params nickname 昵称
      */
-    nicknamesByNickname(nickname: any): any;
+    nicknamesByNickname(nickname: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取当前Soul对象
      * @method GET 获取当前Soul对象
      *
      */
-    me(): any;
+    me(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 更新个人昵称
      * @method PUT 更新个人昵称
      *
      */
-    nickname(): any;
+    nickname(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 更新个人信息
      * @method PUT 更新个人信息
      *
      */
-    profile(): any;
+    profile(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取Soul评论
      * @method GET 获取Soul评论
      *
      * @params id SoulId
      */
-    comments(id: any): any;
+    comments(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取Soul摘要信息
      * @method GET 获取Soul摘要信息
      *
      */
-    summary(): any;
+    summary(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default SoulsApi;

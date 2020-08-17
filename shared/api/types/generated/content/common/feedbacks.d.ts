@@ -5,12 +5,12 @@ export declare class FeedbacksApi {
      * @method POST 创建反馈
      *
      */
-    feedbacks(): any;
+    feedbacks(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 创建批量反馈
      * @method POST 创建批量反馈
      *
      */
-    batch(): any;
+    batch(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default FeedbacksApi;

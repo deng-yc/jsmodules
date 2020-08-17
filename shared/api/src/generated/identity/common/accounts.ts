@@ -1,13 +1,12 @@
 /* eslint-disable */
-import { HttpFactory } from '@jsmodules/core';
 /* 此代码由工具自动生成,不要直接修改,以免下次生成会丢失 */
 import di from '@jsmodules/di';
-
+import {HttpFactory} from '@jsmodules/core';
 import api from '../../../decorators';
 
-@di.injectable("AccountsApi")
+@di.injectable('AccountsApi')
 export class AccountsApi {
-    @api("identity_api_v1") private http: HttpFactory;
+    @api('identity_api_v1') private http: HttpFactory;
 
     /**
      * 通过外部登陆信息创建账号
@@ -15,7 +14,9 @@ export class AccountsApi {
      *
      */
     external() {
-        return this.http.url(`/accounts/external`).support("POST");
+        return this.http
+            .url(`/accounts/external`)
+            .support('POST');
     }
 
     /**
@@ -24,7 +25,9 @@ export class AccountsApi {
      *
      */
     accounts() {
-        return this.http.url(`/accounts`).support("POST");
+        return this.http
+            .url(`/accounts`)
+            .support('POST');
     }
 
     /**
@@ -35,7 +38,9 @@ export class AccountsApi {
      * @params areaNumber 无说明
      */
     checkPhoneNumber(countryCode, areaNumber) {
-        return this.http.url(`/accounts/phones/${countryCode}-${areaNumber}`).support("HEAD");
+        return this.http
+            .url(`/accounts/phones/${countryCode}-${areaNumber}`)
+            .support('HEAD');
     }
 
     /**
@@ -46,7 +51,10 @@ export class AccountsApi {
      *
      */
     externalLogins() {
-        return this.http.url(`/accounts/me/external-logins`).addSecurityHeaders().support("POST", "GET", "DELETE");
+        return this.http
+            .url(`/accounts/me/external-logins`)
+            .addSecurityHeaders()
+            .support('POST', 'GET', 'DELETE');
     }
 
     /**
@@ -56,7 +64,9 @@ export class AccountsApi {
      * @params id id
      */
     status(id) {
-        return this.http.url(`/accounts/${id}/status`).support("GET");
+        return this.http
+            .url(`/accounts/${id}/status`)
+            .support('GET');
     }
 
     /**
@@ -65,7 +75,10 @@ export class AccountsApi {
      *
      */
     verifyCodeToMe() {
-        return this.http.url(`/accounts/me/verify-code`).addSecurityHeaders().support("POST");
+        return this.http
+            .url(`/accounts/me/verify-code`)
+            .addSecurityHeaders()
+            .support('POST');
     }
 
     /**
@@ -74,7 +87,9 @@ export class AccountsApi {
      *
      */
     verifyCode() {
-        return this.http.url(`/accounts/verify-code`).support("POST");
+        return this.http
+            .url(`/accounts/verify-code`)
+            .support('POST');
     }
 }
 

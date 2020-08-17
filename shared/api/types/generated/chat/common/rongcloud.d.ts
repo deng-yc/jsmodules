@@ -5,6 +5,6 @@ export declare class RongCloudApi {
      * @method GET 获取当前聊天用户token
      *
      */
-    token(): any;
+    token(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default RongCloudApi;

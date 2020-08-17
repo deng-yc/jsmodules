@@ -131,6 +131,6 @@ exports.apis = async function apis(configs, options) {
     for (const file of imports) {
         var d = path.relative(rel, file).replace(/\\/g, "/").replace(/.ts$/, "");
 
-        fs.appendFileSync(exportFile, `import * from './${d}'\n`);
+        fs.appendFileSync(exportFile, `export * from './${d}'\n`);
     }
 };

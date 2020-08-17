@@ -6,12 +6,12 @@ export declare class AuthApi {
      * @method PUT 补充个性化信息到外部授权流程
      *
      */
-    external(): any;
+    external(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 外部登陆
      * @method POST 外部登陆
      *
      */
-    externalLogin(): any;
+    externalLogin(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default AuthApi;

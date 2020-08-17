@@ -5,6 +5,6 @@ export declare class BraintreeApi {
      * @method GET 生成client token
      *
      */
-    clientToken(): any;
+    clientToken(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default BraintreeApi;

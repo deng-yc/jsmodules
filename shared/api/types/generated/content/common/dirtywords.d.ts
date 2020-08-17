@@ -5,6 +5,6 @@ export declare class DirtyWordsApi {
      * @method GET 获取脏词
      *
      */
-    dirtywords(): any;
+    dirtywords(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default DirtyWordsApi;

@@ -5,20 +5,20 @@ export declare class ConversationsApi {
      * @method GET 获取最近会话列表
      *
      */
-    recent(): any;
+    recent(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取会话列表
      * @method GET 获取会话列表
      *
      */
-    conversations(): any;
+    conversations(): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取会话
      * @method GET 获取会话
      *
      * @params id 会话Id
      */
-    conversationsById(id: any): any;
+    conversationsById(id: any): import("@jsmodules/core/src").HttpRequestBuilder;
     /**
      * 获取私聊会话,私聊会话是否存在
      * @method GET 获取私聊会话
@@ -26,6 +26,6 @@ export declare class ConversationsApi {
      *
      * @params chat_user_id 聊天用户Id
      */
-    privateByChatUserId(chat_user_id: any): any;
+    privateByChatUserId(chat_user_id: any): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default ConversationsApi;

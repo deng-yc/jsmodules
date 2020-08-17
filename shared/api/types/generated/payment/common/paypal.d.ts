@@ -5,6 +5,6 @@ export declare class PayPalApi {
      * @method POST Paypal Payment操作通知
      *
      */
-    callback(): any;
+    callback(): import("@jsmodules/core/src").HttpRequestBuilder;
 }
 export default PayPalApi;
