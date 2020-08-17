@@ -1,8 +1,17 @@
-import { createRxDatabase, RxDatabase } from 'rxdb';
+import { createRxDatabase, RxCollectionCreator, RxDatabase, RxDatabaseCreator } from 'rxdb';
 
 import di from '@jsmodules/di';
 
-class RxConnectionImpl {
+type RxConnectionConfig = {
+    config: RxDatabaseCreator;
+    collections: RxCollectionCreator[];
+};
+
+class RxDbDbConnectionImpl {
+    addConfig(dbName, setting: RxConnectionConfig) {
+        di.Register(`rxdb_${dbName}`).value(setting);
+    }
+
     private create_promises = new Map();
 
     private async createDatabase(setting) {
@@ -37,4 +46,4 @@ class RxConnectionImpl {
     }
 }
 
-export const RxConnection = new RxConnectionImpl();
+export const RxDbConnection = new RxDbDbConnectionImpl();

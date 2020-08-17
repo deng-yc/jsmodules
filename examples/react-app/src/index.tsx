@@ -16,10 +16,10 @@ const getInitialState = () => {
     return Application.use(async (state) => {
         try {
             const kvStore = kvManager.get("global", "app");
-
             const a = await kvStore.getObjectAsync("a");
-            debugger;
-            kvStore.setAsync("a", "123123");
+            if (!a) {
+                kvStore.setObjectAsync("a", { a: 1, b: 2 });
+            }
         } catch (ex) {
             console.warn(ex);
         }

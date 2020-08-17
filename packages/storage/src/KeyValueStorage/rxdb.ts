@@ -1,14 +1,14 @@
 import isArray from 'lodash/isArray';
 
 import { KeyValue } from '../collections/KeyValue';
-import { RxConnection } from '../rxdb/connection';
+import { RxDbConnection } from '../rxdb/connection';
 import { IKeyValueStorage } from './types';
 
 export class RxDbKeyValueStorage implements IKeyValueStorage {
     constructor(private __STORE_NAME__, private dbName = "app") {}
 
     private async getCollection() {
-        const db = await RxConnection.get(this.dbName);
+        const db = await RxDbConnection.get(this.dbName);
         return db.collections[KeyValue.name];
     }
 

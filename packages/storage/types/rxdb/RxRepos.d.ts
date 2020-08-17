@@ -3,7 +3,7 @@ export declare class RxRepos<T> {
     private configName;
     private config;
     constructor(configName: any, config: any);
-    getDatabase(): Promise<import("rxdb").RxDatabase<import("rxdb").CollectionsOfDatabase>>;
+    getDatabase(): Promise<any>;
     private collection_pormise;
     private _getCollection;
     getCollection(): Promise<RxCollection>;

@@ -1,12 +1,12 @@
 import { RxCollection } from 'rxdb';
 
-import { RxConnection } from './connection';
+import { RxDbConnection } from './connection';
 
 export class RxRepos<T> {
     constructor(private configName, private config) {}
 
     async getDatabase() {
-        return await RxConnection.get(this.configName);
+        return await RxDbConnection.get(this.configName);
     }
 
     private collection_pormise;

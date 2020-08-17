@@ -1,16 +1,17 @@
 import { addRxPlugin } from 'rxdb';
 
 import di from '@jsmodules/di';
-import { KeyValue, RxDbKeyValueStorage } from '@jsmodules/storage';
+import { KeyValue, RxDbConnection, RxDbKeyValueStorage } from '@jsmodules/storage';
 
-addRxPlugin(require("pouchdb-adapter-idb"));
+addRxPlugin(require("pouchdb-adapter-indexeddb"));
+// addRxPlugin(require("pouchdb-adapter-websql"));
 
-di.Register("rxdb_app").value({
+RxDbConnection.addConfig("app", {
     config: {
         name: "app",
         password: "123qwe!@#",
         ignoreDuplicate: true,
-        adapter: "idb",
+        adapter: "indexeddb",
     },
     collections: [KeyValue],
 });
