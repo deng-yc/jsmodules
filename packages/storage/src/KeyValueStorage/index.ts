@@ -1,5 +1,6 @@
 import di from '@jsmodules/di';
 
+import { RxDbKeyValueStorage } from './rxdb';
 import { IKeyValueStorage, IKeyValueStorageManager } from './types';
 
 const cached = new Map();
@@ -13,8 +14,13 @@ export class KeyValueStorageManager implements IKeyValueStorageManager {
     get(storeName, options: KvStoreOptions = {}): IKeyValueStorage {
         const skey = `${storeName}${options.dbName || "app"}`;
         if (!cached.has(skey)) {
-            console.log(skey);
-            cached.set(skey, di.Resolve("kvStorage", storeName, options.encrypted, options.dbName));
+            const instance = di.getInstance(
+                RxDbKeyValueStorage,
+                [storeName, options.encrypted, options.dbName],
+                "Request"
+            );
+
+            cached.set(skey, instance);
         }
         return cached.get(skey);
     }

@@ -12,6 +12,7 @@ import { AccessProvider, AppProvider } from '@jsmodules/react';
 import { accessFactory } from './access';
 import * as serviceWorker from './serviceWorker';
 
+//处理token
 TokenService.Getter.use(async (token) => {
     return token;
 });
@@ -42,14 +43,18 @@ const getInitialState = () => {
     }).initAsync();
 };
 
-ReactDOM.render(
-    <AppProvider getInitialState={getInitialState}>
-        <AccessProvider accessFactory={accessFactory}>
-            <App />
-        </AccessProvider>
-    </AppProvider>,
-    document.getElementById("root")
-);
+const render = () => {
+    ReactDOM.render(
+        <AppProvider getInitialState={getInitialState}>
+            <AccessProvider accessFactory={accessFactory}>
+                <App />
+            </AccessProvider>
+        </AppProvider>,
+        document.getElementById("root")
+    );
+};
+
+render();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
