@@ -8,7 +8,7 @@ type RxConnectionConfig = {
 };
 
 class RxDbDbConnectionImpl {
-    private create_promises = new Map();
+    private create_promises = new Map<string, Promise<RxDatabase>>();
 
     private async createDatabase(name) {
         let setting =
@@ -44,12 +44,44 @@ class RxDbDbConnectionImpl {
         return this;
     }
 
-    get(name): Promise<RxDatabase> {
+    async get(name): Promise<RxDatabase> {
         const key = `rxdbconnection_${name}`;
         if (!this.create_promises.has(key)) {
             this.create_promises.set(key, this.createDatabase(name));
+        } else {
+            const db = await this.create_promises.get(key);
+            if (db.destroyed) {
+                this.create_promises.set(key, this.createDatabase(name));
+            } else {
+                return db;
+            }
         }
         return this.create_promises.get(key);
+    }
+
+    /**
+     * 销毁数据库实例
+     * @param name
+     */
+    async destroy(name) {
+        const key = `rxdbconnection_${name}`;
+        if (this.create_promises.has(key)) {
+            const db = await this.get(name);
+            await db.destroy();
+        }
+    }
+
+    /**
+     * 删除数据库
+     * @param name
+     */
+    async remove(name) {
+        const db = await this.get(name);
+        await db.remove();
+        const key = `rxdbconnection_${name}`;
+        if (this.create_promises.has(key)) {
+            this.create_promises.delete(key);
+        }
     }
 }
 

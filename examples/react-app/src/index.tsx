@@ -10,6 +10,7 @@ import App from '@/App';
 import { Application, SessionService } from '@jsmodules/core';
 import di from '@jsmodules/di';
 import { AccessProvider, AppProvider } from '@jsmodules/react';
+import { RxDbConnection } from '@jsmodules/storage';
 
 import { accessFactory } from './access';
 import * as serviceWorker from './serviceWorker';
