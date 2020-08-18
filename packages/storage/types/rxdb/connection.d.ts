@@ -6,7 +6,8 @@ declare type RxConnectionConfig = {
 declare class RxDbDbConnectionImpl {
     private create_promises;
     private createDatabase;
-    addConfig(dbName: any, setting: RxConnectionConfig): void;
+    addFactory(factory: (name: any) => RxConnectionConfig): this;
+    addConfig(dbName: any, setting: RxConnectionConfig): this;
     get(name: any): Promise<RxDatabase>;
 }
 export declare const RxDbConnection: RxDbDbConnectionImpl;

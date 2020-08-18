@@ -1,34 +1,18 @@
 import './index.css';
 import './di/';
+import './runtime';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from '@/App';
-import { Application, SessionService, TokenService } from '@jsmodules/core';
+import { Application, SessionService } from '@jsmodules/core';
 import di from '@jsmodules/di';
 import { AccessProvider, AppProvider } from '@jsmodules/react';
+import { kvManager } from '@jsmodules/storage';
 
 import { accessFactory } from './access';
 import * as serviceWorker from './serviceWorker';
-
-//处理token
-TokenService.Getter.use(async (token) => {
-    return token;
-});
-
-SessionService.UserGetter.use(async () => {
-    return { id: 1 };
-})
-    .use(async (user) => {
-        //getMateByUserId( user.id)
-        return { mate: 1 };
-    })
-    .use(async (user) => {
-        // {id:1,mate:1}
-        return { soul: 1 };
-    });
-//得到 {id:1,mate:1,soul:1}
 
 const getInitialState = () => {
     return Application.use(async () => {
@@ -40,7 +24,28 @@ const getInitialState = () => {
             isAuthenticated: sessionService.isAuthenticated,
             user: sessionService.user,
         };
-    }).initAsync();
+    })
+        .use(async () => {
+            const kv = kvManager.get("test", {
+                dbName: "100",
+            });
+            var a = await kv.getAsync("testa");
+            if (!a) {
+                kv.setAsync("testa", { a: 1, b: 2 });
+                console.log("seta");
+            }
+        })
+        .use(async () => {
+            const kv = kvManager.get("test", {
+                dbName: "200",
+            });
+            var a = await kv.getAsync("testa");
+            if (!a) {
+                kv.setAsync("testa", { a: 1, b: 2 });
+                console.log("setb");
+            }
+        })
+        .initAsync();
 };
 
 const render = () => {

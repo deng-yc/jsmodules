@@ -10,7 +10,12 @@ type RxConnectionConfig = {
 class RxDbDbConnectionImpl {
     private create_promises = new Map();
 
-    private async createDatabase(setting) {
+    private async createDatabase(name) {
+        let setting =
+            di.tryResolve<RxConnectionConfig>(`rxdbconnection_${name}`) || di.tryResolve(`rxdb_factory`, name);
+        if (!setting) {
+            throw new Error(`RxDB: 未找到数据库连接配置,${name}`);
+        }
         const { config, collections } = setting;
         const database = await createRxDatabase(config);
         console.log("DatabaseService: created database");
@@ -29,18 +34,20 @@ class RxDbDbConnectionImpl {
         return database;
     }
 
+    addFactory(factory: (name) => RxConnectionConfig) {
+        di.Register(`rxdb_factory`, "Request").factory(factory);
+        return this;
+    }
+
     addConfig(dbName, setting: RxConnectionConfig) {
-        di.Register(`rxdb_${dbName}`).value(setting);
+        di.Register(`rxdbconnection_${dbName}`).value(setting);
+        return this;
     }
 
     get(name): Promise<RxDatabase> {
-        const key = `rxdb_${name}`;
+        const key = `rxdbconnection_${name}`;
         if (!this.create_promises.has(key)) {
-            const setting = di.tryResolve(key);
-            if (!setting) {
-                throw new Error(`RxDB: 未找到数据库连接配置,${key}`);
-            }
-            this.create_promises.set(key, this.createDatabase(setting));
+            this.create_promises.set(key, this.createDatabase(name));
         }
         return this.create_promises.get(key);
     }
