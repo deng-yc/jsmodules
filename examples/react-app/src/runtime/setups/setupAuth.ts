@@ -17,13 +17,13 @@ export function setupAuth() {
         const { result } = res.data;
         return result;
     })
-        .use(async (user) => {
+        .use(async () => {
             const api = di.getInstance(MatesApi);
             const res = await api.me().get();
             const { result } = res.data;
             return { mate: result };
         })
-        .use(async (user) => {
+        .use(async () => {
             // {id:1,mate:1}
             const api = di.getInstance(SoulsApi);
             const res = await api.me().get();

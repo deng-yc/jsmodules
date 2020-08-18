@@ -1,5 +1,5 @@
 import './index.css';
-import './di/';
+import './di';
 import './runtime';
 import 'antd/dist/antd.css';
 

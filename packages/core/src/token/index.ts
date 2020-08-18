@@ -2,6 +2,8 @@ import di from '@jsmodules/di';
 import { kvStore } from '@jsmodules/storage';
 import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
 
+import { Pipeline } from '../pipeline';
+
 type TokenObject = {
     client_id: string;
     token_type: string;
@@ -10,26 +12,7 @@ type TokenObject = {
     expires: number;
 };
 
-type TokenGetterCallback = (tokenObj: TokenObject) => Promise<TokenObject>;
-
-class TokenGetter {
-    callbacks = [];
-
-    use(callbackFn: TokenGetterCallback) {
-        this.callbacks.push(callbackFn);
-        return this;
-    }
-
-    async apply(token: TokenObject) {
-        let result = token;
-        for (const callback of this.callbacks) {
-            result = await callback(result);
-        }
-        return result;
-    }
-}
-
-const Getter = new TokenGetter();
+const Getter = new Pipeline<TokenObject>();
 
 @di.injectable("TokenService")
 export class TokenService {
@@ -47,9 +30,11 @@ export class TokenService {
         if (!this.current) {
             this.current = await this.tokenStore.getAsync(this.skey);
         }
-        this.current = await Getter.apply(this.current);
+        this.current = await Getter.exec(this.current);
         return this.current;
     }
+
+    async login(options) {}
 
     async getAccessToken() {
         const obj = await this.getTokenObject();

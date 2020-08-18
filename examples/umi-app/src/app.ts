@@ -9,9 +9,7 @@ export async function getInitialState() {
             user: 1,
         };
     })
-        .use(state => {
-            console.log('2');
-            console.log(state.user);
+        .use(() => {
             return { role: 1 };
         })
         .initAsync();

@@ -8,6 +8,7 @@
         "@jsmodules/di": "2.0.1-alpha.0",
         "@jsmodules/storage": "2.0.1-alpha.0",
         "@shared/api": "2.0.1-alpha.0",
+        "@shared/services": "2.0.1-alpha.0",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
