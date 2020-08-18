@@ -1,4 +1,4 @@
-export default function(initialState: any) {
+export default function (initialState: any) {
     const { userId, role } = initialState;
 
     //各种权限管理

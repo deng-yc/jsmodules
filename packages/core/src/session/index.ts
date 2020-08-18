@@ -5,7 +5,7 @@ import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
 import { Pipeline } from '../pipeline';
 import { LoginMethodOptions, TokenService } from '../token';
 
-const USER_STORAGE_KEY = "u7ulz2sry";
+const USER_STORAGE_KEY = "user";
 
 type UserPart = {
     [key: string]: any;
@@ -18,7 +18,7 @@ export class SessionService {
     static get UserGetter() {
         return UserGetter;
     }
-    @kvStore("se_d8ig872lp", { encrypted: false }) private sessionStore: IKeyValueStorage;
+    @kvStore("global", { encrypted: false }) private sessionStore: IKeyValueStorage;
 
     @di.Inject(TokenService) private tokenService: TokenService;
 
@@ -52,17 +52,21 @@ export class SessionService {
     }
 
     async initAsync() {
-        const access_token = await this.tokenService.getAccessToken();
-        if (!access_token) {
-            this.isAuthenticated = false;
-            return;
+        try {
+            const access_token = await this.tokenService.getAccessToken();
+            if (!access_token) {
+                this.isAuthenticated = false;
+                return;
+            }
+            const user = await this.sessionStore.getAsync(USER_STORAGE_KEY);
+            if (!user) {
+                this.isAuthenticated = false;
+                return;
+            }
+            this.user = user;
+            this.isAuthenticated = true;
+        } catch (ex) {
+            console.error(ex);
         }
-        const user = await this.sessionStore.getAsync(USER_STORAGE_KEY);
-        if (!user) {
-            this.isAuthenticated = false;
-            return;
-        }
-        this.user = user;
-        this.isAuthenticated = true;
     }
 }
