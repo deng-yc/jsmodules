@@ -52,7 +52,11 @@ export class TokenService {
     }
 
     async getAccessToken() {
-        return (await this.getTokenObject()).access_token;
+        const obj = await this.getTokenObject();
+        if (obj) {
+            return obj.access_token;
+        }
+        return null;
     }
 
     async getSecurityHeaders() {
