@@ -14,6 +14,9 @@ export function setupRxDb() {
             password: "123qwe!@#",
             ignoreDuplicate: true,
             adapter: "indexeddb",
+            pouchSettings: {
+                revs_limit: 5,
+            },
         },
         collections: [KeyValue, EncryptedKeyValue],
     }).addFactory((name) => {

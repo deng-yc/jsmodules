@@ -3,18 +3,16 @@ import React, { useCallback } from 'react';
 
 import logo from '@/logo.svg';
 import { SessionService } from '@jsmodules/core';
-import { useInitialState, useResolveClass } from '@jsmodules/react';
+import { useAuthenticated, useResolveClass } from '@jsmodules/react';
 
 export default () => {
     const sessionService = useResolveClass(SessionService);
 
-    const { setInitialState } = useInitialState();
+    const { setAuthenticated } = useAuthenticated();
 
     const handleLogout = useCallback(async () => {
         await sessionService.logout();
-        setInitialState({
-            isAuthenticated: false,
-        });
+        setAuthenticated(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

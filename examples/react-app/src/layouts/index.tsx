@@ -2,8 +2,7 @@ import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import { Redirect, RouteComponentProps, useLocation } from 'react-router-dom';
 
-import { AppAccessList } from '@/access';
-import { useAccess } from '@jsmodules/react';
+import { useAuthenticated } from '@jsmodules/react';
 
 interface ILayoutProps extends RouteComponentProps {
     children: any;
@@ -13,7 +12,7 @@ interface ILayoutProps extends RouteComponentProps {
 export const Layout: React.FC<ILayoutProps> = (props: ILayoutProps) => {
     const { route } = props;
     const location = useLocation();
-    const { isAuthenticated } = useAccess<AppAccessList>();
+    const { isAuthenticated } = useAuthenticated();
 
     if (!isAuthenticated) {
         const next = location.pathname + location.search;

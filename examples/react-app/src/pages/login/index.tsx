@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
 
 import { SessionService } from '@jsmodules/core';
-import { useInitialState, useQueryParams, useResolveClass } from '@jsmodules/react';
+import { useAuthenticated, useQueryParams, useResolveClass } from '@jsmodules/react';
 
 interface ILoginProps {}
 
@@ -11,8 +11,8 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
     const history = useHistory();
     const queryParams = useQueryParams();
 
-    const { setInitialState } = useInitialState();
     const sessionService = useResolveClass(SessionService);
+    const { setAuthenticated } = useAuthenticated();
 
     const handleLogin = useCallback(async () => {
         const remove = message.loading("正在登录...");
@@ -24,9 +24,7 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
                     password: "12345abcde",
                 },
             });
-            setInitialState({
-                isAuthenticated: true,
-            });
+            setAuthenticated(true);
             const next = queryParams?.next || "/";
             history.replace(next);
             remove();

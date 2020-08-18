@@ -18,7 +18,7 @@ export class SessionService {
     static get UserGetter() {
         return UserGetter;
     }
-    @kvStore("se_d8ig872lp", { encrypted: true }) private sessionStore: IKeyValueStorage;
+    @kvStore("se_d8ig872lp", { encrypted: false }) private sessionStore: IKeyValueStorage;
 
     @di.Inject(TokenService) private tokenService: TokenService;
 
