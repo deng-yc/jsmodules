@@ -15,7 +15,7 @@ export function setupRxDb() {
             ignoreDuplicate: true,
             adapter: "indexeddb",
             pouchSettings: {
-                revs_limit: 5,
+                revs_limit: 10,
             },
         },
         collections: [KeyValue, EncryptedKeyValue],
@@ -26,6 +26,9 @@ export function setupRxDb() {
                 password: "123qwe!@#",
                 ignoreDuplicate: true,
                 adapter: "indexeddb",
+                pouchSettings: {
+                    revs_limit: 10,
+                },
             },
             collections: [KeyValue, EncryptedKeyValue],
         };
