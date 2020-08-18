@@ -21,7 +21,7 @@ export function AppProvider(props: IAppProviderProps) {
 
     const [state, setState] = React.useState(initState);
 
-    const refresh = useCallback(async () => {
+    const refreshInitialState = useCallback(async () => {
         try {
             const asyncFunc = () => new Promise<ReturnType<typeof getInitialState>>((res) => res(getInitialState()));
             const ret = await asyncFunc();
@@ -32,7 +32,7 @@ export function AppProvider(props: IAppProviderProps) {
     }, []);
 
     useDidMount(async () => {
-        refresh();
+        refreshInitialState();
     });
 
     const setInitialState = useCallback(
@@ -51,7 +51,7 @@ export function AppProvider(props: IAppProviderProps) {
         <AppContext.Provider
             value={{
                 ...state,
-                refresh,
+                refreshInitialState,
                 setInitialState,
             }}
         >

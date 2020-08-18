@@ -80,12 +80,12 @@ export function Resolve<T>(key, ...args): T {
 export function getInstance<T extends BindingClass<T>>(
     Binding: T,
     args: any[] = [],
-    type: BindingScope = "Singleton"
+    scope: BindingScope = "Singleton"
 ): DiInstanceType<T> {
     if (Binding.$$di_NAME) {
         return Resolve(Binding.$$di_NAME, ...args);
     }
-    if (type === "Singleton") {
+    if (scope === "Singleton") {
         if (!Binding.instance) {
             Binding.instance = new Binding(...args);
         }

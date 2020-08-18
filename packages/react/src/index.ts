@@ -13,3 +13,5 @@ export { useDidUpdate } from "./hooks/useDidUpdate";
 export { useDidUnmount } from "./hooks/useDidUnmount";
 
 export { useIsMounted } from "./hooks/useIsMounted";
+
+export * from "./hooks/useResolve";

@@ -1,0 +1,19 @@
+{
+    "React Web Function Component": {
+        "prefix": "rfc",
+        "body": [
+            "import React from 'react'",
+            "",
+            "interface I${1:Index}Props{",
+
+            "}",
+            "",
+            "export const ${1:Index}: React.FC<I${1:Index}Props> = (props:I${1:Index}Props) =>{",
+            "    return <div></div>",
+            "}",
+            "",
+            "export default ${1:Index}"
+        ],
+        "description": "React Html函数组件"
+    }
+}
