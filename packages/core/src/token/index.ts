@@ -12,12 +12,12 @@ type TokenObject = {
     expires: number;
 };
 
-const Getter = new Pipeline<TokenObject>();
+const TokenGetter = new Pipeline<TokenObject>();
 
 @di.injectable("TokenService")
 export class TokenService {
-    static get Getter() {
-        return Getter;
+    static get TokenGetter() {
+        return TokenGetter;
     }
 
     @kvStore("tk_2sxrcl9dh", { encrypted: true }) private tokenStore: IKeyValueStorage;
@@ -30,7 +30,7 @@ export class TokenService {
         if (!this.current) {
             this.current = await this.tokenStore.getAsync(this.skey);
         }
-        this.current = await Getter.exec(this.current);
+        this.current = await TokenGetter.exec(this.current);
         return this.current;
     }
 

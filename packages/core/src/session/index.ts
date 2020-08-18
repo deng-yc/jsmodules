@@ -26,9 +26,20 @@ export class SessionService {
 
     user: any = null;
 
+    getLoginedUser<T>(): T | null {
+        return this.user;
+    }
+
     async login(options) {
-        await this.tokenService.login(options);
-        await SessionService.UserGetter.exec();
+        try {
+            await this.tokenService.login(options);
+            const user = await UserGetter.exec();
+            this.user = user;
+            this.isAuthenticated = true;
+        } catch (ex) {
+            this.user = null;
+            this.isAuthenticated = false;
+        }
     }
     async initAsync() {
         const access_token = await this.tokenService.getAccessToken();
