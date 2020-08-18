@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
 
@@ -15,6 +15,7 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
     const sessionService = useResolveClass(SessionService);
 
     const handleLogin = useCallback(async () => {
+        const remove = message.loading("正在登录...");
         try {
             await sessionService.login({
                 type: "password",
@@ -28,7 +29,9 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
             });
             const next = queryParams?.next || "/";
             history.replace(next);
+            remove();
         } catch (err) {
+            remove();
             console.error(err);
             alert(err.message || "登录失败");
         }
