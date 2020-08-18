@@ -1,6 +1,6 @@
 import di from '@jsmodules/di';
 import { kvStore } from '@jsmodules/storage';
-import { IKeyValueStorage } from '@jsmodules/storage/types/KeyValueStorage/types';
+import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
 
 import { TokenService } from '../token';
 

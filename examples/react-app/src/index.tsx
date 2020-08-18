@@ -1,6 +1,7 @@
 import './index.css';
 import './di/';
 import './runtime';
+import 'antd/dist/antd.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,7 +10,6 @@ import App from '@/App';
 import { Application, SessionService } from '@jsmodules/core';
 import di from '@jsmodules/di';
 import { AccessProvider, AppProvider } from '@jsmodules/react';
-import { kvManager } from '@jsmodules/storage';
 
 import { accessFactory } from './access';
 import * as serviceWorker from './serviceWorker';
@@ -17,35 +17,12 @@ import * as serviceWorker from './serviceWorker';
 const getInitialState = () => {
     return Application.use(async () => {
         const sessionService = di.getInstance(SessionService);
-
         await sessionService.initAsync();
-
         return {
             isAuthenticated: sessionService.isAuthenticated,
             user: sessionService.user,
         };
-    })
-        .use(async () => {
-            const kv = kvManager.get("test", {
-                dbName: "100",
-            });
-            var a = await kv.getAsync("testa");
-            if (!a) {
-                kv.setAsync("testa", { a: 1, b: 2 });
-                console.log("seta");
-            }
-        })
-        .use(async () => {
-            const kv = kvManager.get("test", {
-                dbName: "200",
-            });
-            var a = await kv.getAsync("testa");
-            if (!a) {
-                kv.setAsync("testa", { a: 1, b: 2 });
-                console.log("setb");
-            }
-        })
-        .initAsync();
+    }).initAsync();
 };
 
 const render = () => {

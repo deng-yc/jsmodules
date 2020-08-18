@@ -118,19 +118,26 @@ async function codegen(config = {}, options) {
 }
 
 exports.apis = async function apis(configs, options) {
-    let imports = [];
+    let apis = [];
     for (const config of configs) {
         const results = await codegen(config, options);
-        imports.push(...results);
+        apis.push({
+            name: config.diName,
+            apis: results,
+        });
     }
 
     const rel = path.join(cwdDir, options.outputDir);
     const exportFile = path.join(rel, "index.ts");
-
     fs.writeFileSync(exportFile, `//生成时间:${new Date().toLocaleString()}\n`);
-    for (const file of imports) {
-        var d = path.relative(rel, file).replace(/\\/g, "/").replace(/.ts$/, "");
-
-        fs.appendFileSync(exportFile, `export * from './${d}'\n`);
+    for (const api of apis) {
+        const apiFile = path.join(rel, api.name + ".ts");
+        fs.writeFileSync(apiFile, `//生成时间:${new Date().toLocaleString()}\n`);
+        for (const file of api.apis) {
+            var d = path.relative(rel, file).replace(/\\/g, "/").replace(/.ts$/, "");
+            fs.appendFileSync(apiFile, `export * from './${d}'\n`);
+        }
+        // var d = path.relative(rel, file).replace(/\\/g, "/").replace(/.ts$/, "");
+        fs.appendFileSync(exportFile, `export * as ${api.name} from './${api.name}'\n`);
     }
 };

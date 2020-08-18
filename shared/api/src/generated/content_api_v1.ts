@@ -1,0 +1,12 @@
+//生成时间:2020-8-18 11:54:56
+export * from './content/common/articles'
+export * from './content/common/assets'
+export * from './content/common/categories'
+export * from './content/common/comments'
+export * from './content/common/dirtywords'
+export * from './content/common/editors'
+export * from './content/common/feedbacks'
+export * from './content/common/mates'
+export * from './content/common/souls'
+export * from './content/common/tags'
+export * from './content/common/workorders'
