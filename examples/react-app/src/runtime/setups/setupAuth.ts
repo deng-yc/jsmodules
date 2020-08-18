@@ -1,33 +1,40 @@
 import { SessionService, TokenService } from '@jsmodules/core';
 import di from '@jsmodules/di';
-import { MatesApi } from '@shared/api/dist/generated/content/common/mates';
-import { SoulsApi } from '@shared/api/dist/generated/content/common/souls';
 import { UsersApi } from '@shared/api/dist/generated/identity/common/users';
+import { IdentityApi } from '@shared/api/dist/identity';
 
 export function setupAuth() {
     console.log("setup auth api");
     //处理token
-    TokenService.TokenGetter.use(async (token) => {
+    TokenService.TokenGetter.use(async (_i, token) => {
         return token;
     });
 
+    TokenService.LoginMethod.use(async (options) => {
+        if (options.type === "password") {
+            const { username, password } = options.data;
+            if (!username || !password) {
+                throw new Error("用户名和密码不能未空");
+            }
+            const api = di.getInstance(IdentityApi);
+            const res = await api
+                .connectToken()
+                .headers({
+                    Authorization: "Basic cmVzb3VyY2Vvd25lcjpzb3VubWF0ZQ==",
+                })
+                .post({
+                    grant_type: "password",
+                    username,
+                    password,
+                });
+            return res.data;
+        }
+        return Promise.reject(new Error("不支持的登录方式"));
+    });
+
     SessionService.UserGetter.use(async () => {
-        const api = di.getInstance(UsersApi);
-        const res = await api.me().get();
-        const { result } = res.data;
-        return result;
-    })
-        .use(async () => {
-            const api = di.getInstance(MatesApi);
-            const res = await api.me().get();
-            const { result } = res.data;
-            return { mate: result };
-        })
-        .use(async () => {
-            // {id:1,mate:1}
-            const api = di.getInstance(SoulsApi);
-            const res = await api.me().get();
-            const { result } = res.data;
-            return { soul: result };
-        });
+        const usersApi = di.getInstance(UsersApi);
+        const res = await usersApi.me().get();
+        return res.data.result;
+    });
 }

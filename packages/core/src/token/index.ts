@@ -12,10 +12,21 @@ type TokenObject = {
     expires: number;
 };
 
+export type LoginMethodOptions = {
+    type: string;
+    data: any;
+};
+
 const TokenGetter = new Pipeline<TokenObject>();
+
+const LoginMethod = new Pipeline<TokenObject, LoginMethodOptions>();
 
 @di.injectable("TokenService")
 export class TokenService {
+    static get LoginMethod() {
+        return LoginMethod;
+    }
+
     static get TokenGetter() {
         return TokenGetter;
     }
@@ -30,11 +41,19 @@ export class TokenService {
         if (!this.current) {
             this.current = await this.tokenStore.getAsync(this.skey);
         }
-        this.current = await TokenGetter.exec(this.current);
+        this.current = await TokenGetter.exec(null, this.current);
         return this.current;
     }
 
-    async login(options) {}
+    async login(options: LoginMethodOptions) {
+        const token = await LoginMethod.exec(options);
+        await this.tokenStore.setAsync(this.skey, token);
+        this.current = token;
+    }
+
+    async logout() {
+        await this.tokenStore.removeAsync(this.skey);
+    }
 
     async getAccessToken() {
         const obj = await this.getTokenObject();
@@ -47,7 +66,9 @@ export class TokenService {
     async getSecurityHeaders() {
         const obj = await this.getTokenObject();
         if (obj) {
-            return `${obj.token_type} ${obj.access_token}`;
+            return {
+                Authorization: `${obj.token_type} ${obj.access_token}`,
+            };
         }
         return null;
     }

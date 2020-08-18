@@ -101,9 +101,9 @@ export class HttpRequestBuilder implements IRequestBuilder {
             cancelToken: new axios.CancelToken((c) => {
                 this.__canceler__ = c;
             }),
-            // paramsSerializer: (params) => {
-            //     return qs.stringify(params);
-            // },
+            paramsSerializer: (params) => {
+                return qs.stringify(params);
+            },
             ...options,
         });
     }
@@ -161,13 +161,9 @@ export class HttpRequestBuilder implements IRequestBuilder {
     }
 }
 
-@di.injectable("HttpFactory", "Request")
+@di.injectable("httpFactory", "Request")
 export class HttpFactory {
     constructor(private baseUrl: string) {}
-
-    create() {
-        return new HttpRequestBuilder();
-    }
 
     url(api): HttpRequestBuilder {
         const url = `${trimEnd(this.baseUrl, "/")}/${trimStart(api, "/")}`;

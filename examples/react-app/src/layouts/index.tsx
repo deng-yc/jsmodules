@@ -17,7 +17,7 @@ export const Layout: React.FC<ILayoutProps> = (props: ILayoutProps) => {
 
     if (!isAuthenticated) {
         const next = location.pathname + location.search;
-        return <Redirect to={`/login?next=${encodeURIComponent(next)}`} />;
+        return <Redirect to={`/login?next=${encodeURIComponent(next)}`} push={false} />;
     }
     return <>{renderRoutes(route.routes)}</>;
 };

@@ -1,9 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Button } from 'antd';
+import React, { useCallback } from 'react';
 
 import logo from '@/logo.svg';
+import { SessionService } from '@jsmodules/core';
+import { useInitialState, useResolveClass } from '@jsmodules/react';
 
 export default () => {
+    const sessionService = useResolveClass(SessionService);
+
+    const { setInitialState } = useInitialState();
+
+    const handleLogout = useCallback(async () => {
+        await sessionService.logout();
+        setInitialState({
+            isAuthenticated: false,
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <div className="App">
             <header className="App-header">
@@ -11,7 +25,7 @@ export default () => {
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
                 </p>
-                <Link to="/login">去登录</Link>
+                <Button onClick={handleLogout}>退出登录</Button>
                 <p>{process.env.REACT_APP_PAYPAL_CLIENT_ID}</p>
                 <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
                     Learn React - {process.env.API_ENV}

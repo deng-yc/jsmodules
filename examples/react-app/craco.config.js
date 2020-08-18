@@ -16,6 +16,7 @@ module.exports = {
         plugins: [
             new webpack.DefinePlugin({
                 "process.env.API_ENV": JSON.stringify("dev"),
+                __DEV__: process.env.NODE_ENV === "development",
             }),
         ],
         // configure: (webpackConfig, { env, paths }) => {

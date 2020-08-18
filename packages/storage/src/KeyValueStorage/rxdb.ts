@@ -91,7 +91,7 @@ export class RxDbKeyValueStorage implements IKeyValueStorage {
         const collection = await this.getCollection();
         const query = collection
             .find()
-            .where("key")
+            .where("id")
             .in(
                 keys.map((k) => {
                     return `${this.__STORE_NAME__}/${k}`;

@@ -3,7 +3,7 @@ import { kvStore } from '@jsmodules/storage';
 import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
 
 import { Pipeline } from '../pipeline';
-import { TokenService } from '../token';
+import { LoginMethodOptions, TokenService } from '../token';
 
 const USER_STORAGE_KEY = "u7ulz2sry";
 
@@ -30,17 +30,27 @@ export class SessionService {
         return this.user;
     }
 
-    async login(options) {
+    async login(options: LoginMethodOptions) {
         try {
             await this.tokenService.login(options);
             const user = await UserGetter.exec();
+            await this.sessionStore.setAsync(USER_STORAGE_KEY, user);
             this.user = user;
             this.isAuthenticated = true;
         } catch (ex) {
             this.user = null;
             this.isAuthenticated = false;
+            return Promise.reject(ex);
         }
     }
+
+    async logout() {
+        await this.tokenService.logout();
+        await this.sessionStore.removeAsync(USER_STORAGE_KEY);
+        this.user = null;
+        this.isAuthenticated = false;
+    }
+
     async initAsync() {
         const access_token = await this.tokenService.getAccessToken();
         if (!access_token) {

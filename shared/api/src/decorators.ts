@@ -7,11 +7,12 @@ export function api(configName: string) {
         const options = {
             get() {
                 const key = `$$__http$${propertyKey}`;
+                const baseUrl = apiHosts[configName];
                 if (!target[key]) {
-                    if (!apiHosts[configName]) {
+                    if (!baseUrl) {
                         throw new Error("api:未配置接口->" + configName);
                     }
-                    target[key] = di.Resolve(HttpFactory, apiHosts[configName]);
+                    target[key] = di.getInstance(HttpFactory, [baseUrl]);
                 }
                 return target[key];
             },

@@ -4,8 +4,8 @@
     "private": true,
     "dependencies": {
         "@craco/craco": "^5.6.4",
-        "@jsmodules/react": "2.0.1-alpha.0",
         "@jsmodules/di": "2.0.1-alpha.0",
+        "@jsmodules/react": "2.0.1-alpha.0",
         "@jsmodules/storage": "2.0.1-alpha.0",
         "@shared/api": "2.0.1-alpha.0",
         "@shared/services": "2.0.1-alpha.0",
@@ -21,6 +21,10 @@
         "@types/react-router-dom": "^5.1.5",
         "antd": "^4.5.4",
         "craco-less": "^1.17.0",
+        "http-proxy-middleware": "^1.0.5",
+        "pouchdb-adapter-indexeddb": "^7.2.2",
+        "pouchdb-adapter-memory": "^7.2.1",
+        "pouchdb-adapter-websql": "^7.0.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-router": "^5.2.0",
@@ -28,10 +32,7 @@
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3",
         "rxdb": "^9.5.0",
-        "typescript": "~3.7.2",
-        "pouchdb-adapter-indexeddb": "^7.2.2",
-        "pouchdb-adapter-websql": "^7.0.0",
-        "pouchdb-adapter-memory": "^7.2.1"
+        "typescript": "~3.7.2"
     },
     "scripts": {
         "start": "craco start",
