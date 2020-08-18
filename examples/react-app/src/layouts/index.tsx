@@ -1,14 +1,17 @@
 import React from 'react';
-import { Redirect, useLocation } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import { Redirect, RouteComponentProps, useLocation } from 'react-router-dom';
 
 import { AppAccessList } from '@/access';
 import { useAccess } from '@jsmodules/react';
 
-interface ILayoutProps {
+interface ILayoutProps extends RouteComponentProps {
     children: any;
+    route?: any;
 }
 
 export const Layout: React.FC<ILayoutProps> = (props: ILayoutProps) => {
+    const { route } = props;
     const location = useLocation();
     const { isAuthenticated } = useAccess<AppAccessList>();
 
@@ -16,7 +19,7 @@ export const Layout: React.FC<ILayoutProps> = (props: ILayoutProps) => {
         const next = location.pathname + location.search;
         return <Redirect to={`/login?next=${encodeURIComponent(next)}`} />;
     }
-    return <>{props.children}</>;
+    return <>{renderRoutes(route.routes)}</>;
 };
 
 export default Layout;

@@ -14,4 +14,6 @@ export { useDidUnmount } from "./hooks/useDidUnmount";
 
 export { useIsMounted } from "./hooks/useIsMounted";
 
+export { useQueryParams } from "./hooks/useQueryParams";
+
 export * from "./hooks/useResolve";

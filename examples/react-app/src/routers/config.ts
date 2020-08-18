@@ -8,7 +8,7 @@ export const routers = [
         component: require("@/layouts").default,
         routes: [
             {
-                component: require("@/pages/index"),
+                component: require("@/pages/index").default,
             },
         ],
     },

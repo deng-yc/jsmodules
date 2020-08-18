@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router';
 
-export function useQueryParmas() {
+import { qs } from '@jsmodules/core';
+
+export function useQueryParams() {
     const location = useLocation();
 
     const queryParams = useMemo(() => {
-        return URL.toString();
+        return qs.parse(location.search);
     }, [location.search]);
 
     return queryParams;
