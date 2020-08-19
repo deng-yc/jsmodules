@@ -31,7 +31,8 @@ export class TextFilter {
      * @param words 关键字数组
      */
     addWords(words: string[]) {
-        for (var word of words) {
+        for (let i = 0; i < words.length; i++) {
+            const word = words[i];
             this.addWord(word);
         }
         return this;
@@ -42,7 +43,8 @@ export class TextFilter {
      * @param words 关键字数组
      */
     removeWords(words: string[]) {
-        for (var word of words) {
+        for (let i = 0; i < words.length; i++) {
+            const word = words[i];
             this.removeWord(word);
         }
         return this;
