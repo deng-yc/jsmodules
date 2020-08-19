@@ -31,9 +31,9 @@ export class TokenService {
         return TokenGetter;
     }
 
-    @kvStore("tk_2sxrcl9dh", { encrypted: true }) private tokenStore: IKeyValueStorage;
+    @kvStore("globak", { encrypted: true }) private tokenStore: IKeyValueStorage;
 
-    constructor(private skey = "at_i6lkasaa0") {}
+    constructor(private skey = "token") {}
 
     private current: TokenObject;
 
