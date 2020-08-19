@@ -16,11 +16,11 @@
         "tslib": "^2.0.1"
     },
     "dependencies": {
-        "lodash": "^4.17.20",
-        "rxjs": "^6.6.2",
         "@jsmodules/di": "2.0.1-alpha.0"
     },
     "optionalDependencies": {
+        "rxjs": "^6.6.2",
+        "lodash": "^4.17.20",
         "rxdb": "^9.5.0"
     },
     "devDependencies": {

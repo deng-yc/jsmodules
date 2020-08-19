@@ -16,11 +16,12 @@ type TokenObject = {
 
 export type LoginMethodOptions = {
     type: string;
+    client_id: string;
     data: any;
     auto_login?: boolean;
 };
 
-const TokenGetter = new Pipeline<TokenObject>();
+const TokenGetter = new Pipeline<TokenObject | any>();
 
 const LoginMethod = new Pipeline<TokenObject, LoginMethodOptions>();
 
@@ -44,7 +45,11 @@ export class TokenService {
         if (!this.current) {
             this.current = await this.tokenStore.getAsync(this.skey);
         }
-        this.current = await TokenGetter.exec(null, this.current);
+        const token = await TokenGetter.exec(null, this.current);
+        if (!token) {
+            await this.logout();
+        }
+        this.current = token;
         return this.current;
     }
 
