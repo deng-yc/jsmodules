@@ -5,7 +5,7 @@ import { IdentityApi } from '@shared/api/dist/identity';
 
 export function setupAuth() {
     console.log("setup auth api");
-    //处理token
+    //检查Token是否过期，是否需要换取新的token
     TokenService.TokenGetter.use(async (_i, token) => {
         return token;
     });

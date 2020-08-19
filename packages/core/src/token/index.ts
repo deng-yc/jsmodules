@@ -10,11 +10,14 @@ type TokenObject = {
     access_token: string;
     refresh_token: string;
     expires: number;
+    auto_login: boolean;
+    created_unix: number;
 };
 
 export type LoginMethodOptions = {
     type: string;
     data: any;
+    auto_login?: boolean;
 };
 
 const TokenGetter = new Pipeline<TokenObject>();
@@ -47,6 +50,8 @@ export class TokenService {
 
     async login(options: LoginMethodOptions) {
         const token = await LoginMethod.exec(options);
+        token.auto_login = options.auto_login || false;
+        token.created_unix = Math.floor(new Date().getTime() / 1000);
         await this.tokenStore.setAsync(this.skey, token);
         this.current = token;
     }

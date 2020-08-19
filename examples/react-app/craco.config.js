@@ -9,6 +9,16 @@ module.exports = {
     typescript: {
         enableTypeChecking: false /* (default value)  */,
     },
+    babel: {
+        presets: [],
+        // loaderOptions: {
+        //     /* Any babel-loader configuration options: https://github.com/babel/babel-loader. */
+        // },
+        // loaderOptions: (babelLoaderOptions, { env, paths }) => {
+        //     console.log(babelLoaderOptions);
+        //     return babelLoaderOptions;
+        // },
+    },
     webpack: {
         alias: {
             "@": resolveApp("src"),
@@ -19,9 +29,9 @@ module.exports = {
                 __DEV__: process.env.NODE_ENV === "development",
             }),
         ],
-        // configure: (webpackConfig, { env, paths }) => {
-        //     return webpackConfig;
-        // },
+        configure: (webpackConfig, { env, paths }) => {
+            return webpackConfig;
+        },
     },
     devServer: {
         port: 30000,

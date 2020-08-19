@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from '@/App';
-import { Application, SessionService } from '@jsmodules/core';
+import { Application, SessionService, TimeService } from '@jsmodules/core';
 import di from '@jsmodules/di';
 import { AccessProvider, AppProvider } from '@jsmodules/react';
 
@@ -16,13 +16,18 @@ import * as serviceWorker from './serviceWorker';
 
 const getInitialState = () => {
     return Application.use(async () => {
-        const sessionService = di.getInstance(SessionService);
-        await sessionService.initAsync();
-        return {
-            isAuthenticated: sessionService.isAuthenticated,
-            user: sessionService.user,
-        };
-    }).initAsync();
+        const timeService = di.getInstance(TimeService);
+        timeService.setup();
+    })
+        .use(async () => {
+            const sessionService = di.getInstance(SessionService);
+            await sessionService.initAsync();
+            return {
+                isAuthenticated: sessionService.isAuthenticated,
+                user: sessionService.user,
+            };
+        })
+        .initAsync();
 };
 
 const render = () => {
