@@ -1,7 +1,5 @@
 import { createRxDatabase, RxCollectionCreator, RxDatabase, RxDatabaseCreator } from 'rxdb';
 
-import di from '@jsmodules/di';
-
 type RxConnectionConfig = {
     config: RxDatabaseCreator;
     collections: RxCollectionCreator[];
@@ -10,9 +8,18 @@ type RxConnectionConfig = {
 class RxDbDbConnectionImpl {
     private create_promises = new Map<string, Promise<RxDatabase>>();
 
+    private manager = new Map<string, any>();
+
     private async createDatabase(name) {
-        let setting =
-            di.tryResolve<RxConnectionConfig>(`rxdbconnection_${name}`) || di.tryResolve(`rxdb_factory`, name);
+        let setting;
+        if (this.manager.has(`rxdbconnection_${name}`)) {
+            setting = this.manager.get(`rxdbconnection_${name}`);
+        } else if (this.manager.has(`rxdb_factory`)) {
+            setting = this.manager.get("rxdb_factory")(name);
+            if (setting) {
+                this.manager.set(`rxdbconnection_${name}`, setting);
+            }
+        }
         if (!setting) {
             throw new Error(`RxDB: 未找到数据库连接配置,${name}`);
         }
@@ -35,12 +42,12 @@ class RxDbDbConnectionImpl {
     }
 
     addFactory(factory: (name) => RxConnectionConfig) {
-        di.Register(`rxdb_factory`, "Request").factory(factory);
+        this.manager.set("rxdb_factory", factory);
         return this;
     }
 
     addConfig(dbName, setting: RxConnectionConfig) {
-        di.Register(`rxdbconnection_${dbName}`).value(setting);
+        this.manager.set(`rxdbconnection_${dbName}`, setting);
         return this;
     }
 
