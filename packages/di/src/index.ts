@@ -1,11 +1,9 @@
-
 import { BindingScope } from './binding';
 import Container from './container';
 
-export type DiInstanceType<T extends new (...args) => any> = T extends new (...args: any[]) => infer R ? R : any;
 export type BindingClass<T extends new (...args) => any> = {
     new (...args);
-    instance?: DiInstanceType<T>;
+    instance?: InstanceType<T>;
     $$di_NAME?: string;
 };
 
@@ -76,7 +74,7 @@ export function getInstance<T extends BindingClass<T>>(
     Binding: T,
     args: any[] = [],
     scope: BindingScope = "Singleton"
-): DiInstanceType<T> {
+): InstanceType<T> {
     if (Binding.$$di_NAME) {
         return Resolve(Binding.$$di_NAME, ...args);
     }

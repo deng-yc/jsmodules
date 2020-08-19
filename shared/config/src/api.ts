@@ -35,3 +35,5 @@ if (__DEV__) {
 }
 
 export const apiHosts = _apiHosts;
+
+export type ApiHostTypes = ReturnType<typeof _apiHosts>;
