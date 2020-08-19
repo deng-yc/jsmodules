@@ -11,10 +11,6 @@
         "prepublishOnly": "yarn run build",
         "test": "yarn run build"
     },
-    "dependencies": {
-        "@jsmodules/logger": "2.0.1-alpha.0",
-        "@jsmodules/idgenerator": "2.0.1-alpha.0"
-    },
     "peerDependencies": {
         "tslib": "^2.0.1"
     },

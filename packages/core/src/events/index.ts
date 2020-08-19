@@ -69,4 +69,3 @@ export const events = {
         return new EventEmitter();
     },
 };
-export default events;

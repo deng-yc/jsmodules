@@ -1,7 +1,5 @@
-import { nextId } from '@jsmodules/idgenerator';
-import { Logger } from '@jsmodules/logger';
 
-import Binding, { BindingScope } from './binding';
+import { BindingScope } from './binding';
 import Container from './container';
 
 export type DiInstanceType<T extends new (...args) => any> = T extends new (...args: any[]) => infer R ? R : any;
@@ -11,9 +9,9 @@ export type BindingClass<T extends new (...args) => any> = {
     $$di_NAME?: string;
 };
 
-const logger = Logger.tag("DI");
+let tempId = 0;
 function getNextId() {
-    return nextId("di");
+    return tempId++;
 }
 
 const container = new Container();
@@ -25,13 +23,11 @@ export function Register(name?, scope: BindingScope = "Singleton") {
     return {
         value<T>(value: T, overwrite = true) {
             if (!container.has(name) || overwrite) {
-                logger.info("注册", name);
                 container.bind(name).toValue(value).setScope(scope);
             }
         },
         class(BindingClass, params: any[] = [], overwrite = true) {
             if (!container.has(name) || overwrite) {
-                logger.info("注册", name);
                 container
                     .bind(name)
                     .to(BindingClass)
@@ -42,7 +38,6 @@ export function Register(name?, scope: BindingScope = "Singleton") {
         },
         factory(factory: (...args) => any, params: any[] = [], overwrite = true) {
             if (!container.has(name) || overwrite) {
-                logger.info("注册", name);
                 container
                     .bind(name)
                     .toFactory(factory)

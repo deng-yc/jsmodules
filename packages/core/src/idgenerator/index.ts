@@ -2,12 +2,12 @@ const scopes = {
     default: 1000,
 };
 
-export function nextId(scope = "default") {
+function nextId(scope = "default") {
     scopes[scope]++;
     return scopes[scope];
 }
 
-export function guid(separator = "-") {
+function guid(separator = "-") {
     let d = new Date().getTime();
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
         .replace(/[xy]/g, function (c) {
@@ -17,3 +17,8 @@ export function guid(separator = "-") {
         })
         .replace(/-/g, separator);
 }
+
+export const idgenerator = {
+    nextId,
+    guid,
+};
