@@ -12,7 +12,7 @@ type KvStoreOptions = {
 
 export class KeyValueStorageManager implements IKeyValueStorageManager {
     get(storeName, options: KvStoreOptions = {}): IKeyValueStorage {
-        const skey = `${storeName}${options.dbName || "app"}`;
+        const skey = `${storeName}${options.encrypted ? "enctypted" : ""}${options.dbName || "app"}`;
         if (!cached.has(skey)) {
             const instance = di.getInstance(
                 RxDbKeyValueStorage,

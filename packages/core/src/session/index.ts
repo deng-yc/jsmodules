@@ -5,7 +5,7 @@ import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
 import { Pipeline } from '../pipeline';
 import { LoginMethodOptions, TokenService } from '../token';
 
-const USER_STORAGE_KEY = "user";
+const USER_STORAGE_KEY = "current_user";
 
 type UserPart = {
     [key: string]: any;
@@ -18,7 +18,7 @@ export class SessionService {
     static get UserGetter() {
         return UserGetter;
     }
-    @kvStore("global", { encrypted: false }) private sessionStore: IKeyValueStorage;
+    @kvStore("app", { encrypted: false }) private sessionStore: IKeyValueStorage;
 
     @di.Inject(TokenService) private tokenService: TokenService;
 
