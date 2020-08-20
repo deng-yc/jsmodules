@@ -2,19 +2,19 @@
     "name": "root",
     "private": true,
     "workspaces": {
-        "nohoist": [
-            "react-native",
-            "@react-native-community/**",
-            "**react-native**",
-            "react-native**",
-            "react-native/**",
-            "jetifier",
-            "jest"
-        ],
         "packages": [
             "examples/*",
             "packages/*",
             "shared/*"
+        ],
+        "nohoist": [
+            "**/react-native",
+            "**/react-native/**",
+            "**/jest",
+            "**/jest/**",
+            "**/@react-native-community",
+            "**/@react-native-community/**",
+            "jetifier"
         ]
     },
     "scripts": {
