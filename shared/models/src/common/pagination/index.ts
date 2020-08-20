@@ -2,7 +2,7 @@ import { flow, IAnyType, types } from 'mobx-state-tree';
 
 import { Loadable } from '../loading';
 
-export function Pagination<T extends IAnyType>(ItemType: T, getPageDataAsync) {
+export function createPaginationModel<T extends IAnyType>(ItemType: T, { getPageDataAsync, pageSize = 20 }) {
     return types
         .compose(
             Loadable,
@@ -18,7 +18,7 @@ export function Pagination<T extends IAnyType>(ItemType: T, getPageDataAsync) {
                     self.setLoading("loading");
                     try {
                         const { page = 1, ...filter } = query;
-                        const skip = (page - 1) * 20;
+                        const skip = (page - 1) * pageSize;
                         const resp = yield getPageDataAsync({
                             skip,
                             ...filter,
