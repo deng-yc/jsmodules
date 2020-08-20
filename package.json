@@ -1,11 +1,22 @@
 {
     "name": "root",
     "private": true,
-    "workspaces": [
-        "examples/*",
-        "packages/*",
-        "shared/*"
-    ],
+    "workspaces": {
+        "nohoist": [
+            "react-native",
+            "@react-native-community/**",
+            "**react-native**",
+            "react-native**",
+            "react-native/**",
+            "jetifier",
+            "jest"
+        ],
+        "packages": [
+            "examples/*",
+            "packages/*",
+            "shared/*"
+        ]
+    },
     "scripts": {
         "docs": "doctoc --title '**Table of content**' README.md",
         "update": "lerna bootstrap",

@@ -1,11 +1,29 @@
 const CracoLessPlugin = require("craco-less");
 const path = require("path");
 const webpack = require("webpack");
+const pxtorem = require("postcss-pxtorem");
 
 const appDirectory = __dirname;
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 module.exports = {
+    style: {
+        postcss: {
+            // mode: "extends" /* (default value) */ || "file",
+            plugins: [
+                pxtorem({
+                    rootValue: 75,
+                    unitPrecision: 5,
+                    propList: ["*"],
+                    selectorBlackList: [],
+                    replace: true,
+                    mediaQuery: false,
+                    minPixelValue: 0,
+                    // exclude: /node_modules/i,
+                }),
+            ],
+        },
+    },
     typescript: {
         enableTypeChecking: false /* (default value)  */,
     },
