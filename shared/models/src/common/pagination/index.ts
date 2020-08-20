@@ -14,8 +14,8 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, { getPage
         )
         .actions((self) => {
             return {
-                fetchAsync: flow(function* (query) {
-                    self.setLoading("loading");
+                fetchAsync: flow(function* fetchAsync(query) {
+                    // self.setLoading("loading");
                     try {
                         const { page = 1, ...filter } = query;
                         const skip = (page - 1) * pageSize;
@@ -29,10 +29,10 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, { getPage
                         self.items.replace(items);
                         self.page = page;
                         self.total_count = 1 * total_count;
-                        self.setLoading("success");
+                        // self.setLoading("success");
                     } catch (ex) {
                         self.items.clear();
-                        self.setLoading("failed");
+                        // self.setLoading("failed");
                         return Promise.reject(ex);
                     }
                 }),
