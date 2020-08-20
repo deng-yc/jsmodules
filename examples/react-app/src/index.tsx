@@ -7,21 +7,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from '@/App';
-import { AccessProvider, AppProvider } from '@jsmodules/react';
 
-import { accessFactory } from './access';
-import { getInitialState } from './initialState';
 import * as serviceWorker from './serviceWorker';
 
 const render = () => {
-    ReactDOM.render(
-        <AppProvider getInitialState={getInitialState}>
-            <AccessProvider accessFactory={accessFactory}>
-                <App />
-            </AccessProvider>
-        </AppProvider>,
-        document.getElementById("root")
-    );
+    ReactDOM.render(<App />, document.getElementById("root"));
 };
 
 render();
