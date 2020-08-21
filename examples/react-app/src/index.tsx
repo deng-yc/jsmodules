@@ -2,6 +2,7 @@ import './index.css';
 import './di';
 import './runtime';
 import 'antd/dist/antd.css';
+import 'mobx-react-lite/batchingForReactDom';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -28,11 +28,11 @@ export default () => {
             <header className="App-header">
                 <Observer>
                     {() => {
-                        const { loadingStatus, page, total_count } = todoList;
-                        console.log("renderObserver", loadingStatus, page, total_count);
+                        const { pageStatus, page, total_count } = todoList;
+                        console.log("renderObserver", pageStatus, page, total_count);
                         return (
                             <div>
-                                {loadingStatus}-{page}-{total_count}
+                                {pageStatus}-{page}-{total_count}
                             </div>
                         );
                     }}
@@ -41,6 +41,18 @@ export default () => {
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
                 </p>
+                <Observer>
+                    {() => {
+                        const { items } = todoList;
+                        return (
+                            <>
+                                {items.map((item) => {
+                                    return <span key={item.id}>{item.nickname}</span>;
+                                })}
+                            </>
+                        );
+                    }}
+                </Observer>
                 <Button onClick={handleLogout}>退出登录</Button>
                 <p>{process.env.REACT_APP_PAYPAL_CLIENT_ID}</p>
                 <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">

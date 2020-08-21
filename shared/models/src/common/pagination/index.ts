@@ -2,20 +2,26 @@ import { flow, IAnyType, types } from 'mobx-state-tree';
 
 import { Loadable } from '../loading';
 
-export function createPaginationModel<T extends IAnyType>(ItemType: T, { getPageDataAsync, pageSize = 20 }) {
+const loadingKey = "p-xmtc34edr";
+
+export function createPaginationModel<T extends IAnyType>(ItemType: T, { pageSize = 20 }) {
     return types
         .compose(
             Loadable,
             types.model({
-                items: types.array(ItemType),
-                total_count: types.number,
-                page: types.number,
+                items: types.optional(types.array(ItemType), []),
+                total_count: types.optional(types.number, 0),
+                page: types.optional(types.number, 1),
             })
         )
         .actions((self) => {
             return {
-                fetchAsync: flow(function* fetchAsync(query) {
-                    // self.setLoading("loading");
+                fetchAsync: flow(function* (query) {
+                    const getPageDataAsync = self["getPageDataAsync"];
+                    if (!getPageDataAsync) {
+                        throw new Error("未实现 getPageDataAsync,分页加载必须实现这个 action");
+                    }
+                    self.setLoading(loadingKey, "pending");
                     try {
                         const { page = 1, ...filter } = query;
                         const skip = (page - 1) * pageSize;
@@ -26,16 +32,24 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, { getPage
                         let {
                             result: { items, total_count },
                         } = resp.data;
-                        self.items.replace(items);
+                        self.items.clear();
+                        self.items.push(...items);
                         self.page = page;
                         self.total_count = 1 * total_count;
-                        // self.setLoading("success");
+                        self.setLoading(loadingKey, "success");
                     } catch (ex) {
                         self.items.clear();
-                        // self.setLoading("failed");
+                        self.setLoading(loadingKey, "failed");
                         return Promise.reject(ex);
                     }
                 }),
+            };
+        })
+        .views((self) => {
+            return {
+                get pageStatus() {
+                    return self.loadingStatus.get(loadingKey) || "pending";
+                },
             };
         });
 }
