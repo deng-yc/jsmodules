@@ -10,7 +10,7 @@ import { createPaginationModel } from '../common/pagination';
 const Todo = types
     .compose(RunInAction, Loadable)
     .props({
-        id: types.union(types.string, types.number),
+        id: types.identifier,
         name: types.maybeNull(types.string),
         nickname: types.optional(types.string, ""),
     })
