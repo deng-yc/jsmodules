@@ -37,14 +37,15 @@ export function setupAuth() {
             if (!username || !password) {
                 throw new Error("用户名和密码不能未空");
             }
+            const client_id = "resourceowner";
             const api = di.getInstance(IdentityApi);
             const res = await api.connectToken().post({
-                client_id: "resourceowner",
+                client_id,
                 grant_type: "password",
                 username,
                 password,
             });
-            return { ...res.data, client_id: "resourceowner" };
+            return { ...res.data, client_id };
         }
         return Promise.reject(new Error("不支持的登录方式"));
     });
