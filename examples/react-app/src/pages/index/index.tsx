@@ -47,7 +47,22 @@ export default () => {
                         return (
                             <>
                                 {items.map((item) => {
-                                    return <span key={item.id}>{item.nickname}</span>;
+                                    return (
+                                        <Observer key={item.id}>
+                                            {() => {
+                                                console.log("renderItem");
+                                                return (
+                                                    <span
+                                                        onClick={() => {
+                                                            item.loadAsync();
+                                                        }}
+                                                    >
+                                                        {item.nickname}
+                                                    </span>
+                                                );
+                                            }}
+                                        </Observer>
+                                    );
                                 })}
                             </>
                         );

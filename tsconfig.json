@@ -4,7 +4,8 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@nighttrax/*": ["packages/*/src"]
+            "@jsmodules/*": ["packages/*/src"],
+            "@shared/*": ["shared/*/src"]
         },
         "jsx": "react",
         "esModuleInterop": true,

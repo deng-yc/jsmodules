@@ -4,7 +4,12 @@ type LoadingStatusType = "none" | "pending" | "success" | "failed" | "local";
 
 export const Loadable = types
     .model({
-        loadingStatus: types.optional(types.map(types.frozen<LoadingStatusType>()), {}),
+        loadingStatus: types.optional(
+            types.map(
+                types.enumeration<LoadingStatusType>(["none", "pending", "success", "failed", "local"])
+            ),
+            {}
+        ),
     })
     .actions((self) => {
         addMiddleware(self, (call, next) => {
