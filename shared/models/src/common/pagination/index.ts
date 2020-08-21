@@ -2,7 +2,7 @@ import { flow, IAnyType, types } from 'mobx-state-tree';
 
 import { Loadable } from '../loading';
 
-const loadingKey = "p-xmtc34edr";
+const loadingKey = "paging";
 
 export function createPaginationModel<T extends IAnyType>(ItemType: T, { pageSize = 20 }) {
     return types
@@ -16,7 +16,7 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, { pageSiz
         )
         .actions((self) => {
             return {
-                fetchAsync: flow(function* (query) {
+                fetchAsync: flow(function* pagingAsync(query) {
                     const getPageDataAsync = self["getPageDataAsync"];
                     if (!getPageDataAsync) {
                         throw new Error("未实现 getPageDataAsync,分页加载必须实现这个 action");

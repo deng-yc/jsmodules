@@ -6,6 +6,8 @@ const pxtorem = require("postcss-pxtorem");
 const appDirectory = __dirname;
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
+const isDev = process.env.NODE_ENV === "development";
+
 module.exports = {
     style: {
         postcss: {
@@ -29,13 +31,6 @@ module.exports = {
     },
     babel: {
         presets: [],
-        // loaderOptions: {
-        //     /* Any babel-loader configuration options: https://github.com/babel/babel-loader. */
-        // },
-        // loaderOptions: (babelLoaderOptions, { env, paths }) => {
-        //     console.log(babelLoaderOptions);
-        //     return babelLoaderOptions;
-        // },
     },
     webpack: {
         alias: {
@@ -44,12 +39,13 @@ module.exports = {
         plugins: [
             new webpack.DefinePlugin({
                 "process.env.API_ENV": JSON.stringify("dev"),
-                __DEV__: process.env.NODE_ENV === "development",
+                __DEV__: isDev,
             }),
         ],
-        configure: (webpackConfig, { env, paths }) => {
-            return webpackConfig;
-        },
+        configure: {},
+        // configure: (webpackConfig, { env, paths }) => {
+        //     return webpackConfig;
+        // },
     },
     devServer: {
         port: 30000,
