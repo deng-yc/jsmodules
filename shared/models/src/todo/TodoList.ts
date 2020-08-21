@@ -15,15 +15,14 @@ const Todo = types.model("TodoItem", {
 const TodoList = types
     .compose(RunInAction, createPaginationModel(Todo, {}))
     .named("todoList")
-    .props({})
     .actions((self) => {
         const api = di.getInstance(SoulsApi);
         return {
-            async deleteAsync(id) {
-                return api.me().get();
-            },
             getPageDataAsync(query) {
                 return api.summary().get(query);
+            },
+            async deleteAsync(id) {
+                return api.me().get();
             },
         };
     });
