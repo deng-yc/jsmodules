@@ -1,12 +1,12 @@
 import { addMiddleware, applyAction, types } from 'mobx-state-tree';
 
-type LoadingStatusType = "none" | "pending" | "success" | "failed" | "local";
+type LoadingStatusType = "none" | "pending" | "done" | "error" | "local";
 
 export const Loadable = types
     .model({
         loadingStatus: types.optional(
             types.map(
-                types.enumeration<LoadingStatusType>(["none", "pending", "success", "failed", "local"])
+                types.enumeration<LoadingStatusType>(["none", "pending", "done", "error", "local"])
             ),
             {}
         ),
@@ -18,9 +18,9 @@ export const Loadable = types
                 if (call.type === "flow_spawn") {
                     applyAction(self, { name: "setLoading", args: [stateName, "pending"] });
                 } else if (call.type === "flow_return") {
-                    applyAction(self, { name: "setLoading", args: [stateName, "success"] });
+                    applyAction(self, { name: "setLoading", args: [stateName, "done"] });
                 } else if (call.type === "flow_throw") {
-                    applyAction(self, { name: "setLoading", args: [stateName, "failed"] });
+                    applyAction(self, { name: "setLoading", args: [stateName, "error"] });
                 }
             }
             return next(call);

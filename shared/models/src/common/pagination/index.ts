@@ -36,10 +36,10 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, { pageSiz
                         self.items.push(...items);
                         self.page = page;
                         self.total_count = 1 * total_count;
-                        self.setLoading(loadingKey, "success");
+                        self.setLoading(loadingKey, "done");
                     } catch (ex) {
                         self.items.clear();
-                        self.setLoading(loadingKey, "failed");
+                        self.setLoading(loadingKey, "error");
                         return Promise.reject(ex);
                     }
                 }),
