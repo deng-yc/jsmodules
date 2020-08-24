@@ -1,6 +1,5 @@
 {
-    "name": "@shared/models",
-    "private": "true",
+    "name": "@jsmodules/models",
     "version": "2.0.1-alpha.0",
     "description": "",
     "main": "dist/index.js",
@@ -13,15 +12,21 @@
         "prepublishOnly": "yarn run build",
         "test": "yarn run build"
     },
-    "peerDependencies": {
+    "dependencies": {
+        "mobx-state-tree": "^3.17.2",
+        "axios": "^0.19.2",
+        "@jsmodules/di": "2.0.1-alpha.0"
+    },
+    "optionalDependencies": {
+        "lodash": "^4.17.20",
         "tslib": "^2.0.1"
     },
-    "dependencies": {},
     "devDependencies": {
-        "@shared/api": "2.0.1-alpha.0",
-        "@jsmodules/models": "2.0.1-alpha.0",
         "rimraf": "~3.0.2",
         "typescript": "^3.9.7"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "keywords": [],
     "author": "",

@@ -4,7 +4,7 @@ import trimStart from 'lodash/trimStart';
 
 import di from '@jsmodules/di';
 
-import qs from '../querystring';
+import { qs } from '../querystring';
 import { TokenService } from '../token';
 import { IRequestBuilder, IResponseBuilder } from './interface';
 

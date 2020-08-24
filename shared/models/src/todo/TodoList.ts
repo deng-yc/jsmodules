@@ -1,10 +1,8 @@
 import { flow, types } from 'mobx-state-tree';
 
-import { models } from '@jsmodules/core';
 import { di } from '@jsmodules/di';
+import { createPaginationModel, Loadable, RunInAction } from '@jsmodules/models';
 import { SoulsApi } from '@shared/api/dist/generated/content/common/souls';
-
-const { createPaginationModel, Loadable, RunInAction } = models;
 
 const Todo = types
     .compose(RunInAction, Loadable)

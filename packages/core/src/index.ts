@@ -5,8 +5,6 @@ export * from "./idgenerator";
 
 export * from "./events";
 
-export * as models from "./models";
-
 export * from "./time";
 
 export * as http from "./http";
