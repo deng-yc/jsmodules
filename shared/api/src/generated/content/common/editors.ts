@@ -1,12 +1,12 @@
 /* eslint-disable */
 /* 此代码由工具自动生成,不要直接修改,以免下次生成会丢失 */
 import di from '@jsmodules/di';
-import {HttpFactory} from '@jsmodules/core';
+import { http } from '@jsmodules/core';
 import api from '../../../decorators';
 
 @di.injectable('EditorsApi')
 export class EditorsApi {
-    @api('content_api_v1') private http: HttpFactory;
+    @api('content_api_v1') private http: http.HttpFactory;
 
     /**
      * 昵称是否可用

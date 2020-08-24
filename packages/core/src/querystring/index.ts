@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function stringify(data) {
+function stringify(data) {
     if (!data) {
         return "";
     }
@@ -17,7 +17,7 @@ export function stringify(data) {
     return pairs.join("&");
 }
 
-export function parse(url: string, toLowerCase = true): any {
+function parse(url: string, toLowerCase = true): any {
     if (!url) {
         return null;
     }
@@ -50,7 +50,7 @@ export function parse(url: string, toLowerCase = true): any {
     return queryObject;
 }
 
-export function format(url: string, queryParams) {
+function format(url: string, queryParams) {
     if (!url) {
         return url;
     }
@@ -72,5 +72,3 @@ export const qs = {
     parse,
     format,
 };
-
-export default qs;

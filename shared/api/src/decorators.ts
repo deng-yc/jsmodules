@@ -1,6 +1,8 @@
-import { HttpFactory } from '@jsmodules/core';
+import { http } from '@jsmodules/core';
 import di from '@jsmodules/di';
 import { apiHosts } from '@shared/config';
+
+const { HttpFactory } = http;
 
 export function api(configName: string) {
     return function (target, propertyKey, desc?): any {

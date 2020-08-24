@@ -1,4 +1,4 @@
-//生成时间:2020-8-18 11:54:56
+//生成时间:2020-8-24 11:38:05
 export * from './payment/common/alipay'
 export * from './payment/common/braintree'
 export * from './payment/common/payments'
