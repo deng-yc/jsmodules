@@ -18,7 +18,7 @@
             "npmClientArgs": []
         }
     },
-    "useWorkspaces": true,
+    "useWorkspaces": false,
     "version": "2.0.1-alpha.0",
     "npmClient": "yarn"
 }
