@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 
-import di, { BindingClass } from '@jsmodules/di';
-import { BindingScope } from '@jsmodules/di/dist/binding';
+import di, { BindingClass, BindingScope } from '@jsmodules/di';
 
-export function useResolveClass<T extends BindingClass<T>>(
+export function useResolveClass<T extends new (...args) => any>(
     Binding: T,
     args: any[] = [],
     scope: BindingScope = "Singleton"

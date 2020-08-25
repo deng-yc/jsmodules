@@ -11,8 +11,9 @@
         "prepublishOnly": "yarn run build",
         "test": "yarn run build"
     },
-    "peerDependencies": {
-        "tslib": "^2.0.1"
+    "optionalDependencies": {
+        "tslib": "^2.0.1",
+        "lodash": "^4.17.20"
     },
     "devDependencies": {
         "rimraf": "~3.0.2",

@@ -1,5 +1,7 @@
-import { BindingScope } from './binding';
+import { BindingScope as BindingScopeType } from './binding';
 import Container from './container';
+
+export type BindingScope = BindingScopeType;
 
 export type BindingClass<T extends new (...args) => any> = {
     new (...args);

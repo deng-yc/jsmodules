@@ -88,6 +88,11 @@ mobx-state-tree@^3.17.2:
   resolved "https://registry.npm.taobao.org/mobx-state-tree/download/mobx-state-tree-3.17.2.tgz#130ab4d450fc4dd6e2571b7385af1350c82def37"
   integrity sha1-Ewq01FD8TdbiVxtzha8TUMgt7zc=
 
+mobx@^5.15.6:
+  version "5.15.6"
+  resolved "https://registry.npmjs.org/mobx/-/mobx-5.15.6.tgz#24750af56f87bcf9c3cf82ece4c79eb91bb71968"
+  integrity sha512-U5nnx3UNdRkUjntpwzO060VWifGVx/JZeu/aMw4y28dTjDNjoY3vNKs6tFNm7z1qIfcPInsd9L9HIm8H0zTDqg==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"

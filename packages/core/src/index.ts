@@ -9,8 +9,12 @@ export * from "./time";
 
 export * as http from "./http";
 
+export * from "./http/interface";
+
 export * from "./session";
 
 export * from "./token";
 
 export * from "./querystring";
+
+export * from "./url";
