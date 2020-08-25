@@ -25,7 +25,7 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
                 },
             });
             setAuthenticated(true);
-            const next = queryParams?.next || "/";
+            const next = queryParams.get("next") || "/";
             history.replace(next);
             remove();
         } catch (err) {

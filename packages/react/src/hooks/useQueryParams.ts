@@ -3,11 +3,10 @@ import { useLocation } from 'react-router';
 
 import { URLSearchParams } from '@jsmodules/core';
 
-export function useQueryParams() {
+export function useQueryParams(): URLSearchParams {
     const location = useLocation();
     const queryParams = useMemo(() => {
-        const params = new URLSearchParams(location.search);
-        return params;
+        return new URLSearchParams(location.search);
     }, [location.search]);
 
     return queryParams;

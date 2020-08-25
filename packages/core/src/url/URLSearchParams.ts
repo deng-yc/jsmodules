@@ -69,6 +69,10 @@ export class URLSearchParamsImpl {
         return null;
     }
 
+    set(name, value) {
+        this._entries.set(name, [String(value)]);
+    }
+
     has(name) {
         return this._entries.has(name);
     }

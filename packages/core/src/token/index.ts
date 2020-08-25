@@ -16,7 +16,7 @@ type TokenObject = {
 
 export type LoginMethodOptions = {
     type: string;
-    client_id: string;
+    client_id?: string;
     data: any;
     auto_login?: boolean;
 };
