@@ -48,7 +48,7 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, { pageSiz
         .views((self) => {
             return {
                 get pageStatus() {
-                    return self.loadingStatus.get(loadingKey) || "pending";
+                    return self.$loadingStatus.get(loadingKey) || "pending";
                 },
             };
         });

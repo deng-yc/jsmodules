@@ -5,7 +5,6 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "scripts": {
-        "dev": "tsc -p tsconfig.build.json --watch",
         "build": "yarn run clean && yarn run compile",
         "clean": "rimraf -rf ./dist",
         "compile": "tsc -p tsconfig.build.json",
