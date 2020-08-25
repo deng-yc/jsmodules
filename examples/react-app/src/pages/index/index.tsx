@@ -5,7 +5,7 @@ import React, { useCallback, useEffect } from 'react';
 import logo from '@/logo.svg';
 import { SessionService } from '@jsmodules/core';
 import { useAuthenticated, useResolveClass } from '@jsmodules/react';
-import { todoList } from '@shared/models/dist/todo/TodoList';
+import { todoList } from '@shared/models';
 
 export default () => {
     const sessionService = useResolveClass(SessionService);
