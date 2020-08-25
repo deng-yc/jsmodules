@@ -4,7 +4,7 @@
     "version": "2.0.1-alpha.0",
     "description": "",
     "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "typings": "src/index.ts",
     "scripts": {
         "build": "yarn run clean && yarn run compile",
         "clean": "rimraf -rf ./dist",
