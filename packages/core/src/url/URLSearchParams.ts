@@ -7,8 +7,8 @@ const deserializeParam = function (value) {
 };
 
 export class URLSearchParamsImpl {
-    _entries = new Map();
-
+    polyfill = true;
+    private _entries = new Map();
     constructor(searchString?: string | Array<any> | object | URLSearchParamsImpl) {
         let ssType = typeof searchString;
 
@@ -45,9 +45,9 @@ export class URLSearchParamsImpl {
 
     append(name, value) {
         if (this.has(name)) {
-            this._entries[name].push(String(value));
+            this._entries.get(name).push(String(value));
         } else {
-            this._entries[name] = [String(value)];
+            this._entries.set(name, [String(value)]);
         }
     }
 
@@ -94,15 +94,22 @@ export class URLSearchParamsImpl {
     toString() {
         var searchArray = [];
         this.forEach((value, name) => {
-            searchArray.push(serializeParam(name) + "=" + serializeParam(value));
+            let key = serializeParam(name);
+            for (let val of value) {
+                searchArray.push(key + "=" + serializeParam(val));
+            }
         });
         return searchArray.join("&");
     }
+
     _fromString(searchString) {
         if (this._entries.size > 0) {
             this._entries.clear();
         }
         searchString = searchString.replace(/^\?/, "");
+        if (!searchString) {
+            return;
+        }
         var attributes = searchString.split("&");
         var attribute;
         for (var i = 0; i < attributes.length; i++) {
@@ -112,3 +119,17 @@ export class URLSearchParamsImpl {
     }
     sort() {}
 }
+
+const $scope = typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : this;
+
+var NativeURLSearchParams = (function () {
+    try {
+        if ($scope.URLSearchParams && new $scope.URLSearchParams("foo=bar").get("foo") === "bar") {
+            return $scope.URLSearchParams;
+        }
+        return URLSearchParamsImpl;
+    } catch (e) {}
+    return URLSearchParamsImpl;
+})();
+
+export const URLSearchParams = NativeURLSearchParams;

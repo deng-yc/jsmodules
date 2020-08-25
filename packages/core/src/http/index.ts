@@ -4,8 +4,8 @@ import trimStart from 'lodash/trimStart';
 
 import di from '@jsmodules/di';
 
-import { qs } from '../querystring';
 import { TokenService } from '../token';
+import { URLSearchParams } from '../url/URLSearchParams';
 import { IRequestBuilder, IResponseBuilder } from './interface';
 
 type ContentType = "application/x-www-form-urlencoded" | "application/json";
@@ -102,18 +102,17 @@ export class HttpRequestBuilder implements IRequestBuilder {
                 this.__canceler__ = c;
             }),
             paramsSerializer: (params) => {
-                return qs.stringify(params);
+                return new URLSearchParams(params).toString();
             },
             ...options,
         });
     }
     private dataSerializer(data) {
-        // debugger;
         if (this._contentType == "application/x-www-form-urlencoded") {
             if (!data) {
                 return "";
             }
-            return qs.stringify(data);
+            return new URLSearchParams(data).toString();
         }
         return data;
     }

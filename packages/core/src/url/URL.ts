@@ -1,4 +1,4 @@
-import { URLSearchParamsImpl } from './URLQueryParams';
+import { URLSearchParamsImpl } from './URLSearchParams';
 
 function removeUsername(match, username, password) {
     if (password === "@") {
@@ -7,14 +7,15 @@ function removeUsername(match, username, password) {
         return password;
     }
 }
-export class URLImpl {
+class URLImpl {
+    polyfill = true;
+
     private _hash;
     private _hostname;
     private _password;
     private _pathname;
     private _port;
     private _protocol;
-    private _search;
     private _username;
 
     searchParams: URLSearchParamsImpl;
@@ -27,7 +28,7 @@ export class URLImpl {
             if (urlIsValid) {
                 this.href = url;
             } else if (baseIsValid) {
-                this.href = base + url;
+                this.href = base.replace(/\/$/, "") + "/" + url.replace(/^\//, "");
             } else {
                 throw new TypeError(
                     'URL string is not valid. If using a relative url, a second argument needs to be passed representing the base URL. Example: new URL("relative/path", "http://www.example.com");'
@@ -36,14 +37,14 @@ export class URLImpl {
         } else if (url instanceof URLImpl) {
             // Copy all of the location or link properties to the
             // new URL instance.
-            this._hash = url.hash;
-            this._hostname = url.hostname;
-            this._password = url.password ? url.password : "";
-            this._pathname = url.pathname;
-            this._port = url.port;
-            this._protocol = url.protocol;
-            this._search = url.search;
-            this._username = url.username ? url.username : "";
+            // this._hash = url.hash;
+            // this._hostname = url.hostname;
+            // this._password = url.password ? url.password : "";
+            // this._pathname = url.pathname;
+            // this._port = url.port;
+            // this._protocol = url.protocol;
+            // this._username = url.username ? url.username : "";
+            this.href = url.href;
         }
     }
 
@@ -72,21 +73,21 @@ export class URLImpl {
     }
 
     get href() {
-        let hrefStr = this._protocol + "//";
-        if (this._username.length > 0 || this._password.length > 0) {
-            if (this._username.length > 0) {
-                hrefStr += this._username;
+        let hrefStr = this.protocol + "//";
+        if (this.username.length > 0 || this.password.length > 0) {
+            if (this.username.length > 0) {
+                hrefStr += this.username;
             }
             if (this._password.length > 0) {
-                hrefStr += ":" + this._password;
+                hrefStr += ":" + this.password;
             }
             hrefStr += "@";
         }
-        hrefStr += this._hostname;
-        if (this._port.length > 0) {
-            hrefStr += ":" + this._port;
+        hrefStr += this.hostname;
+        if (this.port.length > 0) {
+            hrefStr += ":" + this.port;
         }
-        hrefStr += this._pathname + this._search + this._hash;
+        hrefStr += this.pathname + this.search + this.hash;
         return hrefStr;
     }
     set href(value) {
@@ -171,4 +172,19 @@ export class URLImpl {
     }
 }
 
-globalThis.URLImpl = URLImpl;
+const $scope = typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : this;
+
+var NativeURL = (function () {
+    try {
+        if ($scope.URL) {
+            let url = new $scope.URL("/foo?foo=bar");
+            if (url.searchParams && url.searchParams.get("foo") === "bar") {
+                return $scope.URL;
+            }
+        }
+        return URLImpl;
+    } catch (e) {}
+    return URLImpl;
+})();
+
+export const URL = NativeURL;
