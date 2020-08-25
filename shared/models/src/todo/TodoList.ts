@@ -24,6 +24,9 @@ const Todo = types
 
 const TodoList = types
     .compose(RunInAction, createPaginationModel(Todo, {}))
+    .props({
+        selected: types.reference(Todo),
+    })
     .named("todoList")
     .actions((self) => {
         const api = di.getInstance(SoulsApi);
