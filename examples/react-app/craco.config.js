@@ -57,9 +57,6 @@ module.exports = {
         //     return webpackConfig;
         // },
     },
-    devServer: {
-        port: 30000,
-    },
     plugins: [
         {
             plugin: CracoLessPlugin,
