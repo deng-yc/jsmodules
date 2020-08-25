@@ -6,17 +6,6 @@
             "examples/*",
             "packages/*",
             "shared/*"
-        ],
-        "nohoist": [
-            "**/react-native",
-            "**/react-native/**",
-            "**/jest",
-            "**/jest/**",
-            "**/@react-native-community",
-            "**/@react-native-community/**",
-            "**/@babel",
-            "**/@babel/**",
-            "jetifier"
         ]
     },
     "scripts": {

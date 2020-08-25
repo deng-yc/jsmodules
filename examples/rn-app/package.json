@@ -2,6 +2,19 @@
     "name": "rn-app",
     "version": "0.0.1",
     "private": true,
+    "workspaces": {
+        "nohoist": [
+            "**/react-native",
+            "**/react-native/**",
+            "**/jest",
+            "**/jest/**",
+            "**/@react-native-community",
+            "**/@react-native-community/**",
+            "**/@babel",
+            "**/@babel/**",
+            "jetifier"
+        ]
+    },
     "scripts": {
         "android": "react-native run-android",
         "ios": "react-native run-ios",
@@ -11,8 +24,7 @@
     },
     "dependencies": {
         "react": "16.13.1",
-        "react-native": "0.63.2",
-        "url-search-params-polyfill": "^8.1.0"
+        "react-native": "0.63.2"
     },
     "devDependencies": {
         "@babel/core": "^7.8.4",
