@@ -8,8 +8,8 @@
         "downlevelIteration": true,
         "experimentalDecorators": true,
         "esModuleInterop": true,
-        "declarationMap": false,
-        "declaration": false,
+        "declarationMap": true,
+        "declaration": true,
         "lib": ["DOM", "ESNext"]
     },
 
