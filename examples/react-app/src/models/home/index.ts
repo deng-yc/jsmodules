@@ -1,7 +1,6 @@
-import { IAnyType, types } from 'mobx-state-tree';
-import { useMemo } from 'react';
+import { types } from 'mobx-state-tree';
 
-import { createPaginationModel } from '@shared/models';
+import { createPaginationModel } from '@jsmodules/models';
 
 const HomeItem = types.model("home-item", {
     name: types.string,
@@ -13,17 +12,10 @@ const TodoList = createPaginationModel(HomeItem)
         return {
             actions: {
                 haha() {
-                    self.refresh();
+                    self.fetchAsync({ page: 1 });
                 },
             },
         };
     });
-
-export function useMstModel<T extends IAnyType>(type: T, snapshot?: any) {
-    return useMemo(() => {
-        return type.create(snapshot);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-}
 
 // const model = useMstModel(TodoList);
