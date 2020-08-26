@@ -1,8 +1,8 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React from "react";
+import { Text } from "react-native";
 
-import { NavigationContainer } from '@react-navigation/native';
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const linking = {
     prefixes: ["http://localhost:3010", "local3010://"],
@@ -30,8 +30,8 @@ export function AppRoutes() {
             <MainStack.Navigator
                 screenOptions={{
                     headerShown: false,
-                    animationEnabled: true,
-                    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                    animationEnabled: false,
+                    // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                 }}
             >
                 <MainStack.Screen
