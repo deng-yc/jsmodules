@@ -1,7 +1,7 @@
 import { Observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
+import { Link } from '@react-navigation/native';
 import { todoList } from '@shared/models';
 
 interface ITodoListProps {}

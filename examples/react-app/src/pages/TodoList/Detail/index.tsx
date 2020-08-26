@@ -1,15 +1,15 @@
 import { Observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
-import { useParams } from 'react-router';
 
 import { useDidMount } from '@jsmodules/react';
+import { useRoute } from '@react-navigation/native';
 import { todoList } from '@shared/models';
 
 interface ITodoDetailProps {}
 
 export const TodoDetail: React.FC<ITodoDetailProps> = (props: ITodoDetailProps) => {
-    const params = useParams<{ id: string }>();
-
+    const route = useRoute();
+    const params: any = route.params;
     const todo = useMemo(() => {
         return todoList.get(params.id);
     }, [params.id]);

@@ -1,5 +1,3 @@
-import './App.css';
-
 import React from 'react';
 
 import { AccessProvider, AppProvider } from '@jsmodules/react';
@@ -12,7 +10,7 @@ function App() {
     return (
         <AppProvider getInitialState={getInitialState}>
             <AccessProvider accessFactory={accessFactory}>
-                <AppRoutes />{" "}
+                <AppRoutes />
             </AccessProvider>
         </AppProvider>
     );

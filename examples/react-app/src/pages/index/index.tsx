@@ -1,11 +1,12 @@
-import { Button } from 'antd';
 import { Observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 import logo from '@/logo.svg';
+import { pxTransform } from '@/runtime/pxTransform';
 import { SessionService } from '@jsmodules/core';
 import { useAuthenticated, useResolveClass } from '@jsmodules/react';
+import { Link } from '@react-navigation/native';
 import { todoList } from '@shared/models';
 
 export default () => {
@@ -21,30 +22,38 @@ export default () => {
 
     console.log("renderPage");
     return (
-        <div className="App">
-            <header className="App-header">
+        <View style={styles.page}>
+            <View>
                 <Observer>
                     {() => {
                         const { pageStatus, page, total_count } = todoList;
                         console.log("renderObserver", pageStatus, page, total_count);
                         return (
-                            <div>
-                                {pageStatus}-{page}-{total_count}
-                            </div>
+                            <View>
+                                <Text style={styles.title}>
+                                    {pageStatus}-{page}-{total_count}
+                                </Text>
+                            </View>
                         );
                     }}
                 </Observer>
-                <img src={logo} className="App-logo" alt="logo" />
+                <Link to={"/todos"}>TodoList</Link>
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
                 </p>
-                <Link to="/todos">TodoList</Link>
-                <Button onClick={handleLogout}>退出登录</Button>
                 <p>{process.env.REACT_APP_PAYPAL_CLIENT_ID}</p>
                 <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
                     Learn React - {process.env.API_ENV}
                 </a>
-            </header>
-        </div>
+            </View>
+        </View>
     );
 };
+const styles = StyleSheet.create({
+    page: {
+        flex: 1,
+    },
+    title: {
+        fontSize: pxTransform(32),
+    },
+});

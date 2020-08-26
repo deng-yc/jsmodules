@@ -1,4 +1,3 @@
-import { Button, message } from 'antd';
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
 
@@ -15,7 +14,6 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
     const { setAuthenticated } = useAuthenticated();
 
     const handleLogin = useCallback(async () => {
-        const remove = message.loading("正在登录...");
         try {
             await sessionService.login({
                 type: "password",
@@ -27,20 +25,14 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
             setAuthenticated(true);
             const next = queryParams.get("next") || "/";
             history.replace(next);
-            remove();
         } catch (err) {
-            remove();
             console.error(err);
             alert(err.message || "登录失败");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return (
-        <div>
-            <Button onClick={handleLogin}>Login</Button>
-        </div>
-    );
+    return <div>登录</div>;
 };
 
 export default Login;
