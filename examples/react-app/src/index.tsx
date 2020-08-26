@@ -1,7 +1,6 @@
 import './styles/index.less';
 import './di';
 import './runtime';
-import 'mobx-react-lite/batchingForReactDom';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,6 +8,10 @@ import ReactDOM from 'react-dom';
 import App from '@/App';
 
 import * as serviceWorker from './serviceWorker';
+
+if (__DEV__) {
+    require("mobx-react-lite/batchingForReactDom");
+}
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
