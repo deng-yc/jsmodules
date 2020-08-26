@@ -50,6 +50,7 @@ module.exports = {
     webpack: {
         alias: {
             "@": resolveApp("src"),
+            react: resolveApp("../../node_modules/react"),
         },
         plugins: [
             new webpack.DefinePlugin({
