@@ -5,6 +5,6 @@ export const routers = [
     },
     {
         path: "/",
-        component: require("@/pages/index").default,
+        component: require("@/pages/home").default,
     },
 ];
