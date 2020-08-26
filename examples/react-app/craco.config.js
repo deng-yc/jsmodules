@@ -41,6 +41,11 @@ module.exports = {
     },
     babel: {
         presets: [],
+        plugins: [
+            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-transform-react-jsx",
+            "@babel/plugin-transform-flow-strip-types",
+        ],
     },
     webpack: {
         alias: {

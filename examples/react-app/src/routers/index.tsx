@@ -10,7 +10,14 @@ const linking = {
         screens: {
             TodoDetail: "/todos/:id",
             TodoList: "/todos",
-            Home: "/",
+            Home: {
+                path: "/",
+                screens: {
+                    Home: "/home",
+                    Notifications: "/messages",
+                    Profile: "/profile",
+                },
+            },
         },
     },
 };
@@ -23,8 +30,8 @@ export function AppRoutes() {
             <MainStack.Navigator
                 screenOptions={{
                     headerShown: false,
-                    animationEnabled: false,
-                    cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+                    animationEnabled: true,
+                    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
                 }}
             >
                 <MainStack.Screen

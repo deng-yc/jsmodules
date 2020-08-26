@@ -3,12 +3,16 @@ import './di';
 import './runtime';
 import 'mobx-react-lite/batchingForReactDom';
 
+// import 'react-native-gesture-handler';
 import { AppRegistry } from 'react-native';
+import { enableScreens } from 'react-native-screens';
 
+// Generate required css
 import App from '@/App';
 
 import * as serviceWorker from './serviceWorker';
 
+enableScreens();
 // register the app
 AppRegistry.registerComponent("App", () => App);
 AppRegistry.runApplication("App", {

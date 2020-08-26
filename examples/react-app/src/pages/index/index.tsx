@@ -1,59 +1,102 @@
-import { Observer } from 'mobx-react-lite';
-import React, { useCallback } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
 
-import logo from '@/logo.svg';
 import { pxTransform } from '@/runtime/pxTransform';
-import { SessionService } from '@jsmodules/core';
-import { useAuthenticated, useResolveClass } from '@jsmodules/react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Link } from '@react-navigation/native';
-import { todoList } from '@shared/models';
 
-export default () => {
-    const sessionService = useResolveClass(SessionService);
+const Tab = createBottomTabNavigator();
 
-    const { setAuthenticated } = useAuthenticated();
-
-    const handleLogout = useCallback(async () => {
-        await sessionService.logout();
-        setAuthenticated(false);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    console.log("renderPage");
+function Feed() {
     return (
-        <View style={styles.page}>
-            <View>
-                <Observer>
-                    {() => {
-                        const { pageStatus, page, total_count } = todoList;
-                        console.log("renderObserver", pageStatus, page, total_count);
-                        return (
-                            <View>
-                                <Text style={styles.title}>
-                                    {pageStatus}-{page}-{total_count}
-                                </Text>
-                            </View>
-                        );
-                    }}
-                </Observer>
-                <Link to={"/todos"}>TodoList</Link>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <p>{process.env.REACT_APP_PAYPAL_CLIENT_ID}</p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Learn React - {process.env.API_ENV}
-                </a>
-            </View>
+        <View>
+            <Text>Feed</Text>
+
+            <Link to="/todos">TodoList</Link>
         </View>
     );
+}
+
+function Notifications() {
+    return (
+        <View>
+            <Text>Notifications</Text>
+        </View>
+    );
+}
+function Profile() {
+    return (
+        <View>
+            <Text>Profile</Text>
+        </View>
+    );
+}
+export default () => {
+    return (
+        <Tab.Navigator
+            initialRouteName="Feed"
+            tabBarOptions={{
+                activeTintColor: "#e91e63",
+            }}
+        >
+            <Tab.Screen
+                name="Home"
+                component={Feed}
+                options={{
+                    title: "首页",
+                    tabBarLabel: "首页",
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <View
+                                style={{
+                                    backgroundColor: color,
+                                    width: size,
+                                    height: size,
+                                }}
+                            ></View>
+                        );
+                    },
+                }}
+            />
+            <Tab.Screen
+                name="Notifications"
+                component={Notifications}
+                options={{
+                    title: "通知消息",
+                    tabBarLabel: "通知消息",
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <View
+                                style={{
+                                    backgroundColor: color,
+                                    width: size,
+                                    height: size,
+                                }}
+                            ></View>
+                        );
+                    },
+                    tabBarBadge: 3,
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                component={Profile}
+                options={{
+                    title: "个人中心",
+                    tabBarLabel: "个人中心",
+                    tabBarIcon: ({ color, size }) => {
+                        return (
+                            <View
+                                style={{
+                                    backgroundColor: color,
+                                    width: size,
+                                    height: size,
+                                }}
+                            ></View>
+                        );
+                    },
+                }}
+            />
+        </Tab.Navigator>
+    );
 };
-const styles = StyleSheet.create({
-    page: {
-        flex: 1,
-    },
-    title: {
-        fontSize: pxTransform(32),
-    },
-});
