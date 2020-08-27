@@ -1,5 +1,4 @@
 import { flow, IAnyType, types } from 'mobx-state-tree';
-import { number } from 'mobx-state-tree/dist/internal';
 
 import { Loadable } from '../loading';
 
