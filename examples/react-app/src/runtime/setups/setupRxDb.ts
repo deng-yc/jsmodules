@@ -2,6 +2,8 @@ import { addRxPlugin } from 'rxdb';
 
 import { EncryptedKeyValue, KeyValue, RxDbConnection } from '@jsmodules/storage';
 
+const pwd = "1a6mdsrih2";
+
 export function setupRxDb() {
     console.log("setup rxdb");
 
@@ -11,7 +13,7 @@ export function setupRxDb() {
     RxDbConnection.addConfig("app", {
         config: {
             name: "app",
-            password: "123qwe!@#",
+            password: pwd,
             ignoreDuplicate: true,
             adapter: "indexeddb",
             pouchSettings: {
@@ -23,7 +25,7 @@ export function setupRxDb() {
         return {
             config: {
                 name: `user_${name}`,
-                password: "123qwe!@#",
+                password: pwd,
                 ignoreDuplicate: true,
                 adapter: "indexeddb",
                 pouchSettings: {
