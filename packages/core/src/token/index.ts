@@ -69,6 +69,8 @@ export class TokenService {
         const token = await TokenGetter.exec(null, this.current);
         if (!token) {
             await this.logout();
+        } else if (this.current?.access_token != token.access_token) {
+            await this.tokenStore.setAsync(this.skey, token);
         }
         this.current = token;
         return this.current;
