@@ -1,9 +1,9 @@
-type PipeCallback<T, P> = (input: P, output: T) => Promise<T>;
+type PipeCallback<P, T> = (input: P, output: T) => Promise<T>;
 
-export class Pipeline<T, P = T> {
+export class Pipeline<P, T = P> {
     private callbacks = [];
 
-    use(callbackFn: PipeCallback<T, P>) {
+    use(callbackFn: PipeCallback<P, T>) {
         this.callbacks.push(callbackFn);
         return this;
     }

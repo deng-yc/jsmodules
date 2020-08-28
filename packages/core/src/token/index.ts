@@ -23,12 +23,26 @@ export type LoginMethodOptions = {
 
 const TokenGetter = new Pipeline<TokenObject | any>();
 
-const LoginMethod = new Pipeline<TokenObject, LoginMethodOptions>();
+class LoginMethods {
+    private methods = {};
+    use(type: string, callbackFn: (options: LoginMethodOptions) => Promise<TokenObject>) {
+        this.methods[type] = callbackFn;
+    }
+
+    exec(options: LoginMethodOptions) {
+        if (this.methods[options.type]) {
+            return this.methods[options.type](options);
+        }
+        throw new Error(`未配置登录方式${options.type}`);
+    }
+}
+
+const loginMethods = new LoginMethods();
 
 @di.injectable("TokenService")
 export class TokenService {
     static get LoginMethod() {
-        return LoginMethod;
+        return loginMethods;
     }
 
     static get TokenGetter() {
@@ -54,7 +68,7 @@ export class TokenService {
     }
 
     async login(options: LoginMethodOptions) {
-        const token = await LoginMethod.exec(options);
+        const token = await loginMethods.exec(options);
         token.auto_login = options.auto_login || false;
         token.created_unix = Math.floor(new Date().getTime() / 1000);
         await this.tokenStore.setAsync(this.skey, token);

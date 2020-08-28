@@ -31,23 +31,20 @@ export function setupAuth() {
     });
 
     //添加登录方式
-    TokenService.LoginMethod.use(async (options) => {
-        if (options.type === "password") {
-            const { username, password } = options.data;
-            if (!username || !password) {
-                throw new Error("用户名和密码不能未空");
-            }
-            const client_id = "resourceowner";
-            const api = di.getInstance(IdentityApi);
-            const res = await api.connectToken().post({
-                client_id,
-                grant_type: "password",
-                username,
-                password,
-            });
-            return { ...res.data, client_id };
+    TokenService.LoginMethod.use("password", async (options) => {
+        const { username, password } = options.data;
+        if (!username || !password) {
+            throw new Error("用户名和密码不能未空");
         }
-        return Promise.reject(new Error("不支持的登录方式"));
+        const client_id = "resourceowner";
+        const api = di.getInstance(IdentityApi);
+        const res = await api.connectToken().post({
+            client_id,
+            grant_type: "password",
+            username,
+            password,
+        });
+        return { ...res.data, client_id };
     });
 
     SessionService.UserGetter.use(async () => {
