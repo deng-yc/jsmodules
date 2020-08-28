@@ -6,8 +6,8 @@ interface IHomeBottomTabbarProps {}
 
 export const HomeBottomTabbar: React.FC<IHomeBottomTabbarProps> = (props: IHomeBottomTabbarProps) => {
     return (
-        <div style={styles.container}>
-            <div style={styles.content}></div>
+        <div className={styles.container}>
+            <div className={styles.content}></div>
         </div>
     );
 };

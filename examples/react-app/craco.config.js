@@ -58,10 +58,17 @@ module.exports = {
                 __DEV__: isDev,
             }),
         ],
-        configure: {},
-        // configure: (webpackConfig, { env, paths }) => {
-        //     return webpackConfig;
-        // },
+        // configure: {},
+        configure: (webpackConfig, { env, paths }) => {
+            for (const plugin of webpackConfig.plugins) {
+                if (plugin.constructor?.name === "GenerateSW") {
+                    // console.log(plugin.config);
+                    plugin.config.importWorkboxFrom = "local";
+                }
+            }
+
+            return webpackConfig;
+        },
     },
     plugins: [
         {
