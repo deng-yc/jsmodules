@@ -84,7 +84,7 @@ module.exports = {
                 },
                 cssLoaderOptions: {
                     modules: {
-                        localIdentName: "[folder]_[local]--[hash:base64:5]",
+                        localIdentName: "[folder]_[name]_[local]--[hash:base64:5]",
                         context: path.resolve(__dirname, "src"),
                     },
                 },
