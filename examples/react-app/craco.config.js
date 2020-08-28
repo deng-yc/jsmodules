@@ -74,5 +74,22 @@ module.exports = {
                 },
             },
         },
+        {
+            plugin: CracoLessPlugin,
+            options: {
+                modifyLessRule: function (lessRule, _context) {
+                    lessRule.test = /\.(module)\.(less)$/;
+                    lessRule.exclude = /node_modules/;
+                    return lessRule;
+                },
+                cssLoaderOptions: {
+                    modules: {
+                        localIdentName: "[path][name]__[local]--[hash:base64:5]",
+                        context: path.resolve(__dirname, "src"),
+                        exportGlobals: true,
+                    },
+                },
+            },
+        },
     ],
 };
