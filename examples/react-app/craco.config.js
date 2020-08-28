@@ -84,9 +84,8 @@ module.exports = {
                 },
                 cssLoaderOptions: {
                     modules: {
-                        localIdentName: "[path][name]__[local]--[hash:base64:5]",
+                        localIdentName: "[folder]_[local]--[hash:base64:5]",
                         context: path.resolve(__dirname, "src"),
-                        exportGlobals: true,
                     },
                 },
             },
