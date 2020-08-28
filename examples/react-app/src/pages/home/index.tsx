@@ -1,7 +1,8 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 
-import HomeBottomTabbar from "./components/BottomTabbar";
+import HomeBottomTabbar from './components/BottomTabbar';
 
 export default () => {
     return (
@@ -9,7 +10,9 @@ export default () => {
             <Helmet>
                 <title>首页</title>
             </Helmet>
-            首页
+
+            <Link to="/login">登录</Link>
+
             <HomeBottomTabbar />
         </>
     );
