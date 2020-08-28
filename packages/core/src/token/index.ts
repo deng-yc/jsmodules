@@ -24,16 +24,23 @@ export type LoginMethodOptions = {
 const TokenGetter = new Pipeline<TokenObject | any>();
 
 class LoginMethods {
-    private methods = {};
+    private methods: any = {};
     use(type: string, callbackFn: (options: LoginMethodOptions) => Promise<TokenObject>) {
-        this.methods[type] = callbackFn;
+        this.methods[type] = this.methods[type] || [];
+        this.methods[type].push(callbackFn);
     }
 
-    exec(options: LoginMethodOptions) {
-        if (this.methods[options.type]) {
-            return this.methods[options.type](options);
+    async exec(options: LoginMethodOptions) {
+        const type = options.type;
+        if (this.methods[type]) {
+            const callbacks = this.methods[type];
+            let result = null;
+            for (const callback of callbacks) {
+                result = await callback(options, result);
+            }
+            return result;
         }
-        throw new Error(`未配置登录方式${options.type}`);
+        throw new Error(`未配置登录方式${type}`);
     }
 }
 
