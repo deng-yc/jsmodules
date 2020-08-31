@@ -13,7 +13,6 @@
             "**/@react-native-community/**",
             "**/@babel",
             "**/@babel/**",
-            "**/babel-jest",
             "jetifier"
         ]
     },
@@ -45,6 +44,7 @@
         "react": "^16.13.1"
     },
     "devDependencies": {
+        "@babel/core": "^7.11.4",
         "@babel/plugin-proposal-class-properties": "^7.10.4",
         "@babel/plugin-transform-flow-strip-types": "^7.10.4",
         "@babel/plugin-transform-react-jsx": "^7.10.4",
