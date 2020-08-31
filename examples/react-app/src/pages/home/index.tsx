@@ -12,6 +12,8 @@ export default () => {
     const [checked, setChecked] = useState(false);
     const viewShotRef = useRef<ViewShotRef>(null);
 
+    const [url, setUrl] = useState("");
+
     return (
         <>
             <Helmet>
@@ -20,7 +22,7 @@ export default () => {
             <Button
                 onPress={() => {
                     viewShotRef.current?.capture().then((data) => {
-                        console.log(data);
+                        setUrl(data);
                     });
                 }}
                 title="截图"
@@ -52,6 +54,14 @@ export default () => {
                     </View>
                 </View>
             </ViewShot>
+            {url && (
+                <>
+                    <img src={url} alt="截图" />
+                    <a download href={url}>
+                        保存截图
+                    </a>
+                </>
+            )}
 
             <HomeBottomTabbar />
         </>

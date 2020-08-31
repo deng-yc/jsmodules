@@ -12,11 +12,17 @@ export const ViewShot = (props: IViewShotProps, ref: any) => {
         return {
             capture() {
                 if (viewRef.current) {
-                    return html2canvas(viewRef.current as any, { useCORS: true }).then((canvas) => {
-                        const imageUrl = canvas.toDataURL("image/png");
-                        console.log(imageUrl);
-                        return imageUrl;
-                    });
+                    return html2canvas(viewRef.current as any, { useCORS: true })
+                        .then((canvas) => {
+                            return new Promise((resolve) => {
+                                canvas.toBlob((b) => {
+                                    resolve(b);
+                                }, "image/png");
+                            });
+                        })
+                        .then((b) => {
+                            return URL.createObjectURL(b);
+                        });
                 }
                 return Promise.resolve(null);
             },
