@@ -13,6 +13,7 @@
             "**/@react-native-community/**",
             "**/@babel",
             "**/@babel/**",
+            "**/babel-jest",
             "jetifier"
         ]
     },
