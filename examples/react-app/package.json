@@ -30,7 +30,6 @@
         "mobx-state-tree": "^3.17.2",
         "pouchdb-adapter-indexeddb": "^7.2.2",
         "pouchdb-adapter-memory": "^7.2.1",
-        "pouchdb-adapter-websql": "^7.0.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-native-web": "^0.13.9",
