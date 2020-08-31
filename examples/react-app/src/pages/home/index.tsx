@@ -16,9 +16,9 @@ export default () => {
                 <title>首页</title>
             </Helmet>
 
-            <View>
+            <View style={{ flex: 1 }}>
                 <Link to="/login">登录</Link>
-                <div>
+                <View>
                     <Image
                         style={{
                             width: pxTransform(100),
@@ -34,12 +34,12 @@ export default () => {
                             uri: "http://necolas.github.io/react-native-web/docs/static/media/hawk.0b66d0e5.png",
                         }}
                     />
-                </div>
-                <div>
+                </View>
+                <View>
                     <Switch value={checked} onValueChange={setChecked} shouldRasterizeIOS>
                         aaa
                     </Switch>
-                </div>
+                </View>
             </View>
 
             <HomeBottomTabbar />
