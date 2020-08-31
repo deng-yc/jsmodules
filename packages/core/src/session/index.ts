@@ -26,7 +26,8 @@ export class SessionService {
 
     user: any = null;
 
-    getLoginedUser<T>(): T | null {
+    async getLoginedUser<T>(): Promise<T | null> {
+        await this.initAsync();
         return this.user;
     }
 
@@ -51,7 +52,8 @@ export class SessionService {
         this.isAuthenticated = false;
     }
 
-    async initAsync() {
+    private initPromise: Promise<void> = null;
+    private async _initAsync() {
         try {
             const access_token = await this.tokenService.getAccessToken();
             if (!access_token) {
@@ -68,5 +70,12 @@ export class SessionService {
         } catch (ex) {
             console.error(ex);
         }
+    }
+
+    initAsync() {
+        if (!this.initPromise) {
+            this.initPromise = this._initAsync();
+        }
+        return this.initPromise;
     }
 }
