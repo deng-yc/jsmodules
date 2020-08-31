@@ -1,31 +1,29 @@
-import React, { useMemo } from 'react';
-import { Link } from 'umi';
-
-import { useAccess } from '@@/plugin-access/access';
-import { di } from '@jsmodules/di';
-import events from '@jsmodules/events';
+import React from 'react';
+import { Helmet } from 'umi';
 
 import styles from './index.less';
 
-@di.injectable()
-class ServiceA {
-    getA() {
-        return '123';
-    }
+export default function Home() {
+  return (
+    <div>
+      <Helmet>
+        <title>首页</title>
+        <meta name="description" content="app介绍" />
+        <meta name="keyword" content="关键字1，关键字2" />
+      </Helmet>
+      <h1 className={styles.title}>Page index</h1>
+    </div>
+  );
 }
 
-export default () => {
-    const {} = useAccess();
-
-    const a = di.getInstance(ServiceA);
-    const b = useMemo(() => {
-        return a.getA();
-    }, []);
-    return (
-        <div>
-            <h1 className={styles.title}>Page index {b}</h1>
-            <Link to={'/users'}>users</Link>
-            <Link to={'/users/add'}>app1</Link>
-        </div>
-    );
+Home.getInitialProps = (ctx: any) => {
+  if (ctx.isServer) {
+    return {
+      data: 1231,
+    };
+  }
+  debugger;
+  return {
+    data: 121,
+  };
 };
