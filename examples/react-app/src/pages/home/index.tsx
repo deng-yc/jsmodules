@@ -57,7 +57,7 @@ export default () => {
             {url && (
                 <>
                     <img src={url} alt="截图" />
-                    <a download href={url}>
+                    <a download="分享海报.png" href={url}>
                         保存截图
                     </a>
                 </>
