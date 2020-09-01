@@ -5,7 +5,7 @@ interface IViewShotProps {
     children?: any;
 }
 
-export const ViewShot = (props: IViewShotProps, ref: any) => {
+const ViewShotImpl = (props: IViewShotProps, ref: any) => {
     const viewRef = useRef<HTMLDivElement>(null);
 
     const urlRef = useRef<string>();
@@ -53,5 +53,5 @@ export const ViewShot = (props: IViewShotProps, ref: any) => {
 
     return <div ref={viewRef}>{props.children}</div>;
 };
-
-export default React.forwardRef<{ capture: () => Promise<any> }>(ViewShot);
+export const ViewShot = React.forwardRef<{ capture: () => Promise<any> }>(ViewShotImpl);
+export default ViewShot;

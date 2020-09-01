@@ -6,7 +6,7 @@ interface IViewShotProps extends ViewProps {
     children?: any;
 }
 
-export const ViewShot = (props: IViewShotProps, ref: any) => {
+const ViewShotImpl = (props: IViewShotProps, ref: any) => {
     const viewRef = useRef<View>(null);
     useImperativeHandle(ref, () => {
         return {
@@ -33,4 +33,6 @@ export type ViewShotRef = {
     capture: () => Promise<any>;
 };
 
-export default React.forwardRef<ViewShotRef, IViewShotProps>(ViewShot);
+export const ViewShot = React.forwardRef<ViewShotRef, IViewShotProps>(ViewShotImpl);
+
+export default ViewShot;
