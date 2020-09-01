@@ -1,4 +1,3 @@
-import html2canvas from 'html2canvas';
 import React, { useImperativeHandle, useRef } from 'react';
 import { View, ViewProps } from 'react-native';
 
@@ -12,11 +11,7 @@ const ViewShotImpl = (props: IViewShotProps, ref: any) => {
         return {
             capture() {
                 if (viewRef.current) {
-                    return html2canvas(viewRef.current as any).then((canvas) => {
-                        const imageUrl = canvas.toDataURL("image/png");
-                        console.log(imageUrl);
-                        return imageUrl;
-                    });
+                    //TODO:实现RN截图
                 }
                 return Promise.resolve(null);
             },
