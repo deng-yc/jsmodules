@@ -16,6 +16,17 @@ export const ViewShot = (props: IViewShotProps, ref: any) => {
             urlRef.current = "";
         }
     }, []);
+    const canvasToBlob = useCallback((canvas: HTMLCanvasElement) => {
+        return new Promise((res) => {
+            canvas.toBlob(
+                (blob: any) => {
+                    res(blob);
+                },
+                "image/png",
+                1
+            );
+        });
+    }, []);
 
     useImperativeHandle(ref, () => {
         return {
@@ -23,16 +34,10 @@ export const ViewShot = (props: IViewShotProps, ref: any) => {
                 revokeObjectURL();
                 if (viewRef.current) {
                     return html2canvas(viewRef.current as any, { useCORS: true })
-                        .then((canvas) => {
-                            return new Promise((resolve) => {
-                                canvas.toBlob((b) => {
-                                    resolve(b);
-                                }, "image/png");
-                            });
-                        })
+                        .then(canvasToBlob)
                         .then((b) => {
                             urlRef.current = URL.createObjectURL(b);
-                            return URL.createObjectURL(b);
+                            return urlRef.current;
                         });
                 }
                 return Promise.resolve(null);
