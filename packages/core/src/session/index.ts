@@ -3,6 +3,7 @@ import { kvStore } from '@jsmodules/storage';
 import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
 
 import { Pipeline } from '../pipeline';
+import { Task } from '../tasks';
 import { LoginMethodOptions, TokenService } from '../token';
 
 const USER_STORAGE_KEY = "current_user";
@@ -31,12 +32,10 @@ export class SessionService {
         return this.user;
     }
 
-    async login(options: LoginMethodOptions) {
+    async loginAsync(options: LoginMethodOptions) {
         try {
             await this.tokenService.login(options);
-            const user = await UserGetter.exec();
-            await this.sessionStore.setAsync(USER_STORAGE_KEY, user);
-            this.user = user;
+            await this.updateAsync();
             this.isAuthenticated = true;
         } catch (ex) {
             this.user = null;
@@ -45,37 +44,38 @@ export class SessionService {
         }
     }
 
-    async logout() {
+    async logoutAsync() {
         await this.tokenService.logout();
         await this.sessionStore.removeAsync(USER_STORAGE_KEY);
         this.user = null;
         this.isAuthenticated = false;
     }
 
-    private initPromise: Promise<void> = null;
-    private async _initAsync() {
-        try {
-            const access_token = await this.tokenService.getAccessToken();
-            if (!access_token) {
-                this.isAuthenticated = false;
-                return;
-            }
-            const user = await this.sessionStore.getAsync(USER_STORAGE_KEY);
-            if (!user) {
-                this.isAuthenticated = false;
-                return;
-            }
+    updateAsync() {
+        return Task.throttleAsync("update-xv7uhjzhq", async () => {
+            const user = await UserGetter.exec();
             this.user = user;
-            this.isAuthenticated = true;
-        } catch (ex) {
-            console.error(ex);
-        }
+            await this.sessionStore.setAsync(USER_STORAGE_KEY, user);
+        });
     }
-
     initAsync() {
-        if (!this.initPromise) {
-            this.initPromise = this._initAsync();
-        }
-        return this.initPromise;
+        return Task.onceAsync(`init-wdy7i7sqp`, async () => {
+            try {
+                const access_token = await this.tokenService.getAccessToken();
+                if (!access_token) {
+                    this.isAuthenticated = false;
+                    return;
+                }
+                const user = await this.sessionStore.getAsync(USER_STORAGE_KEY);
+                if (!user) {
+                    this.isAuthenticated = false;
+                    return;
+                }
+                this.user = user;
+                this.isAuthenticated = true;
+            } catch (ex) {
+                console.error(ex);
+            }
+        });
     }
 }
