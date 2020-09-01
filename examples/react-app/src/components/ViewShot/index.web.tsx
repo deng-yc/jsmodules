@@ -37,7 +37,6 @@ export const ViewShot = (props: IViewShotProps, ref: any) => {
                 }
                 return Promise.resolve(null);
             },
-            download() {},
         };
     });
 
