@@ -6,6 +6,9 @@ const { width: windowWidth } = Dimensions.get("window");
 const designWidth = 750;
 
 type PxTransformOptions = {
+    /**
+     * only web,default:true
+     */
     rem: boolean;
 };
 
