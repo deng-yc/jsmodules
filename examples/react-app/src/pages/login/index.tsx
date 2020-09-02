@@ -15,7 +15,7 @@ export const Login: React.FC<ILoginProps> = (props: ILoginProps) => {
 
     const handleLogin = useCallback(async () => {
         try {
-            await sessionService.login({
+            await sessionService.loginAsync({
                 type: "password",
                 data: {
                     username: "admin",
