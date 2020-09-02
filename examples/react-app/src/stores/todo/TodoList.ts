@@ -1,4 +1,4 @@
-import { applySnapshot, clone, flow, getParent, types } from 'mobx-state-tree';
+import { applySnapshot, flow, getParent, types } from 'mobx-state-tree';
 
 import { di } from '@jsmodules/di';
 import { createPaginationModel, Loadable, RunInAction } from '@jsmodules/models';
