@@ -29,7 +29,7 @@ export default () => {
                 title="截图"
             ></Button>
             <ViewShot ref={viewShotRef}>
-                <QRCode value="https://www.baidu.com" />
+                <QRCode size={pxTransform(200, { rem: false })} value="https://www.baidu.com" />
                 <View style={{ flex: 1 }}>
                     <Link to="/login">登录</Link>
                     <View>
