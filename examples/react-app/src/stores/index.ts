@@ -1,11 +1,10 @@
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
 import { createContext, useContext } from 'react';
 
-import { TodoDetail, TodoList } from './todo/TodoList';
+import { TodoList } from './todo/TodoList';
 
 const RootStore = types.model({
     todosStore: types.optional(TodoList, {}),
-    todoDetailStore: types.optional(TodoDetail, {}),
 });
 
 export const rootStore = RootStore.create({});

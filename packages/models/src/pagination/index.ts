@@ -39,7 +39,7 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, options?:
                             result: { items, total_count },
                         } = resp.data;
                         self.items.clear();
-                        self.items.push(...items);
+                        self.items.push(...items.map((item) => item.id));
                         self.page = page;
                         self.total_count = 1 * total_count;
                         self.setLoading(loadingKey, "done");

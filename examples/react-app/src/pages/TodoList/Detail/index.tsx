@@ -9,18 +9,18 @@ interface ITodoDetailProps {}
 
 export const TodoDetail: React.FC<ITodoDetailProps> = (props: ITodoDetailProps) => {
     const params: any = useParams();
-    const { todoDetailStore } = useMst();
+    const { todosStore } = useMst();
 
     const todo = useMemo(() => {
-        return todoDetailStore.get(params.id);
-    }, [params.id, todoDetailStore]);
+        return todosStore.getOrCreate(params.id);
+    }, [params.id, todosStore]);
 
     useDidMount(() => {
         todo?.loadAsync();
     });
 
     const a = () => {
-        todo?.getParent();
+        todo?.updateAsync();
     };
 
     return (

@@ -5,7 +5,7 @@ import { createPaginationModel, Loadable, RunInAction } from '@jsmodules/models'
 import { SoulsApi } from '@shared/api/dist/generated/content/common/souls';
 
 const loadingKey = "detail";
-const Todo = types
+export const Todo = types
     .compose(RunInAction, Loadable)
     .props({
         id: types.identifier,
@@ -16,10 +16,14 @@ const Todo = types
     .actions((self) => {
         const api = di.getInstance(SoulsApi);
         return {
-            getParent() {
-                const parent = getParent(self);
-                return parent;
+            applySnapshot(data) {
+                applySnapshot(self, data);
             },
+
+            updateAsync() {
+                self.nickname = self.nickname + "1";
+            },
+
             loadAsync: flow(function* loadAsync() {
                 try {
                     self.setLoading(loadingKey, "pending");
@@ -47,28 +51,36 @@ const Todo = types
         };
     });
 
-export const TodoDetail = types
-    .model({
-        todo: types.maybeNull(Todo),
-    })
-    .actions((self) => {
-        return {
-            get(id: any) {
-                self.todo = Todo.create({ id });
-                return self.todo;
-            },
-        };
-    });
-
 export const TodoList = types
-    .compose(RunInAction, createPaginationModel(Todo, { pageSize: 10 }))
+    .compose(RunInAction, createPaginationModel(types.reference(Todo), { pageSize: 10 }))
+    .props({
+        todos: types.optional(types.map(Todo), {}),
+    })
     .named("todoList")
     .actions((self) => {
         const api = di.getInstance(SoulsApi);
         return {
-            getPageDataAsync(query) {
-                return api.summary().get(query);
+            getPageDataAsync: flow(function* (query) {
+                const resp = yield api.summary().get(query);
+                const { items } = resp.data.result;
+                for (const item of items) {
+                    if (!self.todos.has(item.id)) {
+                        self.todos.set(item.id, item);
+                    } else {
+                        const model = self.todos.get(item.id);
+                        model?.applySnapshot(item);
+                    }
+                }
+                return resp;
+            }),
+
+            getOrCreate(id) {
+                if (!self.todos.has(id)) {
+                    self.todos.set(id, { id });
+                }
+                return self.todos.get(id);
             },
+
             async deleteAsync(id) {
                 return api.me().get();
             },
