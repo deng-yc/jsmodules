@@ -1,6 +1,7 @@
 import { Dimensions, Platform } from 'react-native';
 
-const { width } = Dimensions.get("screen");
+const { width: screenWidth } = Dimensions.get("screen");
+const { width: windowWidth } = Dimensions.get("window");
 
 const designWidth = 750;
 
@@ -15,10 +16,10 @@ export function pxTransform(px: number, options?: PxTransformOptions): any {
         if (options.rem) {
             return `${(px / (designWidth / 10)).toFixed(5)}rem`;
         }
-        if (width >= 750) {
-            console.log(width);
+        if (windowWidth >= 750) {
             return px;
         }
+        return (windowWidth * px) / designWidth;
     }
-    return (width * px) / designWidth;
+    return (screenWidth * px) / designWidth;
 }
