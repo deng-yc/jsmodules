@@ -1,9 +1,11 @@
 import html2canvas from 'html2canvas';
 import React, { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
+import { PixelRatio } from 'react-native';
 
 interface IViewShotProps {
     children?: any;
 }
+const pxRatio = PixelRatio.get();
 
 const ViewShotImpl = (props: IViewShotProps, ref: any) => {
     const viewRef = useRef<HTMLDivElement>(null);
@@ -18,13 +20,9 @@ const ViewShotImpl = (props: IViewShotProps, ref: any) => {
     }, []);
     const canvasToBlob = useCallback((canvas: HTMLCanvasElement) => {
         return new Promise((res) => {
-            canvas.toBlob(
-                (blob: any) => {
-                    res(blob);
-                },
-                "image/png",
-                1
-            );
+            canvas.toBlob((blob: any) => {
+                res(blob);
+            }, "image/png");
         });
     }, []);
 
@@ -33,7 +31,7 @@ const ViewShotImpl = (props: IViewShotProps, ref: any) => {
             capture() {
                 revokeObjectURL();
                 if (viewRef.current) {
-                    return html2canvas(viewRef.current as any, { useCORS: true })
+                    return html2canvas(viewRef.current as any, { useCORS: true, scale: pxRatio, allowTaint: true })
                         .then(canvasToBlob)
                         .then((b) => {
                             urlRef.current = URL.createObjectURL(b);

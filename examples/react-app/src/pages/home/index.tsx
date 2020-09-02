@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Image, Switch, View } from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
 import { Link } from 'react-router-dom';
 
 import ViewShot, { ViewShotRef } from '@/components/ViewShot';
@@ -28,6 +29,7 @@ export default () => {
                 title="截图"
             ></Button>
             <ViewShot ref={viewShotRef}>
+                <QRCode value="https://www.baidu.com" />
                 <View style={{ flex: 1 }}>
                     <Link to="/login">登录</Link>
                     <View>
@@ -56,7 +58,7 @@ export default () => {
             </ViewShot>
             {url && (
                 <>
-                    <img src={url} alt="截图" />
+                    <img src={url} alt="截图" style={{ width: "100%" }} />
                     <a download="分享海报.png" href={url}>
                         保存截图
                     </a>
