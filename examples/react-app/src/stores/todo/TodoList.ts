@@ -18,8 +18,6 @@ const Todo = types
         return {
             getParent() {
                 const parent = getParent(self);
-
-                debugger;
                 return parent;
             },
             loadAsync: flow(function* loadAsync() {
@@ -49,7 +47,18 @@ const Todo = types
         };
     });
 
-export const TodoItem = Todo;
+export const TodoDetail = types
+    .model({
+        todo: types.maybeNull(Todo),
+    })
+    .actions((self) => {
+        return {
+            get(id: any) {
+                self.todo = Todo.create({ id });
+                return self.todo;
+            },
+        };
+    });
 
 export const TodoList = types
     .compose(RunInAction, createPaginationModel(Todo, { pageSize: 10 }))
@@ -62,14 +71,6 @@ export const TodoList = types
             },
             async deleteAsync(id) {
                 return api.me().get();
-            },
-
-            get(id) {
-                const loadedItem = self.items.find((item) => item.id == id);
-                if (loadedItem) {
-                    return loadedItem;
-                }
-                return Todo.create({ id });
             },
         };
     });

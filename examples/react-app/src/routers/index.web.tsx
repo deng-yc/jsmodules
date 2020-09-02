@@ -8,14 +8,20 @@ export const routers = [
         component: require("@/pages/login").default,
     },
     {
+        path: "/todos/:id",
+        component: require("@/pages/TodoList/Detail").default,
+    },
+    {
+        path: "/todos",
+        component: require("@/pages/TodoList").default,
+    },
+    {
         path: "/publisher",
         component: require("@/pages/home").default,
         routes: [
             //几个Tab标签页
         ],
     },
-
-
     {
         path: "/advertiser",
         component: require("@/pages/home").default,

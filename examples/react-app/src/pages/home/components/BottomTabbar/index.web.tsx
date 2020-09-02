@@ -1,5 +1,6 @@
 import React from 'react';
 
+import BottomTabbar from './BottomTabbar';
 import styles from './index.module.less';
 
 interface IHomeBottomTabbarProps {}
@@ -9,7 +10,9 @@ export const HomeBottomTabbar: React.FC<IHomeBottomTabbarProps> = (props: IHomeB
         <>
             <div className={styles.placeholder}></div>
             <div className={styles.container}>
-                <div className={styles.content}></div>
+                <div className={styles.content}>
+                    <BottomTabbar />
+                </div>
             </div>
         </>
     );

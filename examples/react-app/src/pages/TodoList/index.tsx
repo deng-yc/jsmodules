@@ -2,20 +2,21 @@ import { Observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { todoList } from '@shared/models';
+import { useMst } from '@/stores';
 
 interface ITodoListProps {}
 
 export const TodoList: React.FC<ITodoListProps> = (props: ITodoListProps) => {
+    const { todosStore } = useMst();
     useEffect(() => {
-        todoList.fetchAsync({ page: 1 });
+        todosStore.fetchAsync({ page: 1 });
     }, []);
 
     return (
         <div>
             <Observer>
                 {() => {
-                    const { items } = todoList;
+                    const { items } = todosStore;
                     return (
                         <>
                             {items.map((item) => {

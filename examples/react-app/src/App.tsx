@@ -5,14 +5,17 @@ import { AccessProvider, AppProvider } from '@jsmodules/react';
 import { accessFactory } from './access';
 import { getInitialState } from './initialState';
 import { AppRoutes } from './routers';
+import { MstProvider, rootStore } from './stores';
 
 function App() {
     return (
-        <AppProvider getInitialState={getInitialState}>
-            <AccessProvider accessFactory={accessFactory}>
-                <AppRoutes />
-            </AccessProvider>
-        </AppProvider>
+        <MstProvider value={rootStore}>
+            <AppProvider getInitialState={getInitialState}>
+                <AccessProvider accessFactory={accessFactory}>
+                    <AppRoutes />
+                </AccessProvider>
+            </AppProvider>
+        </MstProvider>
     );
 }
 
