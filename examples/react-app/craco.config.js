@@ -51,6 +51,7 @@ module.exports = {
         alias: {
             "@": resolveApp("src"),
             react: resolveApp("../../node_modules/react"),
+            lodash: resolveApp("../../node_modules/lodash"),
         },
         plugins: [
             new webpack.DefinePlugin({

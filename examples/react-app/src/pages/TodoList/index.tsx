@@ -9,17 +9,17 @@ interface ITodoListProps {}
 export const TodoList: React.FC<ITodoListProps> = (props: ITodoListProps) => {
     const { todosStore } = useMst();
     useEffect(() => {
-        todosStore.fetchAsync({ page: 1 });
+        todosStore.fetchAsync({ skip: 0 });
     }, []);
 
     return (
         <div>
             <Observer>
                 {() => {
-                    const { items } = todosStore;
+                    const { displayItems } = todosStore;
                     return (
                         <>
-                            {items.map((item) => {
+                            {displayItems.map((item) => {
                                 return (
                                     <Observer key={item.id}>
                                         {() => {

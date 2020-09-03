@@ -62,10 +62,10 @@ export const TodoList = types
             },
 
             getOrCreate(id) {
-                if (!self.loadedItems.has(id)) {
-                    self.loadedItems.set(id, { id });
+                if (!self.$loadedItems.has(id)) {
+                    self.$loadedItems.set(id, { id });
                 }
-                return self.loadedItems.get(id);
+                return self.$loadedItems.get(id);
             },
 
             async deleteAsync(id) {
