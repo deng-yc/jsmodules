@@ -1,4 +1,4 @@
-import { flow, IAnyType, types } from 'mobx-state-tree';
+import { applyPatch, flow, IAnyType, types } from 'mobx-state-tree';
 
 import { Loadable } from '../loading';
 
@@ -6,16 +6,18 @@ const loadingKey = "paging";
 
 interface IPaginationModelOptions {
     pageSize?: number;
+    itemKey?: string;
 }
 
 export function createPaginationModel<T extends IAnyType>(ItemType: T, options?: IPaginationModelOptions) {
-    let opts: IPaginationModelOptions = { pageSize: 10, ...options };
+    let opts: IPaginationModelOptions = { pageSize: 10, itemKey: "id", ...options };
 
     return types
         .compose(
             Loadable,
             types.model({
-                items: types.optional(types.array(ItemType), []),
+                loadedItems: types.optional(types.map(ItemType), {}),
+                items: types.optional(types.array(types.reference(ItemType)), []),
                 total_count: types.optional(types.number, 0),
                 page: types.optional(types.number, 1),
             })
@@ -38,8 +40,22 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, options?:
                         let {
                             result: { items, total_count },
                         } = resp.data;
-                        self.items.clear();
-                        self.items.push(...items.map((item) => item.id));
+
+                        const identitys = [];
+
+                        for (const item of items) {
+                            const identity = item[opts.itemKey];
+                            if (!self.loadedItems.has(identity)) {
+                                self.loadedItems.set(identity, item);
+                            } else {
+                                const model = self.loadedItems.get(identity);
+                                if (model) {
+                                    applyPatch(model,item. );
+                                }
+                            }
+                            identitys.push(identity);
+                        }
+                        self.items.replace(identitys);
                         self.page = page;
                         self.total_count = 1 * total_count;
                         self.setLoading(loadingKey, "done");

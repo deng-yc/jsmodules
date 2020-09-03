@@ -52,33 +52,20 @@ export const Todo = types
     });
 
 export const TodoList = types
-    .compose(RunInAction, createPaginationModel(types.reference(Todo), { pageSize: 10 }))
-    .props({
-        todos: types.optional(types.map(Todo), {}),
-    })
-    .named("todoList")
+    .compose(RunInAction, createPaginationModel(Todo, { pageSize: 10 }))
+    .named("TodoList")
     .actions((self) => {
         const api = di.getInstance(SoulsApi);
         return {
-            getPageDataAsync: flow(function* (query) {
-                const resp = yield api.summary().get(query);
-                const { items } = resp.data.result;
-                for (const item of items) {
-                    if (!self.todos.has(item.id)) {
-                        self.todos.set(item.id, item);
-                    } else {
-                        const model = self.todos.get(item.id);
-                        model?.applySnapshot(item);
-                    }
-                }
-                return resp;
-            }),
+            getPageDataAsync: function (query) {
+                return api.summary().get(query);
+            },
 
             getOrCreate(id) {
-                if (!self.todos.has(id)) {
-                    self.todos.set(id, { id });
+                if (!self.loadedItems.has(id)) {
+                    self.loadedItems.set(id, { id });
                 }
-                return self.todos.get(id);
+                return self.loadedItems.get(id);
             },
 
             async deleteAsync(id) {
