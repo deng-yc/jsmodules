@@ -48,9 +48,21 @@ export function createPaginationModel<T extends IAnyType>(ItemType: T, options?:
                             if (!self.loadedItems.has(identity)) {
                                 self.loadedItems.set(identity, item);
                             } else {
-                                const model = self.loadedItems.get(identity);
+                                const model: Object = self.loadedItems.get(identity);
                                 if (model) {
-                                    applyPatch(model,item. );
+                                    const patchs = [];
+                                    for (const field in item) {
+                                        if (model.hasOwnProperty(field) && model[field] != item[field]) {
+                                            patchs.push({
+                                                op: "replace",
+                                                path: `/${field}`,
+                                                value: item[field],
+                                            });
+                                        }
+                                    }
+                                    if (patchs.length > 0) {
+                                        applyPatch(model, patchs);
+                                    }
                                 }
                             }
                             identitys.push(identity);
