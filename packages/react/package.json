@@ -15,10 +15,10 @@
         "pub": "npm publish"
     },
     "peerDependencies": {
-        "react": "^16.13.1"
+        "react": "*"
     },
     "optionalDependencies": {
-        "@types/react": "^16.9.0",
+        "@types/react": "^17.0.8",
         "tslib": "^2.0.1"
     },
     "dependencies": {
