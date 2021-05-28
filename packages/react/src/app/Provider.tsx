@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from "react";
 
-import { useDidMount } from '../hooks/useDidMount';
-import { AppContext } from './context';
+import { useDidMount } from "../hooks/useDidMount";
+import { AppContext } from "./context";
 
 interface IAppProviderProps {
     getInitialState: () => Promise<any>;

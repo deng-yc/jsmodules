@@ -1,10 +1,10 @@
-import isArray from 'lodash/isArray';
+import isArray from "lodash/isArray";
 
-import di from '@jsmodules/di';
+import di from "@jsmodules/di";
 
-import { EncryptedKeyValue, KeyValue } from '../collections/KeyValue';
-import { RxDbConnection } from '../rxdb/connection';
-import { IKeyValueStorage } from './types';
+import { EncryptedKeyValue, KeyValue } from "../collections/KeyValue";
+import { RxDbConnection } from "../rxdb/connection";
+import { IKeyValueStorage } from "./types";
 
 @di.injectable("kvStorage", "Request")
 export class RxDbKeyValueStorage implements IKeyValueStorage {
@@ -17,7 +17,11 @@ export class RxDbKeyValueStorage implements IKeyValueStorage {
         }
         return db.collections[KeyValue.name];
     }
-
+    async getAllAsync(): Promise<any[]> {
+        const collection = await this.getCollection();
+        const docs = await collection.find().where("group").equals(this.__STORE_NAME__).exec();
+        return docs;
+    }
     async keys() {
         const collection = await this.getCollection();
         const docs = await collection.find().where("group").equals(this.__STORE_NAME__).exec();
