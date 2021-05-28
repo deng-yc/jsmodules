@@ -1,6 +1,6 @@
 {
     "name": "@jsmodules/core",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -15,8 +15,8 @@
         "pub": "npm publish"
     },
     "dependencies": {
-        "@jsmodules/di": "^2.0.7",
-        "@jsmodules/storage": "^2.0.7",
+        "@jsmodules/di": "^2.0.8",
+        "@jsmodules/storage": "^2.0.8",
         "axios": "^0.21.1"
     },
     "optionalDependencies": {
