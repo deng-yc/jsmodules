@@ -22,7 +22,7 @@
     "optionalDependencies": {
         "events": "^3.2.0",
         "lodash": "^4.17.20",
-        "tslib": "^2.0.1"
+        "tslib": "^2.2.0"
     },
     "devDependencies": {
         "rimraf": "~3.0.2",
@@ -34,5 +34,5 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "gitHead": "b4b9d5a61fb1a4a00dae3e8f8a08e0b254dc0028"
+    "gitHead": "55d2a8e363bafc24e04b2cf045f6a1cdabc904e8"
 }
