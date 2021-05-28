@@ -2,8 +2,11 @@ import di from '@jsmodules/di';
 
 const startupTime = new Date();
 
-@di.injectable("timeService")
 export class TimeService {
+    static diOptions = di.options({
+        name: "timeService",
+    });
+
     private clientTime = startupTime.getTime();
     private serverTime = startupTime.getTime();
 

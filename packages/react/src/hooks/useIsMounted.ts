@@ -8,6 +8,5 @@ export function useIsMounted() {
             isMounted.current = false;
         };
     }, []);
-    return isMounted.current;
-
+    return isMounted;
 }

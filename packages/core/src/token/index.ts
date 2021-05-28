@@ -1,17 +1,19 @@
 import di from '@jsmodules/di';
-import { kvStore } from '@jsmodules/storage';
+import { kvManager, kvStore } from '@jsmodules/storage';
 import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
 
 import { Pipeline } from '../pipeline';
 
 type TokenObject = {
-    client_id: string;
-    token_type: string;
+    key: string;
+    client_id?: string;
+    token_type?: string;
     access_token: string;
-    refresh_token: string;
-    expires: number;
-    auto_login: boolean;
-    created_unix: number;
+    refresh_token?: string;
+    expires?: number;
+    auto_login?: boolean;
+    created_unix?: number;
+    [key: string]: any;
 };
 
 export type LoginMethodOptions = {
@@ -20,8 +22,6 @@ export type LoginMethodOptions = {
     data: any;
     auto_login?: boolean;
 };
-
-const TokenGetter = new Pipeline<TokenObject | any>();
 
 class LoginMethods {
     private methods: any = {};
@@ -44,32 +44,38 @@ class LoginMethods {
     }
 }
 
-const loginMethods = new LoginMethods();
+const interceptors = {
+    getTokenObject: new Pipeline<TokenObject | any>(),
+    getSecurityHeaders: new Pipeline<TokenObject | any>(),
+    loginMethods: new LoginMethods(),
+};
 
-@di.injectable("TokenService")
 export class TokenService {
-    static get LoginMethod() {
-        return loginMethods;
+    static diOptions = di.options({
+        name: "TokenService",
+        scope: "Singleton",
+    });
+
+    static get interceptors() {
+        return interceptors;
     }
 
-    static get TokenGetter() {
-        return TokenGetter;
+    private get tokenStore() {
+        return kvManager.get("TokenService", { encrypted: true });
     }
-
-    @kvStore("app", { encrypted: true }) private tokenStore: IKeyValueStorage;
 
     constructor(private skey = "access_token") {}
 
     private current: TokenObject;
 
-    private async getTokenObject() {
+    async getTokenObject() {
         if (!this.current) {
             this.current = await this.tokenStore.getAsync(this.skey);
         }
-        const token = await TokenGetter.exec(null, this.current);
+        const token = await interceptors.getTokenObject.exec(null, this.current);
         if (!token) {
             await this.logout();
-        } else if (this.current?.access_token != token.access_token) {
+        } else if (this.current?.key != token.key) {
             await this.tokenStore.setAsync(this.skey, token);
         }
         this.current = token;
@@ -77,7 +83,7 @@ export class TokenService {
     }
 
     async login(options: LoginMethodOptions) {
-        const token = await loginMethods.exec(options);
+        const token = await interceptors.loginMethods.exec(options);
         token.auto_login = options.auto_login || false;
         token.created_unix = Math.floor(new Date().getTime() / 1000);
         await this.tokenStore.setAsync(this.skey, token);
@@ -98,11 +104,15 @@ export class TokenService {
 
     async getSecurityHeaders() {
         const obj = await this.getTokenObject();
-        if (obj) {
-            return {
-                Authorization: `${obj.token_type} ${obj.access_token}`,
-            };
+        const headers = await interceptors.getSecurityHeaders.exec(obj, null);
+        if (headers) {
+            return headers;
         }
+        // if (obj) {
+        //     return {
+        //         Authorization: `${obj.token_type} ${obj.access_token}`,
+        //     };
+        // }
         return null;
     }
 }

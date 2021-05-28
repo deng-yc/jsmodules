@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react';
 
-import { Application } from '@jsmodules/core';
-
 import { useDidMount } from '../hooks/useDidMount';
 import { AppContext } from './context';
 
@@ -44,9 +42,6 @@ export function AppProvider(props: IAppProviderProps) {
         },
         [state]
     );
-    if (state.loading) {
-        return null;
-    }
     return (
         <AppContext.Provider
             value={{

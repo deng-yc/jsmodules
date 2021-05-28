@@ -1,8 +1,8 @@
-const serializeParam = function (value) {
+const serializeParam = function(value) {
     return encodeURIComponent(value).replace(/%20/g, "+");
 };
 
-const deserializeParam = function (value) {
+const deserializeParam = function(value) {
     return decodeURIComponent(String(value).replace(/\+/g, " "));
 };
 
@@ -14,7 +14,7 @@ export class URLSearchParamsImpl {
 
         if (!searchString) {
         } else if (searchString instanceof URLSearchParamsImpl) {
-            searchString.forEach(function (value, name) {
+            searchString.forEach(function(value, name) {
                 this.append(name, value);
             });
         } else if (ssType === "string") {
@@ -126,10 +126,20 @@ export class URLSearchParamsImpl {
 
 const $scope = typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : this;
 
-var NativeURLSearchParams = (function () {
+var NativeURLSearchParams = (function() {
     try {
-        if ($scope.URLSearchParams && new $scope.URLSearchParams("foo=bar").get("foo") === "bar") {
-            return $scope.URLSearchParams;
+        if ($scope.URLSearchParams) {
+            let params = new $scope.URLSearchParams({ foo: "bar" });
+            let test = true;
+            if (params.get("foo") !== "bar") {
+                test = false;
+            }
+            if (params.toString() !== "foo=bar") {
+                test = false;
+            }
+            if (test) {
+                return $scope.URLSearchParams;
+            }
         }
         return URLSearchParamsImpl;
     } catch (e) {}

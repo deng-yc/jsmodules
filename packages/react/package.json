@@ -1,8 +1,9 @@
 {
     "name": "@jsmodules/react",
-    "version": "2.0.1-alpha.0",
+    "version": "2.0.4",
     "description": "",
     "main": "dist/index.js",
+    "module": "dist/index.js",
     "typings": "dist/index.d.ts",
     "scripts": {
         "dev": "tsc -p tsconfig.build.json --watch",
@@ -10,22 +11,24 @@
         "clean": "rimraf -rf ./dist",
         "compile": "tsc -p tsconfig.build.json",
         "prepublishOnly": "yarn run build",
-        "test": "yarn run build"
+        "test": "yarn run build",
+        "pub": "npm publish"
     },
     "peerDependencies": {
         "react": "^16.13.1"
     },
     "optionalDependencies": {
-        "tslib": "^2.0.1",
-        "@types/react": "^16.9.0"
+        "@types/react": "^16.9.0",
+        "tslib": "^2.0.1"
     },
     "dependencies": {
-        "@jsmodules/di": "2.0.1-alpha.0",
-        "@jsmodules/core": "2.0.1-alpha.0"
+        "@jsmodules/core": "^2.0.4",
+        "@jsmodules/di": "^2.0.4",
+        "react-router": "^5.2.0"
     },
     "devDependencies": {
         "rimraf": "~3.0.2",
-        "typescript": "^3.9.7"
+        "typescript": "^4.3.2"
     },
     "publishConfig": {
         "access": "public"
@@ -33,5 +36,5 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "gitHead": "94bd9ab47bab76e7006d0fd1b8deb0610dac2b1a"
+    "gitHead": "b4b9d5a61fb1a4a00dae3e8f8a08e0b254dc0028"
 }

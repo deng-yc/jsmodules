@@ -1,8 +1,9 @@
 {
     "name": "@jsmodules/models",
-    "version": "2.0.1-alpha.0",
+    "version": "2.0.4",
     "description": "",
     "main": "dist/index.js",
+    "module": "dist/index.js",
     "typings": "dist/index.d.ts",
     "scripts": {
         "dev": "tsc -p tsconfig.build.json --watch",
@@ -10,14 +11,15 @@
         "clean": "rimraf -rf ./dist",
         "compile": "tsc -p tsconfig.build.json",
         "prepublishOnly": "yarn run build",
-        "test": "yarn run build"
+        "test": "yarn run build",
+        "pub": "npm publish"
     },
     "dependencies": {
-        "mobx-state-tree": "^3.17.2",
-        "axios": "^0.19.2",
-        "mobx": "^5.15.6",
+        "@jsmodules/di": "^2.0.4",
+        "axios": "^0.21.1",
         "lodash": "^4.17.20",
-        "@jsmodules/di": "2.0.1-alpha.0"
+        "mobx": "^6.3.2",
+        "mobx-state-tree": "^5.0.1"
     },
     "optionalDependencies": {
         "lodash": "^4.17.20",
@@ -25,7 +27,7 @@
     },
     "devDependencies": {
         "rimraf": "~3.0.2",
-        "typescript": "^3.9.7"
+        "typescript": "^4.3.2"
     },
     "publishConfig": {
         "access": "public"
@@ -33,5 +35,5 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "gitHead": "94bd9ab47bab76e7006d0fd1b8deb0610dac2b1a"
+    "gitHead": "b4b9d5a61fb1a4a00dae3e8f8a08e0b254dc0028"
 }

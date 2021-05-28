@@ -6,4 +6,10 @@ export const AppContext = React.createContext<{
     error: any;
     refreshInitialState();
     setInitialState(initialState): void;
-}>(null);
+}>({
+    loading: true,
+    initialState: {},
+    error: null,
+    refreshInitialState() {},
+    setInitialState(initialState) {},
+});

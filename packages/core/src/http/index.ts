@@ -8,7 +8,7 @@ import { TokenService } from '../token';
 import { URLSearchParams } from '../url/URLSearchParams';
 import { IRequestBuilder, IResponseBuilder } from './interface';
 
-type ContentType = "application/x-www-form-urlencoded" | "application/json";
+type ContentType = "application/x-www-form-urlencoded" | "application/json" | "multipart/form-data";
 
 export class HttpRequestBuilder implements IRequestBuilder {
     private get tokenService() {
@@ -101,9 +101,9 @@ export class HttpRequestBuilder implements IRequestBuilder {
             cancelToken: new axios.CancelToken((c) => {
                 this.__canceler__ = c;
             }),
-            paramsSerializer: (params) => {
-                return new URLSearchParams(params).toString();
-            },
+            // paramsSerializer: (params) => {
+            //     return new URLSearchParams(params).toString();
+            // },
             ...options,
         });
     }
@@ -160,8 +160,12 @@ export class HttpRequestBuilder implements IRequestBuilder {
     }
 }
 
-@di.injectable("httpFactory", "Request")
 export class HttpFactory {
+    static diOptions = di.options({
+        name: "httpFactory",
+        scope: "Request",
+    });
+
     constructor(private baseUrl: string) {}
 
     url(api): HttpRequestBuilder {

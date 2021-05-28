@@ -7,6 +7,10 @@ export type BindingClass<T extends new (...args) => any> = {
     new (...args);
     instance?: InstanceType<T>;
     $$di_NAME?: string;
+    diOptions?: {
+        name?: string;
+        scope?: BindingScope;
+    };
 };
 
 let tempId = 0;
@@ -23,7 +27,10 @@ export function Register(name?, scope: BindingScope = "Singleton") {
     return {
         value<T>(value: T, overwrite = true) {
             if (!container.has(name) || overwrite) {
-                container.bind(name).toValue(value).setScope(scope);
+                container
+                    .bind(name)
+                    .toValue(value)
+                    .setScope(scope);
             }
         },
         class(BindingClass, params: any[] = [], overwrite = true) {
@@ -49,7 +56,7 @@ export function Register(name?, scope: BindingScope = "Singleton") {
 }
 
 export function injectable(name?, scope: BindingScope = "Singleton") {
-    return function (BindingClass) {
+    return function(BindingClass) {
         Register(name, scope).class(BindingClass, [], false);
     };
 }
@@ -75,23 +82,25 @@ export function Resolve<T>(key, ...args): T {
 export function getInstance<T extends BindingClass<T>>(
     Binding: T,
     args: any[] = [],
-    scope: BindingScope = "Singleton"
+    scope?: BindingScope
 ): InstanceType<T> {
-    if (Binding.$$di_NAME) {
-        return Resolve(Binding.$$di_NAME, ...args);
-    }
-    if (scope === "Singleton") {
-        if (!Binding.instance) {
-            Binding.instance = new Binding(...args);
+    if (!Binding.$$di_NAME) {
+        let name = Binding.diOptions?.name;
+        if (!scope) {
+            scope = Binding.diOptions?.scope || "Singleton";
         }
-        return Binding.instance;
-    } else {
-        return new Binding(...args);
+        Register(name, scope).class(Binding);
     }
+    return Resolve(Binding.$$di_NAME, ...args);
 }
 
+/**
+ * 注入一个对象
+ * @deprecated
+ * @param Binding
+ */
 function Inject(Binding: string | BindingClass<any>) {
-    return function (target, propertyKey, desc?): any {
+    return function(target, propertyKey, desc?): any {
         const options = {
             get() {
                 if (typeof Binding == "string") {
@@ -115,6 +124,28 @@ function Inject(Binding: string | BindingClass<any>) {
     };
 }
 
+function Request<T extends BindingClass<T>>(Binding: T, args: any[] = []) {
+    return getInstance(Binding, args, "Request");
+}
+
+function Singleton<T extends BindingClass<T>>(Binding: T, args: any[] = []) {
+    return getInstance(Binding, args, "Singleton");
+}
+
+function Transient<T extends BindingClass<T>>(Binding: T, args: any[] = []) {
+    return getInstance(Binding, args, "Transient");
+}
+
+function options(options: { name?: string; scope?: BindingScope }) {
+    if (!options.name) {
+        options.name = `$$di_auto_${getNextId()}`;
+    }
+    if (!options.scope) {
+        options.scope = "Singleton";
+    }
+    return options;
+}
+
 export const di = {
     injectable,
     tryResolve,
@@ -122,6 +153,10 @@ export const di = {
     Inject,
     getInstance,
     Register,
+    Request,
+    Singleton,
+    Transient,
+    options,
 };
 
 export default di;

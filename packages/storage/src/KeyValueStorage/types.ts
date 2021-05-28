@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 export interface IKeyValueStorage {
+    getAllAsync(): Promise<any[]>;
     /**
      * 获取所有key
      */
@@ -20,7 +21,6 @@ export interface IKeyValueStorage {
     setAsync(key: string, value: any): Promise<any>;
 
     batchSetObject(obj: any | any[]): Promise<any>;
-
 
     /**
      * 设置一个对象的属性

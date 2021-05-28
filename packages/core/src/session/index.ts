@@ -1,10 +1,10 @@
-import di from '@jsmodules/di';
-import { kvStore } from '@jsmodules/storage';
-import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
+import di from "@jsmodules/di";
+import { kvManager } from "@jsmodules/storage";
 
-import { Pipeline } from '../pipeline';
-import { Task } from '../tasks';
-import { LoginMethodOptions, TokenService } from '../token';
+import { idgenerator } from "../idgenerator";
+import { Pipeline } from "../pipeline";
+import { Task } from "../tasks";
+import { LoginMethodOptions, TokenService } from "../token";
 
 const USER_STORAGE_KEY = "current_user";
 
@@ -14,50 +14,74 @@ type UserPart = {
 
 const UserGetter = new Pipeline<UserPart>();
 
-@di.injectable("SessionService")
+const interceptors = {
+    getUser: UserGetter,
+};
+
 export class SessionService {
-    static get UserGetter() {
-        return UserGetter;
+    static diOptions = di.options({
+        name: "SessionService",
+    });
+
+    static get interceptors() {
+        return interceptors;
     }
-    @kvStore("app", { encrypted: false }) private sessionStore: IKeyValueStorage;
+
+    private get sessionStore() {
+        return kvManager.get("SessionService", { encrypted: false });
+    }
 
     @di.Inject(TokenService) private tokenService: TokenService;
 
     isAuthenticated: boolean = null;
 
+    _key = idgenerator.nextId();
+
     user: any = null;
 
-    async getLoginedUser<T>(): Promise<T | null> {
-        await this.initAsync();
-        return this.user;
+    getLoginedUser<T>(): Promise<T | null> {
+        return this.initAsync().then(() => {
+            return this.user;
+        });
     }
 
-    async loginAsync(options: LoginMethodOptions) {
-        try {
-            await this.tokenService.login(options);
-            await this.updateAsync();
-            this.isAuthenticated = true;
-        } catch (ex) {
-            this.user = null;
-            this.isAuthenticated = false;
-            return Promise.reject(ex);
-        }
+    loginAsync(options: LoginMethodOptions) {
+        return this.tokenService
+            .login(options)
+            .then(() => {
+                return this.updateAsync();
+            })
+            .then(() => {
+                this.isAuthenticated = true;
+            })
+            .catch((err) => {
+                this.user = null;
+                this.isAuthenticated = false;
+                return Promise.reject(err);
+            });
     }
 
-    async logoutAsync() {
-        await this.tokenService.logout();
-        await this.sessionStore.removeAsync(USER_STORAGE_KEY);
-        this.user = null;
-        this.isAuthenticated = false;
+    logoutAsync() {
+        return this.tokenService
+            .logout()
+            .then(() => {
+                return this.sessionStore.removeAsync(USER_STORAGE_KEY);
+            })
+            .then(() => {
+                this.user = null;
+                this.isAuthenticated = false;
+            });
     }
 
     updateAsync() {
-        return Task.throttleAsync("update-xv7uhjzhq", async () => {
-            const user = await UserGetter.exec();
-            this.user = user;
-            await this.sessionStore.setAsync(USER_STORAGE_KEY, user);
+        return Task.throttleAsync("update-xv7uhjzhq", () => {
+            return interceptors.getUser.exec().then((user) => {
+                this.user = user;
+                return this.sessionStore.setAsync(USER_STORAGE_KEY, user);
+            });
         });
     }
+
     initAsync() {
         return Task.onceAsync(`init-wdy7i7sqp`, async () => {
             try {

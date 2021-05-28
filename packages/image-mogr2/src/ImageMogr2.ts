@@ -1,4 +1,6 @@
-import isObject from "lodash/isObject";
+import isObject from 'lodash/isObject';
+
+import { Pipeline } from '@jsmodules/core';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type ThumbnailOptions = {
@@ -16,10 +18,16 @@ export type ThumbnailOptions = {
     area?: number;
 };
 
+let ImageMogr2Creater = new Pipeline<ImageMogr2>();
+
 export class ImageMogr2 {
     private options: any = {};
-    constructor(private download_url, private host) {
+
+    static Creater = ImageMogr2Creater;
+
+    constructor(private download_url, public default_host, public hosts = []) {
         this.autoOrient();
+        ImageMogr2.Creater.execSync(this);
     }
 
     private thumbnailScale(options: ThumbnailOptions) {
@@ -47,12 +55,12 @@ export class ImageMogr2 {
         }
         //指定目标图片宽度为 Width，高度等比压缩。
         if (options.width && !options.height) {
-            this.options.thumbnail["wh"] = `${options.width}x`;
+            this.options.thumbnail["wh"] = `${options.width || ""}x`;
             return this;
         }
         //指定目标图片高度为 Height，宽度等比压缩。
         if (!options.width && options.height) {
-            this.options.thumbnail["wh"]`x${options.width}`;
+            this.options.thumbnail["wh"] = `x${options.width || ""}`;
             return this;
         }
         //忽略原图宽高比例，指定图片宽度为 Width，高度为 Height ，强行缩放图片，可能导致目标图片变形。
@@ -63,12 +71,12 @@ export class ImageMogr2 {
 
         //限定缩略图的宽度和高度的最大值分别为 Width 和 Height，进行等比缩放。
         if (options.maxWidth || options.maxHeight) {
-            this.options.thumbnail["max"] = `${options.maxWidth}x${options.maxHeight}`;
+            this.options.thumbnail["max"] = `${options.maxWidth || ""}x${options.maxHeight || ""}`;
             return this;
         }
         //限定缩略图的宽度和高度的最小值分别为 Width 和 Height，进行等比缩放。
         if (options.minWidth || options.minHeight) {
-            this.options.thumbnail["min"] = `!${options.minWidth}x${options.minHeight}r`;
+            this.options.thumbnail["min"] = `!${options.minWidth || ""}x${options.minHeight || ""}r`;
             return this;
         }
         //等比缩放图片，缩放后的图像，总像素数量不超过 Area。
@@ -157,7 +165,7 @@ export class ImageMogr2 {
         return this;
     }
 
-    getQuery() {
+    getQuery(hasQuery = false) {
         const options: string[] = [];
         for (const key in this.options) {
             const val = this.options[key];
@@ -175,10 +183,17 @@ export class ImageMogr2 {
         if (options.length == 0) {
             return "";
         }
-        return `imageMogr2${options.join("")}`;
+        let prefix = "?";
+        if (hasQuery) {
+            prefix = "&";
+        }
+        return `${prefix}imageMogr2${options.join("")}`;
     }
 
-    render() {
+    /**
+     * 获取url
+     */
+    getURL() {
         if (!this.download_url) {
             return null;
         }
@@ -188,21 +203,34 @@ export class ImageMogr2 {
         if (/\.gif$/.test(this.download_url)) {
             //强行将gif转换为16
             this.options = [];
-            this.cgif(20);
+            // this.cgif(20);
         }
-        if (/^https?:\/\//.test(this.download_url)) {
-            if (this.download_url.indexOf(this.host) != 0) {
-                return this.download_url;
+        let hasQuery = false;
+        if (this.download_url.indexOf("?") != -1) {
+            hasQuery = true;
+        }
+        if (/^\/\//.test(this.download_url) || /^https?:\/\//.test(this.download_url)) {
+            for (const h of this.hosts) {
+                if (this.download_url.indexOf(h) != -1) {
+                    return `${this.download_url}${this.getQuery(hasQuery)}`;
+                }
             }
-            const url = this.download_url.replace(/\?.+$/, "");
-            return `${url}?${this.getQuery()}`;
+            return this.download_url;
         }
         const path = this.download_url.replace(/^\//, "");
-        return `${this.host}/${path}?${this.getQuery()}`;
+        return `${this.default_host}/${path}${this.getQuery(hasQuery)}`;
     }
 
-    static src(url, host) {
-        return new ImageMogr2(url, host);
+    /**
+     * 获取url
+     * @deprecated
+     */
+    render() {
+        return this.getURL();
+    }
+
+    static src(url, host, hosts) {
+        return new ImageMogr2(url, host, hosts);
     }
 }
 
