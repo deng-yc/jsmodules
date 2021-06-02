@@ -1,6 +1,6 @@
 {
     "name": "react-app",
-    "version": "2.0.8",
+    "version": "2.0.9",
     "private": true,
     "workspaces": {
         "nohoist": [
@@ -17,10 +17,10 @@
         ]
     },
     "dependencies": {
-        "@jsmodules/core": "^2.0.8",
-        "@jsmodules/di": "^2.0.8",
-        "@jsmodules/react": "^2.0.8",
-        "@jsmodules/storage": "^2.0.8",
+        "@jsmodules/core": "^2.0.9",
+        "@jsmodules/di": "^2.0.9",
+        "@jsmodules/react": "^2.0.9",
+        "@jsmodules/storage": "^2.0.9",
         "axios": "^0.19.2",
         "html2canvas": "^1.0.0-rc.7",
         "lodash": "^4.17.20",
