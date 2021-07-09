@@ -1,6 +1,6 @@
 {
     "name": "@jsmodules/image-mogr2",
-    "version": "2.0.10",
+    "version": "2.0.11",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -15,7 +15,7 @@
         "pub": "npm publish"
     },
     "optionalDependencies": {
-        "@jsmodules/core": "^2.0.10",
+        "@jsmodules/core": "^2.0.11",
         "lodash": "^4.17.20",
         "tslib": "^2.0.1"
     },
