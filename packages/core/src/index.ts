@@ -7,7 +7,7 @@ export * from "./events";
 
 export * from "./time";
 
-export * as http from "./http";
+export * from "./http";
 
 export * from "./http/interface";
 
