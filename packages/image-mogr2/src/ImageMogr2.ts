@@ -1,6 +1,4 @@
-import isObject from 'lodash/isObject';
-
-import { Pipeline } from '@jsmodules/core';
+import isObject from "lodash/isObject";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type ThumbnailOptions = {
@@ -18,16 +16,41 @@ export type ThumbnailOptions = {
     area?: number;
 };
 
-let ImageMogr2Creater = new Pipeline<ImageMogr2>();
+class ImageMogr2Creater {
+    private callbacks = [];
+    use(cb: (builder: ImageMogr2) => ImageMogr2) {
+        this.callbacks.push(cb);
+        return this;
+    }
+    apply(builder) {
+        let img = builder;
+        for (const cb of this.callbacks) {
+            img = cb(img);
+        }
+        return img;
+    }
+}
 
 export class ImageMogr2 {
+    private default_host = "";
+    private hosts = [];
+
     private options: any = {};
 
-    static Creater = ImageMogr2Creater;
+    static Creater = new ImageMogr2Creater();
 
-    constructor(private download_url, public default_host, public hosts = []) {
+    constructor(private download_url) {
         this.autoOrient();
-        ImageMogr2.Creater.execSync(this);
+    }
+
+    setDefaultHost(default_host) {
+        this.default_host = default_host;
+        return this;
+    }
+
+    setHosts(hosts = []) {
+        this.hosts = hosts;
+        return this;
     }
 
     private thumbnailScale(options: ThumbnailOptions) {
@@ -229,8 +252,13 @@ export class ImageMogr2 {
         return this.getURL();
     }
 
-    static src(url, host, hosts) {
-        return new ImageMogr2(url, host, hosts);
+    static src(url, host = null) {
+        let img = new ImageMogr2(url);
+        img = ImageMogr2.Creater.apply(new ImageMogr2(url));
+        if (host) {
+            img.setDefaultHost(host);
+        }
+        return img;
     }
 }
 
