@@ -1,6 +1,6 @@
 {
     "name": "@jsmodules/storage",
-    "version": "2.0.11",
+    "version": "2.0.12",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -14,7 +14,7 @@
         "pub": "npm publish"
     },
     "dependencies": {
-        "@jsmodules/di": "^2.0.11",
+        "@jsmodules/di": "^2.0.12",
         "lodash": "^4.17.21",
         "rxdb": "^9.20.0",
         "tslib": "^2.2.0"
