@@ -1,6 +1,6 @@
 {
     "name": "@jsmodules/models",
-    "version": "2.0.14",
+    "version": "2.0.15",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -15,7 +15,7 @@
         "pub": "npm publish"
     },
     "dependencies": {
-        "@jsmodules/di": "^2.0.14",
+        "@jsmodules/di": "^2.0.15",
         "axios": "^0.21.1",
         "mobx": "^6.3.2",
         "mobx-state-tree": "^5.0.2"
