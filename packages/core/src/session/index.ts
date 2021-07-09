@@ -31,7 +31,9 @@ export class SessionService {
         return kvManager.get("SessionService", { encrypted: false });
     }
 
-    @di.Inject(TokenService) private tokenService: TokenService;
+    private get tokenService() {
+        return di.getInstance(TokenService);
+    }
 
     isAuthenticated: boolean = null;
 

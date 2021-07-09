@@ -6,8 +6,13 @@ import { EncryptedKeyValue, KeyValue } from "../collections/KeyValue";
 import { RxDbConnection } from "../rxdb/connection";
 import { IKeyValueStorage } from "./types";
 
-@di.injectable("kvStorage", "Request")
 export class RxDbKeyValueStorage implements IKeyValueStorage {
+
+    static diOptions = di.options({
+        name: "kvStorage",
+        scope: "Request",
+    });
+
     constructor(private __STORE_NAME__, private encrypted = false, private dbName = "app") {}
 
     private async getCollection() {
