@@ -12,10 +12,9 @@ type UserPart = {
     [key: string]: any;
 };
 
-const UserGetter = new Pipeline<UserPart>();
-
 const interceptors = {
-    getUser: UserGetter,
+    getUser: new Pipeline<UserPart>(),
+    getLoginedUser: new Pipeline<any>(),
 };
 
 export class SessionService {
@@ -41,7 +40,7 @@ export class SessionService {
 
     user: any = null;
 
-    getLoginedUser<T>(): Promise<T | null> {
+    getLoginedUser<T>(): Promise<T> {
         return this.initAsync().then(() => {
             return this.user;
         });
@@ -78,7 +77,7 @@ export class SessionService {
     updateAsync() {
         return Task.throttleAsync("update-xv7uhjzhq", () => {
             return interceptors.getUser.exec().then((user) => {
-                this.user = user;
+                this.user = interceptors.getLoginedUser.execSync(user);
                 return this.sessionStore.setAsync(USER_STORAGE_KEY, user);
             });
         });
@@ -97,7 +96,7 @@ export class SessionService {
                     this.isAuthenticated = false;
                     return;
                 }
-                this.user = user;
+                this.user = interceptors.getLoginedUser.execSync(user);
                 this.isAuthenticated = true;
             } catch (ex) {
                 console.error(ex);
