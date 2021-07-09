@@ -17,17 +17,16 @@
     "dependencies": {
         "@jsmodules/di": "^2.0.12",
         "axios": "^0.21.1",
-        "lodash": "^4.17.20",
         "mobx": "^6.3.2",
-        "mobx-state-tree": "^5.0.1"
+        "mobx-state-tree": "^5.0.2"
     },
     "optionalDependencies": {
-        "lodash": "^4.17.20",
+        "lodash": "^4.17.21",
         "tslib": "^2.2.0"
     },
     "devDependencies": {
         "rimraf": "~3.0.2",
-        "typescript": "^4.3.2"
+        "typescript": "^4.3.5"
     },
     "publishConfig": {
         "access": "public"
