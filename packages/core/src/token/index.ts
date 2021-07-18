@@ -91,8 +91,10 @@ export class TokenService {
     }
 
     async logout() {
-        await this.tokenStore.removeAsync(this.skey);
-        this.current = null;
+        if (this.current) {
+            await this.tokenStore.removeAsync(this.skey);
+            this.current = null;
+        }
     }
 
     async getAccessToken() {
