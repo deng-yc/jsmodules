@@ -1,8 +1,8 @@
-import di from '@jsmodules/di';
-import { kvManager, kvStore } from '@jsmodules/storage';
-import { IKeyValueStorage } from '@jsmodules/storage/src/KeyValueStorage/types';
+import di from "@jsmodules/di";
+import { kvManager, kvStore } from "@jsmodules/storage";
+import { IKeyValueStorage } from "@jsmodules/storage/src/KeyValueStorage/types";
 
-import { Pipeline } from '../pipeline';
+import { Pipeline } from "../pipeline";
 
 type TokenObject = {
     key: string;
@@ -92,6 +92,7 @@ export class TokenService {
 
     async logout() {
         await this.tokenStore.removeAsync(this.skey);
+        this.current = null;
     }
 
     async getAccessToken() {
