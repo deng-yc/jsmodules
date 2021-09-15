@@ -105,6 +105,8 @@ export class SessionService {
                     this.isAuthenticated = true;
                 }
             } catch (ex) {
+                this.isAuthenticated = false;
+                this.user = null;
                 console.error(ex);
             }
         });
