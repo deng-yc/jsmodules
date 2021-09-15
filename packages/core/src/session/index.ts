@@ -83,7 +83,7 @@ export class SessionService {
         });
     }
 
-    initAsync() {
+    initAsync(offline = false) {
         return Task.onceAsync(`init-wdy7i7sqp`, async () => {
             try {
                 const access_token = await this.tokenService.getAccessToken();
@@ -91,13 +91,19 @@ export class SessionService {
                     this.isAuthenticated = false;
                     return;
                 }
-                const user = await this.sessionStore.getAsync(USER_STORAGE_KEY);
-                if (!user) {
-                    this.isAuthenticated = false;
-                    return;
+                if (offline) {
+                    const user = await this.sessionStore.getAsync(USER_STORAGE_KEY);
+                    if (!user) {
+                        this.isAuthenticated = false;
+                        return;
+                    }
+                    this.user = interceptors.getLoginedUser.execSync(user);
+                    this.isAuthenticated = true;
+                } else {
+                    const user = await interceptors.getUser.exec();
+                    this.user = interceptors.getLoginedUser.execSync(user);
+                    this.isAuthenticated = true;
                 }
-                this.user = interceptors.getLoginedUser.execSync(user);
-                this.isAuthenticated = true;
             } catch (ex) {
                 console.error(ex);
             }
