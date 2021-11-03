@@ -40,30 +40,37 @@ export class ImageWatermark {
         gravity: "northwest" | "north" | "northeast" | "west" | "center" | "east" | "southwest" | "south" | "southeast"
     ) {
         this.options["gravity"] = gravity;
+        return this;
     }
 
     dx(dx: number) {
         this.options["dx"] = dx;
+        return this;
     }
 
     dy(dy: number) {
         this.options["dy"] = dy;
+        return this;
     }
 
     blogo(blogo: 1 | 2) {
         this.options["blogo"] = blogo;
+        return this;
     }
 
     scatype(scatype: 1 | 2 | 3) {
         this.options["scatype"] = scatype;
+        return this;
     }
 
     spcent(spcent: number) {
         this.options["spcent"] = spcent;
+        return this;
     }
 
     dissolve(dissolve: number) {
         this.options["dissolve"] = dissolve;
+        return this;
     }
     toString() {
         const options: string[] = [];
