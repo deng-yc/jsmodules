@@ -31,6 +31,76 @@ class ImageMogr2Creater {
     }
 }
 
+export class ImageWatermark {
+    private options: any = {};
+    constructor(private image) {
+        this.options["image"] = image;
+    }
+    gravity(
+        gravity: "northwest" | "north" | "northeast" | "west" | "center" | "east" | "southwest" | "south" | "southeast"
+    ) {
+        this.options["gravity"] = gravity;
+    }
+
+    dx(dx: number) {
+        this.options["dx"] = dx;
+    }
+
+    dy(dy: number) {
+        this.options["dy"] = dy;
+    }
+
+    blogo(blogo: 1 | 2) {
+        this.options["blogo"] = blogo;
+    }
+
+    scatype(scatype: 1 | 2 | 3) {
+        this.options["scatype"] = scatype;
+    }
+
+    spcent(spcent: number) {
+        this.options["spcent"] = spcent;
+    }
+
+    dissolve(dissolve: number) {
+        this.options["dissolve"] = dissolve;
+    }
+    toString() {
+        const options: string[] = [];
+        for (const key in this.options) {
+            const val = this.options[key];
+            if (val === true) {
+                options.push(`/${key}`);
+            } else if (isObject(val)) {
+                for (const item in val) {
+                    const itemVal = val[item];
+                    options.push(`/${key}/${itemVal}`);
+                }
+            } else if (val) {
+                options.push(`/${key}/${val}`);
+            }
+        }
+        return `watermark/1${options.join("")}`;
+    }
+}
+
+export class TextWatermark {
+    constructor(private text) {}
+    toString() {
+        return `watermark/2/text/${this.text}`;
+    }
+}
+
+export class ImageMogr2Watermark {
+    static image(base64) {
+        return new ImageWatermark(base64);
+    }
+
+    static text(text) {
+        return new TextWatermark(text);
+    }
+}
+
 export class ImageMogr2 {
     private default_host = "";
     private hosts = [];
@@ -38,6 +108,8 @@ export class ImageMogr2 {
     private options: any = {};
 
     static Creater = new ImageMogr2Creater();
+
+    private watermarks: (ImageWatermark | TextWatermark)[] = [];
 
     constructor(private download_url) {
         this.autoOrient();
@@ -187,7 +259,13 @@ export class ImageMogr2 {
         }
         return this;
     }
-
+    watermark(getWatemark: () => ImageWatermark | TextWatermark) {
+        const mark = getWatemark();
+        if (mark) {
+            this.watermarks.push(mark);
+        }
+        return this;
+    }
     getQuery(hasQuery = false) {
         const options: string[] = [];
         for (const key in this.options) {
@@ -210,7 +288,12 @@ export class ImageMogr2 {
         if (hasQuery) {
             prefix = "&";
         }
-        return `${prefix}imageMogr2${options.join("")}`;
+        let url = `${prefix}imageMogr2${options.join("")}`;
+
+        for (const mark of this.watermarks) {
+            url += "|" + mark.toString();
+        }
+        return url;
     }
 
     /**
