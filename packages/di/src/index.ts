@@ -1,5 +1,5 @@
-import { BindingScope as BindingScopeType } from './binding';
-import Container from './container';
+import { BindingScope as BindingScopeType } from "./binding";
+import Container from "./container";
 
 export type BindingScope = BindingScopeType;
 
@@ -27,10 +27,7 @@ export function Register(name?, scope: BindingScope = "Singleton") {
     return {
         value<T>(value: T, overwrite = true) {
             if (!container.has(name) || overwrite) {
-                container
-                    .bind(name)
-                    .toValue(value)
-                    .setScope(scope);
+                container.bind(name).toValue(value).setScope(scope);
             }
         },
         class(BindingClass, params: any[] = [], overwrite = true) {
@@ -56,7 +53,7 @@ export function Register(name?, scope: BindingScope = "Singleton") {
 }
 
 export function injectable(name?, scope: BindingScope = "Singleton") {
-    return function(BindingClass) {
+    return function (BindingClass) {
         Register(name, scope).class(BindingClass, [], false);
     };
 }
@@ -85,9 +82,10 @@ export function getInstance<T extends BindingClass<T>>(
     scope?: BindingScope
 ): InstanceType<T> {
     if (!Binding.$$di_NAME) {
-        let name = Binding.diOptions?.name;
+        const options = Binding.diOptions || {};
+        let name = options.name;
         if (!scope) {
-            scope = Binding.diOptions?.scope || "Singleton";
+            scope = options.scope || "Singleton";
         }
         Register(name, scope).class(Binding);
     }
@@ -100,7 +98,7 @@ export function getInstance<T extends BindingClass<T>>(
  * @param Binding
  */
 function Inject(Binding: string | BindingClass<any>) {
-    return function(target, propertyKey, desc?): any {
+    return function (target, propertyKey, desc?): any {
         const options = {
             get() {
                 if (typeof Binding == "string") {
