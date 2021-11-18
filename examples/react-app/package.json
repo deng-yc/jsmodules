@@ -18,7 +18,7 @@
     },
     "dependencies": {
         "@jsmodules/core": "^2.0.18",
-        "@jsmodules/di": "^2.0.15",
+        "@jsmodules/di": "^2.0.17",
         "@jsmodules/react": "^2.0.18",
         "@jsmodules/storage": "^2.0.15",
         "axios": "^0.19.2",

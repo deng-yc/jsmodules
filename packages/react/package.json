@@ -1,6 +1,6 @@
 {
     "name": "@jsmodules/react",
-    "version": "2.0.19",
+    "version": "2.0.20",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -21,8 +21,8 @@
         "tslib": "^2.2.0"
     },
     "dependencies": {
-        "@jsmodules/core": "^2.0.19",
-        "@jsmodules/di": "^2.0.15",
+        "@jsmodules/core": "^2.0.20",
+        "@jsmodules/di": "^2.0.17",
         "react-router": "^5.2.0"
     },
     "devDependencies": {
