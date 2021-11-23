@@ -1,6 +1,6 @@
 {
     "name": "@jsmodules/image-mogr2",
-    "version": "2.1.2",
+    "version": "2.1.1",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
