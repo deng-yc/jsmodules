@@ -1,4 +1,4 @@
-const logTypes = ["none", "debug", "info", "warn", "error"];
+const logTypes = ["none", "error", "warn", "info", "debug"];
 
 export type LogLevel = "none" | "debug" | "info" | "warn" | "error";
 interface ILoggerAdapter {
@@ -10,8 +10,17 @@ interface ILoggerAdapter {
     warn(message, ...data: any[]): void;
 }
 
-let adapters: { [key: string]: ILoggerAdapter } = {};
-let logLevel: LogLevel = "debug";
+let adapters: { [key: string]: ILoggerAdapter } = {
+    console: console,
+};
+
+const logSettings: {
+    logLevel: LogLevel;
+    showTimestamps: boolean;
+} = {
+    logLevel: "debug",
+    showTimestamps: false,
+};
 
 function setAdapter(name, adapter: ILoggerAdapter) {
     adapters[name] = adapter;
@@ -25,7 +34,7 @@ function removeAdapter(name) {
 
 function applyLog(logType, tagName, ...args) {
     const logIdx = logTypes.indexOf(logType);
-    const level = logTypes.indexOf(logLevel);
+    const level = logTypes.indexOf(logSettings.logLevel);
     if (logIdx > level) {
         return;
     }
@@ -33,12 +42,19 @@ function applyLog(logType, tagName, ...args) {
         const adapter = adapters[adapterName];
         if (adapter) {
             const logMethod = adapter[logType];
+            let prefix = "[" + tagName + "]";
+            if (logSettings.showTimestamps) {
+                prefix = "[" + new Date().toLocaleTimeString() + "]" + prefix;
+            }
             if (logType === "assert") {
-                const [condition, message, ...data] = args;
-                logMethod(condition, `[${tagName}] ${message}`, ...data);
+                const condition = args[0];
+                const message = args[1];
+                const data = args.slice(2);
+                logMethod.apply(null, [condition, prefix + " " + message].concat(data));
             } else {
-                const [message, ...data] = args;
-                logMethod(`[${tagName}] ${message}`, ...data);
+                const message = args[0];
+                const data = args.slice(1);
+                logMethod.apply(null, [prefix + " " + message].concat(data));
             }
         }
     }
@@ -49,6 +65,7 @@ interface ILogger {
     removeAdapter: (name: string) => void;
     useConsole: (enabled: boolean) => void;
     setLogLevel: (level: LogLevel) => void;
+    showTimestamps: (show: boolean) => void;
     tag: (tagName: string) => ILoggerAdapter;
 }
 
@@ -66,13 +83,16 @@ export const Logger = new Proxy<ILoggerAdapter & ILogger>(
             }
         },
         setLogLevel: (level: LogLevel) => {
-            logLevel = level;
+            logSettings.logLevel = level;
+        },
+        showTimestamps: (show: boolean) => {
+            logSettings.showTimestamps = show;
         },
         tag: (tagName) => {
             return new Proxy<ILoggerAdapter>({} as any, {
                 get(target, logType) {
                     return function (...args) {
-                        applyLog(logType, tagName, ...args);
+                        applyLog.apply(null, [logType, tagName].concat(args));
                     };
                 },
             });
@@ -84,9 +104,10 @@ export const Logger = new Proxy<ILoggerAdapter & ILogger>(
                 return target[prop];
             } else {
                 return function (...args) {
-                    applyLog(prop, "Default", ...args);
+                    applyLog.apply(null, [prop, "Default"].concat(args));
                 };
             }
         },
     }
 );
+export default Logger;
