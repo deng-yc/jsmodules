@@ -1,92 +1,114 @@
+const logTypes = ["none", "debug", "info", "warn", "error"];
+
+export type LogLevel = "none" | "debug" | "info" | "warn" | "error";
 interface ILoggerAdapter {
     assert(condition?: boolean, ...data: any[]): void;
-    clear(): void;
-    count(label?: string): void;
-    countReset(label?: string): void;
     debug(...data: any[]): void;
-    dir(item?: any, options?: any): void;
-    dirxml(...data: any[]): void;
     error(...data: any[]): void;
-    exception(message?: string, ...optionalParams: any[]): void;
-    group(...data: any[]): void;
-    groupCollapsed(...data: any[]): void;
-    groupEnd(): void;
     info(...data: any[]): void;
     log(...data: any[]): void;
-    table(tabularData?: any, properties?: string[]): void;
-    time(label?: string): void;
-    timeEnd(label?: string): void;
-    timeLog(label?: string, ...data: any[]): void;
-    timeStamp(label?: string): void;
-    trace(...data: any[]): void;
     warn(...data: any[]): void;
 }
 
-const reFuncs = [
-    "assert",
-    "clear",
-    "count",
-    "countReset",
-    "debug",
-    "dir",
-    "dirxml",
-    "error",
-    "exception",
-    "group",
-    "groupCollapsed",
-    "groupEnd",
-    "info",
-    "log",
-    "table",
-    "time",
-    "timeEnd",
-    "timeLog",
-    "timeStamp",
-    "trace",
-    "warn",
-];
-
 let adapters: { [key: string]: ILoggerAdapter } = {};
+let logLevel: LogLevel = "debug";
 
-function applyLog(logType, tagName, ...args) {
-    for (const adapterName in adapters) {
-        const logMethod = adapters[adapterName][logType];
-        logMethod && logMethod(tagName, ...args);
-    }
-}
-
-export function setAdapter(name, adapter: ILoggerAdapter) {
+function setAdapter(name, adapter: ILoggerAdapter) {
     adapters[name] = adapter;
 }
 
-export function removeAdapter(name) {
+function removeAdapter(name) {
     if (adapters) {
         adapters[name] = void 0;
     }
 }
 
-export function useConsole() {
-    if (!adapters["console"]) {
-        const ConsoleLoggerAdapter: any = {};
-        for (const method of reFuncs) {
-            const original = console[method];
-            ConsoleLoggerAdapter[method] = original;
-            console[method] = function (tagName, ...args) {
-                applyLog(method, tagName, ...args);
-            };
-        }
-        setAdapter("console", ConsoleLoggerAdapter);
+class ConsoleLoggerAdapter implements ILoggerAdapter {
+    assert(condition?: boolean, ...data: any[]): void {
+        console.assert(condition, ...data);
+    }
+    debug(...data: any[]): void {
+        console.debug(...data);
+    }
+    info(...data: any[]): void {
+        console.info(...data);
+    }
+    log(...data: any[]): void {
+        console.log(...data);
+    }
+    warn(...data: any[]): void {
+        console.warn(...data);
+    }
+    error(...data: any[]): void {
+        console.error(...data);
     }
 }
 
-export const Logger = {
-    tag(tagName) {
-        return new Proxy<ILoggerAdapter>({} as any, {
-            get(target, name) {
+const consoleLoggerAdapter = new ConsoleLoggerAdapter();
+
+function applyLog(logType, tagName, ...args) {
+    const logIdx = logTypes.indexOf(logType);
+    const level = logTypes.indexOf(logLevel);
+    if (logIdx > level) {
+        return;
+    }
+    for (const adapterName in adapters) {
+        const adapter = adapters[adapterName];
+        if (adapter) {
+            const logMethod = adapter[logType];
+            if (logType === "assert") {
+                const [condition, ...data] = args;
+                logMethod(condition, `[${tagName}]`, ...data);
+            } else {
+                logMethod(`[${tagName}]`, ...args);
+            }
+        }
+    }
+}
+
+interface ILogger {
+    setAdapter: (name: string, adapter: ILoggerAdapter) => void;
+    removeAdapter: (name: string) => void;
+    useConsole: (enabled: boolean) => void;
+    setLogLevel: (level: LogLevel) => void;
+    tag: (tagName: string) => ILoggerAdapter;
+}
+
+export const Logger = new Proxy<ILoggerAdapter & ILogger>(
+    {
+        setAdapter,
+        removeAdapter,
+        useConsole: (enabled = true) => {
+            if (enabled) {
+                if (!adapters["console"]) {
+                    setAdapter("console", consoleLoggerAdapter);
+                }
+            } else {
+                adapters["console"] = undefined;
+            }
+        },
+        setLogLevel: (level: LogLevel) => {
+            logLevel = level;
+        },
+        tag: (tagName) => {
+            return new Proxy<ILoggerAdapter>({} as any, {
+                get(target, logType) {
+                    return function (...args) {
+                        applyLog(logType, tagName, ...args);
+                    };
+                },
+            });
+        },
+    } as any,
+    {
+        get(target, prop) {
+            if (target[prop]) {
+                return target[prop];
+            } else {
                 return function (...args) {
-                    applyLog(name, tagName, ...args);
+                    applyLog(prop, "Default", ...args);
                 };
-            },
-        });
-    },
-};
+            }
+        },
+    }
+);
