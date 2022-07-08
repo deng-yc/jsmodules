@@ -1,6 +1,6 @@
 {
     "name": "@jsmodules/logger",
-    "version": "2.0.15",
+    "version": "2.0.16",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -14,7 +14,7 @@
         "pub": "npm publish"
     },
     "optionalDependencies": {
-        "tslib": "^2.2.0"
+        "tslib": "^2.4.0"
     },
     "devDependencies": {
         "rimraf": "~3.0.2",

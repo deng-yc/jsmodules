@@ -19,7 +19,7 @@
         "test": "lerna run test"
     },
     "dependencies": {
-        "tslib": "^2.2.0"
+        "tslib": "^2.4.0"
     },
     "devDependencies": {
         "lerna": "^4.0.0",

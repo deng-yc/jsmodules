@@ -14,7 +14,7 @@
         "pub": "npm publish"
     },
     "optionalDependencies": {
-        "tslib": "^2.2.0"
+        "tslib": "^2.4.0"
     },
     "devDependencies": {
         "rimraf": "~3.0.2",

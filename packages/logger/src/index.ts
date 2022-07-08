@@ -2,12 +2,12 @@ const logTypes = ["none", "debug", "info", "warn", "error"];
 
 export type LogLevel = "none" | "debug" | "info" | "warn" | "error";
 interface ILoggerAdapter {
-    assert(condition?: boolean, ...data: any[]): void;
-    debug(...data: any[]): void;
-    error(...data: any[]): void;
-    info(...data: any[]): void;
-    log(...data: any[]): void;
-    warn(...data: any[]): void;
+    assert(condition: boolean, message, ...data: any[]): void;
+    debug(message, ...data: any[]): void;
+    error(message, ...data: any[]): void;
+    info(message, ...data: any[]): void;
+    log(message, ...data: any[]): void;
+    warn(message, ...data: any[]): void;
 }
 
 let adapters: { [key: string]: ILoggerAdapter } = {};
@@ -23,29 +23,6 @@ function removeAdapter(name) {
     }
 }
 
-class ConsoleLoggerAdapter implements ILoggerAdapter {
-    assert(condition?: boolean, ...data: any[]): void {
-        console.assert(condition, ...data);
-    }
-    debug(...data: any[]): void {
-        console.debug(...data);
-    }
-    info(...data: any[]): void {
-        console.info(...data);
-    }
-    log(...data: any[]): void {
-        console.log(...data);
-    }
-    warn(...data: any[]): void {
-        console.warn(...data);
-    }
-    error(...data: any[]): void {
-        console.error(...data);
-    }
-}
-
-const consoleLoggerAdapter = new ConsoleLoggerAdapter();
-
 function applyLog(logType, tagName, ...args) {
     const logIdx = logTypes.indexOf(logType);
     const level = logTypes.indexOf(logLevel);
@@ -57,10 +34,11 @@ function applyLog(logType, tagName, ...args) {
         if (adapter) {
             const logMethod = adapter[logType];
             if (logType === "assert") {
-                const [condition, ...data] = args;
-                logMethod(condition, `[${tagName}]`, ...data);
+                const [condition, message, ...data] = args;
+                logMethod(condition, `[${tagName}] ${message}`, ...data);
             } else {
-                logMethod(`[${tagName}]`, ...args);
+                const [message, ...data] = args;
+                logMethod(`[${tagName}] ${message}`, ...data);
             }
         }
     }
@@ -81,7 +59,7 @@ export const Logger = new Proxy<ILoggerAdapter & ILogger>(
         useConsole: (enabled = true) => {
             if (enabled) {
                 if (!adapters["console"]) {
-                    setAdapter("console", consoleLoggerAdapter);
+                    setAdapter("console", console);
                 }
             } else {
                 adapters["console"] = undefined;
