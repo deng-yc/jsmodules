@@ -1,1 +1,0 @@
-{"version":3,"file":"stores.js","sourceRoot":"","sources":["../../../src/dexie/stores.ts"],"names":[],"mappings":";;;AAAa,QAAA,OAAO,GAAG,SAAS,CAAC;AACpB,QAAA,iBAAiB,GAAG,mBAAmB,CAAC;AACxC,QAAA,aAAa,GAAG;IAC3B,CAAC,eAAO,CAAC,EAAE,oBAAoB;IAC/B,CAAC,yBAAiB,CAAC,EAAE,oBAAoB;CAC1C,CAAC"}

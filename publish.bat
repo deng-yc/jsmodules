@@ -1,1 +1,0 @@
-for /d %%i in (./packages/*) do ( cd ./packages/%%i && npm publish | cd ../../ && cd ../../ )

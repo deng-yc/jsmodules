@@ -1,1 +1,0 @@
-for /d %%i in (./packages/*) do ( cd ./packages/%%i && npm-check -u -y && cd ../../)
