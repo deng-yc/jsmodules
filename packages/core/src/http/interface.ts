@@ -1,45 +1,48 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
+
+import { AxiosRequestConfig, Method } from 'axios';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type IResponseBuilder = {
-    data: any;
-    status: number;
-    statusText: string;
-    headers: any;
-    config: any;
-    request: any;
+  data: any;
+  status: number;
+  statusText: string;
+  headers: any;
+  config: any;
+  request?: any;
 };
 
 export type IRequestBuilderCreator = new (url) => IRequestBuilder;
 
 export interface IRequestBuilder {
-    url(url): this;
+  url(url): this;
 
-    addSecurityHeaders(required?: boolean): this;
+  addSecurityHeaders(required?: boolean): this;
 
-    contentType(contentType: "application/x-www-form-urlencoded" | "application/json"): this;
+  contentType(contentType: 'application/x-www-form-urlencoded' | 'application/json'): this;
 
-    dataType(dataType): this;
+  extraOptions(options: AxiosRequestConfig): this;
+  dataType(dataType): this;
 
-    headers(obj): this;
+  headers(obj): this;
 
-    timeout(timeout: number): this;
+  support(...methods: Method[]): this;
 
-    get(query?): Promise<IResponseBuilder>;
+  timeout(timeout: number): this;
 
-    post(data?, json?): Promise<IResponseBuilder>;
+  get(query?): Promise<IResponseBuilder>;
 
-    put(data?, json?): Promise<IResponseBuilder>;
+  post(data?, json?): Promise<IResponseBuilder>;
 
-    head(): Promise<IResponseBuilder>;
+  put(data?, json?): Promise<IResponseBuilder>;
 
-    remove(query?): Promise<IResponseBuilder>;
+  head(): Promise<IResponseBuilder>;
 
-    jsonp(query, callbackParam?): Promise<IResponseBuilder>;
+  patch(data?, query?): Promise<IResponseBuilder>;
 
-    stop();
-}
+  remove(query?): Promise<IResponseBuilder>;
 
-export interface IHttpFactory {
-    create(): IRequestBuilder;
-    url(api): IRequestBuilder;
+  jsonp(query, callbackParam?): Promise<IResponseBuilder>;
+
+  stop();
 }

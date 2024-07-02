@@ -1,0 +1,1 @@
+{"version":3,"file":"useDidUnmount.js","sourceRoot":"","sources":["../../../src/hooks/useDidUnmount.ts"],"names":[],"mappings":";;;AAAA,iCAAkC;AAElC,SAAgB,aAAa,CAAC,EAAc;IACxC,IAAA,iBAAS,EAAC,GAAG,EAAE;QACX,OAAO,EAAE,CAAC;QACV,uDAAuD;IAC3D,CAAC,EAAE,EAAE,CAAC,CAAC;AACX,CAAC;AALD,sCAKC"}

@@ -1,31 +1,29 @@
 {
-    "name": "@jsmodules/swagger-codegen",
-    "private": "true",
-    "version": "1.0.0",
-    "description": "",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
-    "typings": "dist/index.d.ts",
-    "react-native": "src/index.ts",
-    "scripts": {
-        "update:api": "node client_api",
-        "build": "yarn run clean && yarn run compile",
-        "clean": "rimraf -rf ./dist",
-        "compile": "tsc -p tsconfig.build.json",
-        "prepublishOnly": "yarn run build",
-        "test": "yarn run build"
-    },
-    "dependencies": {
-        "tslib": "^2.4.0",
-        "typescript": "^4.2.4"
-    },
-    "devDependencies": {
-        "@types/node": "^16.4.3",
-        "art-template": "^4.13.2",
-        "axios": "^0.21.1",
-        "lodash": "^4.17.21"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+  "name": "@jsmodules/swagger-codegen",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "update:api": "node client_api",
+    "build": "echo 'build'",
+    "clean": "rimraf -rf ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "yarn run build",
+    "test": "yarn run build"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.3",
+    "art-template": "^4.13.2",
+    "node-fetch": "2",
+    "lodash": "^4.17.21",
+    "rimraf": "^3.0.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

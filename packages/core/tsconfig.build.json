@@ -1,9 +1,10 @@
 {
-    "extends": "../../tsconfig.build.json",
+  "extends": "../../tsconfig.build.json",
 
-    "compilerOptions": {
-        "outDir": "./dist"
-    },
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ESNext"
+  },
 
-    "include": ["src/**/*"]
+  "include": ["src/**/*"]
 }

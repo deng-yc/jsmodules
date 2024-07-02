@@ -1,1 +1,2 @@
-export * from "./KeyValueStorage";
+export * from './KeyValueStorage';
+export * from './encrypt/InternalEncrypt';

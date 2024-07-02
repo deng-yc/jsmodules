@@ -1,0 +1,20 @@
+
+
+{{each schemas }}
+{{if $value.type == 'string'}}
+  {{if $value.enum}}
+export type I{{$index.replace(/\,|\.|\+|`|\[|\]/g,'')}} ={{@ $value.enum.map(item=>'\''+item+'\'').join(' | ')}}
+  {{/if}}
+{{else if($value.type === 'object')}}
+export type I{{$index.replace(/\,|\.|\+|`|\[|\]/g,'')}} = {
+    {{each $value.properties}}
+    /*
+    * {{$value.description}}
+    */{{if $value.$ref }}
+    {{$index}}{{ $value.nullable ? '?':'' }}: I{{$value.$ref.replace('#/components/schemas/','').replace(/\,|\.|\+|`|\[|\]/g,'')}}
+    {{else}}{{$index}}{{ $value.nullable ? '?':'' }}: {{ $imports.transformTypeName($value.type)}}
+    {{/if}}
+    {{/each}}
+}
+{{/if}}
+{{/each}}

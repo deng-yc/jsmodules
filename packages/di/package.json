@@ -1,27 +1,30 @@
 {
-    "name": "@jsmodules/di",
-    "version": "3.0.0",
-    "description": "",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
-    "typings": "dist/index.d.ts",
-    "scripts": {
-        "build": "yarn run clean && yarn run compile",
-        "clean": "rimraf -rf ./dist",
-        "compile": "tsc -p tsconfig.build.json",
-        "prepublishOnly": "yarn run build",
-        "test": "yarn run build",
-        "pub": "npm publish"
-    },
-    "devDependencies": {
-        "rimraf": "^3.0.2",
-        "typescript": "^4.9.3"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "gitHead": "9c10856d1a7e4fbb27f747ba084d7c2e9048a309"
+  "name": "@jsmodules/di",
+  "version": "3.0.0",
+  "description": "",
+  "main": "dist/lib/index.js",
+  "module": "dist/es/index.js",
+  "typings": "dist/es/index.d.ts",
+  "scripts": {
+    "build": "yarn run clean && yarn run compile",
+    "clean": "rimraf -rf ./dist",
+    "compile": "yarn run compile:es && yarn run compile:cjs",
+    "compile:es": "tsc -p tsconfig.es.json --skipLibCheck",
+    "compile:cjs": "tsc -p tsconfig.cjs.json --skipLibCheck",
+    "prepublishOnly": "yarn run build",
+    "test": "yarn run build",
+    "pub": "npm publish"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^4.9.5",
+    "tslib": "^2.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "gitHead": "9c10856d1a7e4fbb27f747ba084d7c2e9048a309"
 }

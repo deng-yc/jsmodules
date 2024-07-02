@@ -1,0 +1,1 @@
+{"version":3,"file":"useResolve.js","sourceRoot":"","sources":["../../../src/hooks/useResolve.ts"],"names":[],"mappings":";;;;AAAA,iCAAgC;AAEhC,+DAA+D;AAE/D,SAAgB,eAAe,CAC3B,OAAU,EACV,OAAc,EAAE,EAChB,KAAoB;IAEpB,OAAO,IAAA,eAAO,EAAC,GAAG,EAAE;QAChB,OAAO,YAAE,CAAC,WAAW,CAAC,OAAO,EAAE,IAAI,EAAE,KAAK,CAAC,CAAC;IAChD,CAAC,EAAE,EAAE,CAAC,CAAC;AACX,CAAC;AARD,0CAQC"}
